@@ -32,11 +32,12 @@ if ($query->num_rows > 0) {
     $excelData .= 'No records found...' . "\n";
 }
 
-// Headers for download 
-header("Content-Type: application/vnd.ms-excel; charset=utf-8");
+// Headers for download
+header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
 header("Content-Disposition: attachment; filename=\"$fileName\"");
-
+// header("Pragma: no-cache");
+// header("Expires: 0");
 // Render excel data 
-echo $excelData;
+echo mb_convert_encoding($excelData,'UTF-16','UTF-8');;
 
 exit;
