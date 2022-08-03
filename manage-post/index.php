@@ -163,49 +163,21 @@
 
 
                     while ($row = mysqli_fetch_array($result)) {
-
-                ?> <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['GiaoTrinh'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                    <?php }
+                        require "./table/giaotrinh.php";
+                    }
                 } else if (isset($_GET['search'])) {
                     $search = $_GET['search'];
                     $sqlSearch = "SELECT * FROM `manage_post` WHERE GiaoTrinh != '' AND (MaCB LIKE '%$search%' OR GiangVienThamGia LIKE '%$search%' OR TenGiangVien LIKE '%$search%' OR NamXuatBan LIKE '%$search%');";
                     $resultSearch = mysqli_query($con, $sqlSearch);
-                    while ($row = mysqli_fetch_array($resultSearch)) { ?>
-                        <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['GiaoTrinh'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                    <?php }
+                    while ($row = mysqli_fetch_array($resultSearch)) {
+                        require "./table/giaotrinh.php";
+                    }
                 } else {
                     $sql1 = "SELECT * FROM manage_post where GiaoTrinh != '' LIMIT 5";
                     $result1 = mysqli_query($con, $sql1);
-                    while ($row = mysqli_fetch_array($result1)) { ?>
-                        <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['GiaoTrinh'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                <?php }
+                    while ($row = mysqli_fetch_array($result1)) {
+                        require "./table/giaotrinh.php";
+                    }
                 }
                 ?>
 
@@ -275,50 +247,22 @@
 
 
                     while ($row = mysqli_fetch_array($result)) {
-
-                ?> <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['BaiBaoKhoaHoc'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                    <?php }
+                        require "./table/baibaokhoahoc.php";
+                    }
                 } else if (isset($_GET['search'])) {
                     $search = $_GET['search'];
                     $sqlSearch = "SELECT * FROM `manage_post` WHERE BaiBaoKhoaHoc != ''  AND (MaCB LIKE '%$search%' OR GiangVienThamGia LIKE '%$search%' OR TenGiangVien LIKE '%$search%' OR NamXuatBan LIKE '%$search%');";
                     $resultSearch = mysqli_query($con, $sqlSearch);
-                    while ($row = mysqli_fetch_array($resultSearch)) { ?>
-                        <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['BaiBaoKhoaHoc'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                    <?php }
+                    while ($row = mysqli_fetch_array($resultSearch)) {
+                        require "./table/baibaokhoahoc.php";
+                    }
                 } else {
 
                     $sql1 = "SELECT * FROM manage_post where BaiBaoKhoaHoc != '' LIMIT 5";
                     $result1 = mysqli_query($con, $sql1);
-                    while ($row = mysqli_fetch_array($result1)) { ?>
-                        <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['BaiBaoKhoaHoc'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                <?php }
+                    while ($row = mysqli_fetch_array($result1)) {
+                        require "./table/baibaokhoahoc.php";
+                    }
                 }
                 ?>
 

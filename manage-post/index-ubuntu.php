@@ -10,39 +10,90 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script lang="javascript" src="../excel/JS-ExportToExcel/dist/xlsx.full.min.js"></script>
+    <script lang="javascript" src="./excel/JS-ExportToExcel/dist/xlsx.full.min.js"></script>
 </head>
 
 <body>
     <?php
 
-    use PressBook\Scripts;
+    // use PressBook\Scripts;
 
-    require("../config/database.php");
-    $sql2 = "SELECT * FROM manage_post";
-    $result2 = mysqli_query($con, $sql2);
-    $tongsobaiviet = mysqli_num_rows($result2);
-    $tongsobaibaokhoahoc = 0;
-    $tongsogiaotrinh = 0;
-    while ($row = mysqli_fetch_array($result2)) {
-        if ($row['GiaoTrinh'] != "") {
-            $tongsogiaotrinh += 1;
-        }
-        if ($row['BaiBaoKhoaHoc'] != "") {
-            $tongsobaibaokhoahoc += 1;
+    require("/config/database.php");
+    if (isset($_GET['bomon'])) {
+        $bomonSelect = $_GET['bomon'];
+        $sqlTongSoBoMon = "SELECT * FROM manage_post where BoMon = '$bomonSelect'";
+        $resultTongSoBoMon = mysqli_query($con, $sqlTongSoBoMon);
+
+        $tongsobaivietBoMon = mysqli_num_rows($resultTongSoBoMon);
+        $tongsobaibaokhoahocBoMon = 0;
+        $tongsogiaotrinhBoMon = 0;
+        while ($row = mysqli_fetch_array($resultTongSoBoMon)) {
+            if ($row['GiaoTrinh'] != "") {
+                $tongsogiaotrinhBoMon += 1;
+            }
+            if ($row['BaiBaoKhoaHoc'] != "") {
+                $tongsobaibaokhoahocBoMon += 1;
+            }
         }
     }
+    if (isset($_GET['search'])) {
+        $dataSearch = $_GET['search'];
+        $sqlTongSoSearch = "SELECT * FROM manage_post where MaCB LIKE '%$dataSearch%' OR GiangVienThamGia LIKE '%$dataSearch%' OR TenGiangVien LIKE '%$dataSearch%' OR NamXuatBan LIKE '%$dataSearch%';";
+        $resultTongSoSearch = mysqli_query($con, $sqlTongSoSearch);
+
+        $tongsobaivietSearch = mysqli_num_rows($resultTongSoSearch);
+        $tongsobaibaokhoahocSearch = 0;
+        $tongsogiaotrinhSearch = 0;
+        while ($row = mysqli_fetch_array($resultTongSoSearch)) {
+            if ($row['GiaoTrinh'] != "") {
+                $tongsogiaotrinhSearch += 1;
+            }
+            if ($row['BaiBaoKhoaHoc'] != "") {
+                $tongsobaibaokhoahocSearch += 1;
+            }
+        }
+    } else {
+
+        $sql2 = "SELECT * FROM manage_post";
+        $result2 = mysqli_query($con, $sql2);
+        $tongsobaiviet = mysqli_num_rows($result2);
+        $tongsobaibaokhoahoc = 0;
+        $tongsogiaotrinh = 0;
+        while ($row = mysqli_fetch_array($result2)) {
+            if ($row['GiaoTrinh'] != "") {
+                $tongsogiaotrinh += 1;
+            }
+            if ($row['BaiBaoKhoaHoc'] != "") {
+                $tongsobaibaokhoahoc += 1;
+            }
+        }
+    }
+
     ?>
     <div class="container">
-        <div style="<?php if (isset($_GET['bomon']) || isset($_GET['search'])) {
-                        echo "display:none;";
-                    } ?>">
+        <?php if (isset($_GET['bomon'])) { ?>
+            <div style="<?php if (!isset($_GET['bomon'])) echo 'display:none' ?>">
 
-            <p><span style="color: #009ed8;"><b>Tổng số bài viết: </b></span><?= $tongsobaiviet ?></p>
-            <p><span style="color: #009ed8;"><b>Tổng số giáo trình: </b></span><?= $tongsogiaotrinh ?></p>
-            <p><span style="color: #009ed8;"><b>Tổng số bài báo khoa học: </b></span><?= $tongsobaibaokhoahoc ?></p>
-            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-        </div>
+                <p><span style="color: #009ed8;"><b>Tổng số bài viết: </b></span><?= $tongsobaivietBoMon ?></p>
+                <p><span style="color: #009ed8;"><b>Tổng số giáo trình: </b></span><?= $tongsogiaotrinhBoMon ?></p>
+                <p><span style="color: #009ed8;"><b>Tổng số bài báo khoa học: </b></span><?= $tongsobaibaokhoahocBoMon ?></p>
+                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            </div>
+        <?php }
+        if (isset($_GET['search'])) { ?><div style="<?php if (!isset($_GET['search'])) echo 'display:none' ?>">
+
+                <p><span style="color: #009ed8;"><b>Tổng số bài viết: </b></span><?= $tongsobaivietSearch ?></p>
+                <p><span style="color: #009ed8;"><b>Tổng số giáo trình: </b></span><?= $tongsogiaotrinhSearch ?></p>
+                <p><span style="color: #009ed8;"><b>Tổng số bài báo khoa học: </b></span><?= $tongsobaibaokhoahocSearch ?></p>
+                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            </div> <?php } else { ?> <div style="<?php if (isset($_GET['search']) || isset($_GET['bomon'])) echo 'display:none' ?>">
+
+                <p><span style="color: #009ed8;"><b>Tổng số bài viết: </b></span><?= $tongsobaiviet ?></p>
+                <p><span style="color: #009ed8;"><b>Tổng số giáo trình: </b></span><?= $tongsogiaotrinh ?></p>
+                <p><span style="color: #009ed8;"><b>Tổng số bài báo khoa học: </b></span><?= $tongsobaibaokhoahoc ?></p>
+                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            </div> <?php } ?>
+
 
         <div class="row" style="margin:10px 0;">
 
@@ -52,7 +103,7 @@
                     <select class="form-select" name="bomon">
                         <option value="all">--Tất cả--</option>
                         <?php
-                        $sqlBoMon = "SELECT * from BoMon";
+                        $sqlBoMon = "SELECT * from bomon";
                         $res = mysqli_query($con, $sqlBoMon);
                         while ($row = mysqli_fetch_array($res)) {
                         ?>
@@ -112,49 +163,21 @@
 
 
                     while ($row = mysqli_fetch_array($result)) {
-
-                ?> <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['GiaoTrinh'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                    <?php }
+                        require "/tra-cuu/table/giaotrinh.php";
+                    }
                 } else if (isset($_GET['search'])) {
                     $search = $_GET['search'];
                     $sqlSearch = "SELECT * FROM `manage_post` WHERE GiaoTrinh != '' AND (MaCB LIKE '%$search%' OR GiangVienThamGia LIKE '%$search%' OR TenGiangVien LIKE '%$search%' OR NamXuatBan LIKE '%$search%');";
                     $resultSearch = mysqli_query($con, $sqlSearch);
-                    while ($row = mysqli_fetch_array($resultSearch)) { ?>
-                        <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['GiaoTrinh'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                    <?php }
+                    while ($row = mysqli_fetch_array($resultSearch)) {
+                        require "/tra-cuu/table/giaotrinh.php";
+                    }
                 } else {
                     $sql1 = "SELECT * FROM manage_post where GiaoTrinh != '' LIMIT 5";
                     $result1 = mysqli_query($con, $sql1);
-                    while ($row = mysqli_fetch_array($result1)) { ?>
-                        <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['GiaoTrinh'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                <?php }
+                    while ($row = mysqli_fetch_array($result1)) {
+                        require "/tra-cuu/table/giaotrinh.php";
+                    }
                 }
                 ?>
 
@@ -224,50 +247,22 @@
 
 
                     while ($row = mysqli_fetch_array($result)) {
-
-                ?> <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['BaiBaoKhoaHoc'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                    <?php }
+                        require "/tra-cuu/table/baibaokhoahoc.php";
+                    }
                 } else if (isset($_GET['search'])) {
                     $search = $_GET['search'];
                     $sqlSearch = "SELECT * FROM `manage_post` WHERE BaiBaoKhoaHoc != ''  AND (MaCB LIKE '%$search%' OR GiangVienThamGia LIKE '%$search%' OR TenGiangVien LIKE '%$search%' OR NamXuatBan LIKE '%$search%');";
                     $resultSearch = mysqli_query($con, $sqlSearch);
-                    while ($row = mysqli_fetch_array($resultSearch)) { ?>
-                        <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['BaiBaoKhoaHoc'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                    <?php }
+                    while ($row = mysqli_fetch_array($resultSearch)) {
+                        require "/tra-cuu/table/baibaokhoahoc.php";
+                    }
                 } else {
 
                     $sql1 = "SELECT * FROM manage_post where BaiBaoKhoaHoc != '' LIMIT 5";
                     $result1 = mysqli_query($con, $sql1);
-                    while ($row = mysqli_fetch_array($result1)) { ?>
-                        <tr>
-                            <td><?= $row['STT'] ?></td>
-                            <td><?= $row['MaCB'] ?></td>
-                            <td><?= $row['TenGiangVien'] ?></td>
-                            <td><?= $row['BoMon'] ?></td>
-                            <td><?= $row['GiangVienThamGia'] ?></td>
-                            <td><?= $row['BaiBaoKhoaHoc'] ?></td>
-                            <td><?= $row['NamXuatBan'] ?></td>
-                            <td><?= $row['TrangDongGop'] ?></td>
-                        </tr>
-                <?php }
+                    while ($row = mysqli_fetch_array($result1)) {
+                        require "/tra-cuu/table/baibaokhoahoc.php";
+                    }
                 }
                 ?>
 
