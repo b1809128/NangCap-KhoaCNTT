@@ -22,25 +22,19 @@
                     <div class="col-sm-4">
 
                         <div class="row">
-                            <div class="col-sm-3">Bắt đầu:</div>
-                            <div class="col-sm-3"> <input type="text" class="form-control" name="ngayBatDau" placeholder="Ngày">
+                            <div class="col-sm-3" style="display:flex; float:right;">Bắt đầu:</div>
+                            <div class="col-sm-8"> <input type="date" class="form-control" name="ngayBatDau" placeholder="mm/dd/yyyy">
                             </div>
-                            <div class="col-sm-3"> <input type="text" class="form-control" name="thangBatDau" placeholder="Tháng">
-                            </div>
-                            <div class="col-sm-3"> <input type="text" class="form-control" name="namBatDau" placeholder="Năm">
-                            </div>
+
                         </div>
 
                     </div>
                     <div class="col-sm-4">
                         <div class="row">
-                            <div class="col-sm-3"> Kết thúc:</div>
-                            <div class="col-sm-3"> <input type="text" class="form-control" name="ngayKetThuc" placeholder="Ngày">
+                            <div class="col-sm-3" style="float:right;"> Kết thúc:</div>
+                            <div class="col-sm-8"> <input type="date" class="form-control" name="ngayKetThuc" placeholder="mm/dd/yyyy">
                             </div>
-                            <div class="col-sm-3"> <input type="text" class="form-control" name="thangKetThuc" placeholder="Tháng">
-                            </div>
-                            <div class="col-sm-3"> <input type="text" class="form-control" name="namKetThuc" placeholder="Năm">
-                            </div>
+
                         </div>
 
                     </div>
@@ -62,7 +56,7 @@
                         $sql = "SELECT * FROM thoigian";
                         $result = mysqli_query($con, $sql);
                         while ($row = mysqli_fetch_array($result)) { ?>
-                            <option value="<?= $row['idThoiGian'] ?>">Từ <?= $row['NgayBatDau'] ?> - đến <?= $row['NgayKetThuc'] ?></option>
+                            <option value="<?= $row['idThoiGian'] ?>">Từ <?= $row['NgayBatDau'] ?> đến <?= $row['NgayKetThuc'] ?></option>
                         <?php }
                         ?>
                     </select>
@@ -88,12 +82,10 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="row">
-                        <div class="col-sm-4"> <input type="text" class="form-control" name="ngay" placeholder="Ngày">
+                        <div class="col-sm-4"> <input type="date" class="form-control" name="ngayTrongTuan" placeholder="Ngày">
                         </div>
-                        <div class="col-sm-4"> <input type="text" class="form-control" name="thang" placeholder="Tháng">
-                        </div>
-                        <div class="col-sm-4"> <input type="text" class="form-control" name="nam" placeholder="Năm">
-                        </div>
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4"></div>
                     </div>
 
                 </div>
@@ -248,18 +240,12 @@
 
     </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
         document.getElementById('select-all').onclick = function() {
             var checkboxes = document.getElementsByName('bomon[]');
             for (var checkbox of checkboxes) {
                 checkbox.checked = this.checked;
             }
-        }
-
-        const selectChanges = function() {
-            var x = document.getElementById("selectMocThoiGian").value;
-            console.log(x);
         }
     </script>
 </body>
