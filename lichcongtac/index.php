@@ -11,20 +11,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-<body >
+<body>
     <?php require("../config/database.php");
 
     ?>
     <div class="container" id="pdfBody">
         <!-- Content here -->
         <div class="row" style="margin: 10px 0;">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <form method="get" style="display:flex">
                     <input type="text" class="form-control" name="search" placeholder="Tìm Kiếm">
                     <button type="submit" style="width:120px;" class="btn btn-primary">Tìm Kiếm</button>
                 </form>
             </div>
-            <div class="col-sm-6"><button class="btn btn-success" onclick="generatePDF()">Download PDF</button></div>
+            <div class="col-sm-4"><button class="btn btn-success" onclick="generatePDF()">Download PDF</button></div>
+            <div class="col-sm-4"><a href="http://localhost/joomla/lichcongtac/insert.php" class="btn btn-primary">Tạo lịch</a></div>
         </div>
         <div class="row">
             <table class="table">
@@ -41,42 +42,43 @@
                 </tr>
                 <?php
                 $thu = 2;
-                $ngay = 8;
+                $ngay = 15;
+                $idThoiGian = 2;
                 while ($thu <= 8) {
                 ?>
 
                     <tr>
-                        <td style="font-weight:700; background-color: #dfdfdf;">
+                        <td style="font-weight:700;">
                             <p style="margin-bottom:0;">Thứ <?php if ($thu === 8) {
                                                                 echo "CN";
                                                             } else echo $thu; ?></p> <?= $ngay ?>/8
                         </td>
                         <td>
                             <?php
-                            $sql = "SELECT * FROM lichcongtac where Thu='$thu' and Buoi='Sáng' and DonViToChuc='Trường' and ThoiGian='2022-08-$ngay' ";
+                            $sql = "SELECT * FROM lichcongtac where Thu='$thu' and Buoi='Sáng' and DonViToChuc='Trường' and ThoiGian='2022-08-$ngay' and idThoiGian='$idThoiGian' ";
                             $result = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_array($result)) {
                                 require "./print/text.php";
                             } ?>
                         </td>
-                        <td style="background-color:#dfdfdf;">
+                        <td>
                             <?php
-                            $sql = "SELECT * FROM lichcongtac where Thu='$thu' and Buoi='Sáng' and DonViToChuc='Khoa' and ThoiGian='2022-08-$ngay' ";
+                            $sql = "SELECT * FROM lichcongtac where Thu='$thu' and Buoi='Sáng' and DonViToChuc='Khoa' and ThoiGian='2022-08-$ngay' and idThoiGian='$idThoiGian' ";
                             $result = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_array($result)) {
                                 require "./print/text.php";
                             } ?>
                         </td>
                         <td><?php
-                            $sql = "SELECT * FROM lichcongtac where Thu='$thu' and Buoi='Chiều' and DonViToChuc='Trường' and ThoiGian='2022-08-$ngay' ";
+                            $sql = "SELECT * FROM lichcongtac where Thu='$thu' and Buoi='Chiều' and DonViToChuc='Trường' and ThoiGian='2022-08-$ngay' and idThoiGian='$idThoiGian' ";
                             $result = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_array($result)) {
                                 require "./print/text.php";
                             } ?>
                         </td>
-                        <td style="background-color:#dfdfdf;">
+                        <td>
                             <?php
-                            $sql = "SELECT * FROM lichcongtac where Thu='$thu' and Buoi='Chiều' and DonViToChuc='Khoa' and ThoiGian='2022-08-$ngay' ";
+                            $sql = "SELECT * FROM lichcongtac where Thu='$thu' and Buoi='Chiều' and DonViToChuc='Khoa' and ThoiGian='2022-08-$ngay' and idThoiGian='$idThoiGian' ";
                             $result = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_array($result)) {
                                 require "./print/text.php";
