@@ -203,24 +203,27 @@
                         <div class="row">
                             <div class="col">
                                 <input class="form-check-input" type="checkbox" value="<?= $row['TenBoMon'] ?>" name="bomon[]">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <label class="form-check-label collapsible" for="flexCheckDefault">
                                     <?= $row['TenBoMon'] ?>
                                 </label>
-                                <?php
-                                $codeBoMon = $row['BoMon'];
-                                $sqlUser = "select * from teacher where BoMon = '$codeBoMon'";
-                                $resultUser = mysqli_query($con, $sqlUser);
-                                while ($row = mysqli_fetch_array($resultUser)) {
-                                ?>
-                                    <div class="row" style="margin-left: 10px;">
-                                        <div class="col">
-                                            <input class="form-check-input" type="checkbox" value="<?= $row['HoTen'] ?>" name="bomon[]">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                <?= $row['HoTen'] ?>
-                                            </label>
-                                        </div>
+                                <div class="content">
+                                    <?php
+                                    $codeBoMon = $row['BoMon'];
+                                    $sqlUser = "select * from teacher where BoMon = '$codeBoMon'";
+                                    $resultUser = mysqli_query($con, $sqlUser);
+                                    while ($row = mysqli_fetch_array($resultUser)) {
+                                    ?>
+                                        <div class="row" style="margin-left: 10px;">
+                                            <div class="col">
+                                                <input class="form-check-input" type="checkbox" value="<?= $row['HoTen'] ?>" name="bomon[]">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    <?= $row['HoTen'] ?>
+                                                </label>
+                                            </div>
 
-                                    </div> <?php } ?>
+                                        </div> <?php } ?>
+                                </div>
+
                             </div>
 
                         </div>
@@ -246,6 +249,21 @@
             for (var checkbox of checkboxes) {
                 checkbox.checked = this.checked;
             }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
         }
     </script>
 </body>
