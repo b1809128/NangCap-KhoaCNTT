@@ -19,10 +19,11 @@
     <div class="container" id="pdfBody">
         <!-- Content here -->
         <div class="row" style="margin: 10px 0;">
+            <h4>Lịch công tác khoa CNTT & TT</h4>
             <div class="col-sm-3">
                 <form method="get" style="display:flex;">
                     <input type="date" class="form-control" name="searchDate" placeholder="Tìm Kiếm">
-                    <button type="submit" name="submitSearchDate" class="btn btn-primary">Tìm</button>
+                    <button type="submit" class="btn btn-primary">Tìm</button>
                 </form>
             </div>
             <div class="col-sm-6">
@@ -39,14 +40,15 @@
                         <?php }
                         ?>
                     </select>
-                    <button type="submit" name="submitSelectDate" class="btn btn-primary">Lọc</button>
+                    <button type="submit" class="btn btn-primary">Lọc</button>
                 </form>
 
             </div>
             <div class="col-sm-3">
                 <div class="row">
-                    <div class="col-sm-6"><button class="btn btn-success" onclick="generatePDF()">Download PDF</button></div>
-                    <div class="col-sm-6"><a href="http://localhost/joomla/lichcongtac/insert.php" class="btn btn-primary">Tạo lịch</a></div>
+                    <div class="col-sm-4"><button class="btn btn-success" onclick="generatePDF()">PDF</button></div>
+                    <div class="col-sm-4"><a href="http://localhost/joomla/lichcongtac/insert.php" class="btn btn-primary">Tạo lịch</a></div>
+                    <div class="col-sm-4"><a href="http://localhost/joomla/lichcongtac/quanly.php" class="btn btn-primary">Quản lý </a></div>
                 </div>
             </div>
 
@@ -66,7 +68,7 @@
                 </tr>
                 <?php
                 $thu = 2;
-                if (!isset($_GET['submitSearchDate']) && !isset($_GET['submitSelectDate'])) {
+                if (!isset($_GET['searchDate']) && !isset($_GET['selectDate'])) {
 
 
                     $sql = "SELECT * FROM thoigian";
@@ -126,7 +128,7 @@
                         $thu += 1;
                         $ngay += 1;
                     }
-                } else if (isset($_GET['submitSelectDate'])) {
+                } else if (isset($_GET['selectDate'])) {
                     $selectDate = $_GET['selectDate'];
                     $sql = "SELECT * FROM thoigian where idThoiGian='$selectDate'";
                     $result = mysqli_query($con, $sql);

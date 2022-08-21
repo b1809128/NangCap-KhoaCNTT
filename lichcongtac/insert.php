@@ -14,38 +14,6 @@
 <body>
     <?php require "../config/database.php"; ?>
     <div class="container">
-
-        <div class="row">
-            <h4>Thêm Thời gian bắt đầu - kết thúc</h4>
-            <div class="row">
-                <form action="http://localhost/joomla/lichcongtac/todoInsert.php" method="POST" style="display:flex; justify-content:space-between;">
-                    <div class="col-sm-4">
-
-                        <div class="row">
-                            <div class="col-sm-3" style="display:flex; float:right;">Bắt đầu:</div>
-                            <div class="col-sm-8"> <input type="date" class="form-control" name="ngayBatDau" placeholder="mm/dd/yyyy">
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="col-sm-3" style="float:right;"> Kết thúc:</div>
-                            <div class="col-sm-8"> <input type="date" class="form-control" name="ngayKetThuc" placeholder="mm/dd/yyyy">
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="submit" class="btn btn-primary" name="themThoiGian">Thêm</button>
-                    </div>
-                </form>
-
-            </div>
-
-        </div>
         <h4>Thêm lịch chi tiết</h4>
         <form action="http://localhost/joomla/lichcongtac/todoInsert.php" method="get">
             <div class="row">

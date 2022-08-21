@@ -1,0 +1,23 @@
+#get all day in year
+SELECT * FROM `thoigian` WHERE year(`NgayBatDau`) = Year("2022-01-01");
+
+SELECT * FROM `thoigian` WHERE year(`NgayBatDau`) = Year("2022-01-01") AND month(`NgayBatDau`) = month("2022-08-01");
+
+#get year 
+
+SELECT distinct year(`NgayBatDau`) FROM `thoigian` 
+
+
+#get year - month
+
+SELECT DISTINCT EXTRACT(YEAR FROM NgayBatDau) AS year, EXTRACT(MONTH FROM NgayBatDau) AS month FROM thoigian;
+
+<?php
+            $nam = $row['year'];
+            $sql = "SELECT DISTINCT EXTRACT(MONTH FROM NgayBatDau) AS month FROM thoigian WHERE year(NgayBatDau) = $nam;";
+            $result = mysqli_query($con, $sql);
+            while ($row = mysqli_fetch_array($result)) { ?>
+                <p class="collapsible" style="margin-left: 12px; font-weight: 700;"> <button class="btn">+</button> Thang <?= $row['month'] ?></p>
+
+            <?php }
+            ?>
