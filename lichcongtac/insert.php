@@ -43,7 +43,7 @@
                                 <option value="7">7</option>
                                 <option value="8">CN</option>
                             </select></div>
-                        <div class="col-sm-6"><input type="text" class="form-control" name="gio" placeholder="Giờ"></div>
+                        <div class="col-sm-6"><input type="time" class="form-control" name="gio" placeholder="Giờ"></div>
                     </div>
 
 
