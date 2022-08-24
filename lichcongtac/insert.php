@@ -202,13 +202,19 @@
 
                 </div>
             </div>
-
             <div class="row" style="margin: 10px 0;">
-                <button type="submit" name="themLichCongTac" class="btn btn-primary">Thêm</button>
-
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4" style="display:flex; align-items:center; justify-content:center;"> <button type="submit" name="themLichCongTac" class="btn btn-primary" style="width:200px;">Thêm lịch</button>
+                </div>
+                <div class="col-sm-4"></div>
             </div>
         </form>
-
+        <div class="row" style="margin: 10px 0 30px 0;">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4" style="display:flex; align-items:center; justify-content:center;"> <a rel="stylesheet" href="http://localhost/joomla/google-calendar/">Thêm lịch nhắc Google</a>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
     </div>
     </div>
     <script type="text/javascript">

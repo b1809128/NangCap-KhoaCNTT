@@ -16,10 +16,10 @@
     <?php require("../config/database.php");
 
     ?>
-    <div class="container" id="pdfBody">
+    <div class="container">
         <!-- Content here -->
         <div class="row" style="margin: 10px 0;">
-            <h4>Lịch công tác khoa CNTT & TT</h4>
+            <h4>Lịch công tác Khoa CNTT & TT</h4>
             <div class="col-sm-3">
                 <form method="get" style="display:flex;">
                     <input type="date" class="form-control" name="searchDate" placeholder="Tìm Kiếm">
@@ -54,7 +54,7 @@
 
         </div>
         <div class="row">
-            <table class="table">
+            <table class="table" id="pdfBody">
                 <tr style="font-weight:700">
                     <td rowspan="2">Ngày/Buổi</td>
                     <td colspan="2" style="color: red;">Sáng</td>
@@ -138,7 +138,7 @@
                             $ngay =  intval(explode("-", $row["NgayBatDau"])[2]);
                             $thang = intval(explode("-", $row["NgayBatDau"])[1]);
                             $nam = intval(explode("-", $row["NgayBatDau"])[0]);
-                            echo $row["NgayBatDau"];
+                            // echo $row["NgayBatDau"];
                         }
                     }
                     while ($thu <= 8) { ?>
