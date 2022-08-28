@@ -27,21 +27,8 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="row">
-                            Thời gian: <?php
-                                        $idThoiGian = $row['idThoiGian'];
-                                        $sqlSelectDate = "SELECT * from thoigian where idThoiGian = '$idThoiGian'";
-                                        $resultThoiGian = mysqli_query($con, $sqlSelectDate);
-                                        while ($row = mysqli_fetch_array($resultThoiGian)) {
-                                        ?>
-                                Từ <?= $row['NgayBatDau'] ?> đến <?= $row['NgayKetThuc'] ?>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="row">
                             Tình trạng: <?php
-                                        $tinhTrang = isset($row['TinhTrang']) ? $row['TinhTrang'] : 0;
-                                        // echo $tinhTrang;
+                                        $tinhTrang = $row['TinhTrang'];
                                         if ($tinhTrang == 0) {
                                             echo "Chưa ban hành";
                                         } else if ($tinhTrang == 1) {
@@ -52,6 +39,19 @@
                                         ?>
                         </div>
                     </div>
+                    <div class="col-sm-4">
+                        <div class="row">
+                            Thời gian: <?php
+                                        $idThoiGian = $row['idThoiGian'];
+                                        $sqlSelectDate = "SELECT * from thoigian where idThoiGian = '$idThoiGian'";
+                                        $resultThoiGian = mysqli_query($con, $sqlSelectDate);
+                                        while ($row = mysqli_fetch_array($resultThoiGian)) {
+                                        ?>
+                                Từ <?= $row['NgayBatDau'] ?> đến <?= $row['NgayKetThuc'] ?>
+                            <?php } ?>
+                        </div>
+                    </div>
+
             <?php }
             }
             ?>

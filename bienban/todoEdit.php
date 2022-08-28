@@ -30,6 +30,16 @@ if (isset($_POST['submitBienBan'])) {
     }
 }
 
+if (isset($_POST['submitUpdateTinhTrang'])) {
+    $idBienBan = $_POST['updateMSVB'];
+    $updateTinhTrang = $_POST['updateTinhTrang'];
+
+    $sqlUpdateTinhTrang = "update bienban set TinhTrang='$updateTinhTrang' where idBienBan='$idBienBan'";
+    if (mysqli_query($con, $sqlUpdateTinhTrang)) {
+        header("Location: http://localhost/joomla/bienban/");
+    }
+}
+
 
 // if (isset($_POST['submitBienBan'])) {
 //     $dataEncode = base64_encode($_POST['noiDungBienBan']);

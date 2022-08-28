@@ -56,7 +56,7 @@
                 <div class="row">
 
                     <form style=" display: flex;" action="./todoEdit.php" method="post">
-                        <select class="form-select" style="width:300px; margin-right: 10px;" name="msvb" aria-label="Default select example">
+                        <select class="form-select" style="width:300px; margin-right: 10px;" name="updateMSVB" aria-label="Default select example">
                             <option selected>--Mã số văn bản--</option>
                             <?php
                             $sqlSelectMaBienBan = "SELECT * from bienban";
@@ -66,13 +66,13 @@
                             <?php }
                             ?>
                         </select>
-                        <select class="form-select" style="width:300px; margin-right: 10px;" name="tinhTrang" aria-label="Default select example">
+                        <select class="form-select" style="width:300px; margin-right: 10px;" name="updateTinhTrang" aria-label="Default select example">
                             <option selected>--Tình trạng văn bản--</option>
                             <option value="0">Chưa phát hành</option>
                             <option value="1">Đang trình ký</option>
                             <option value="2">Đã phát hành</option>
                         </select>
-                        <button class="btn btn-primary" type="submit" name="submitTinhTrang">Cập nhật</button>
+                        <button class="btn btn-primary" type="submit" name="submitUpdateTinhTrang">Cập nhật</button>
                     </form>
                 </div>
 
