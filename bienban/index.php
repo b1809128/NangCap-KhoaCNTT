@@ -16,32 +16,88 @@
 
     ?>
     <div class="container">
-        <h4>Quản lý lịch công tác Khoa CNTT</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Quản lý văn bản Khoa CNTT</h4>
+            </div>
+            <div class="col-sm-6">
+                <a href="http://localhost/joomla/bienban/edit.php" class="btn btn-primary">Soạn biên bản</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <form style="width: 300px; display: flex;" action="" method="post"><select class="form-select" name="tinhTrang" aria-label="Default select example">
+                        <option selected>--Tình trạng văn bản--</option>
+                        <option value="all">Tất cả văn bản</option>
+                        <option value="0">Chưa phát hành</option>
+                        <option value="1">Đang trình ký</option>
+                        <option value="2">Đã phát hành</option>
+                    </select>
+                    <button class="btn btn-primary" type="submit" name="submitTinhTrang">Lọc</button>
+                </form>
+
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+        </div>
         <?php
-        $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM NgayBatDau) AS year FROM thoigian;";
+        if (isset($_POST['submitTinhTrang'])) {
+            $tinhTrang = $_POST['tinhTrang'];
+            if ($tinhTrang == "all") {
+                header("Location: http://localhost/joomla/bienban/");
+            }
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM bienban WHERE TinhTrang='$tinhTrang'";
+        } else {
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM bienban;";
+        }
+
+        if (isset($_POST['submitTinhTrang'])) {
+        }
         $resultYear = mysqli_query($con, $sqlYear);
         while ($row = mysqli_fetch_array($resultYear)) { ?>
             <p style="font-weight: 700;"> + <?= $row['year'] ?></p>
             <?php
             $nam = $row['year'];
-            $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM NgayBatDau) AS month FROM thoigian WHERE year(NgayBatDau) = $nam;";
+            if (isset($_POST['submitTinhTrang'])) {
+                $tinhTrang = $_POST['tinhTrang'];
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM bienban WHERE year(Created_at) = $nam and TinhTrang='$tinhTrang';";
+            } else {
+
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM bienban WHERE year(Created_at) = $nam;";
+            }
             $resultMonth = mysqli_query($con, $sqlMonth);
             while ($row = mysqli_fetch_array($resultMonth)) { ?>
                 <p class="collapsible" style="margin-left: 12px; font-weight: 700;"> <button class="btn">+</button> Thang <?= $row['month'] ?></p>
                 <div class="content">
                     <?php
                     $thang = $row['month'];
-                    $sqlDay = "SELECT * FROM `thoigian` WHERE year(`NgayBatDau`) = Year('$nam-01-01') AND month(`NgayBatDau`) = month('$nam-$thang-01');";
+                    if (isset($_POST['submitTinhTrang'])) {
+                        $tinhTrang = $_POST['tinhTrang'];
+                        $sqlDay = "SELECT * FROM `bienban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and TinhTrang='$tinhTrang';";
+                    } else {
+
+                        $sqlDay = "SELECT * FROM `bienban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01');";
+                    }
                     $resultDay = mysqli_query($con, $sqlDay);
                     while ($row = mysqli_fetch_array($resultDay)) { ?>
                         <div class="row" style="margin-left: 12px;">
                             <div class="col-sm-2">
-                                <p><span style="font-weight: 600;">Số phát hành:</span> <?= $row['idThoiGian'] ?></p>
+                                <p><span style="font-weight: 600;">Số phát hành:</span> <?= $row['idBienBan'] ?></p>
                             </div>
-                            <div class="col-sm-3"><span style="font-weight: 600;">Từ</span> <?= $row['NgayBatDau'] ?></div>
-                            <div class="col-sm-3"><span style="font-weight: 600;">Đến</span> <?= $row['NgayKetThuc'] ?></div>
-                            <div class="col-sm-2"><a href="http://localhost/joomla/lichcongtac/?selectDate=<?= $row['idThoiGian'] ?>">Chi tiết</a></div>
-                            <div class="col-sm-2"><span style="font-weight: 600;">Chỉnh sửa</span> <?= $row['NgayBatDau'] ?></div>
+                            <div class="col-sm-2"><a href="http://localhost/joomla/bienban/details.php?idBienBan=<?= $row['idBienBan'] ?>">Chi tiết</a></div>
+                            <div class="col-sm-4"><span style="font-weight: 600;">Chỉnh sửa</span> <?= $row['Created_at'] ?></div>
+                            <div class="col-sm-4"><span style="font-weight: 600;">Người soạn: </span> <?php
+
+                                                                                                        $macb = $row['MaCB'];
+                                                                                                        $sqlSelectDate = "SELECT * from teacher where MaCB = '$macb'";
+                                                                                                        $resultThoiGian = mysqli_query($con, $sqlSelectDate);
+                                                                                                        while ($row = mysqli_fetch_array($resultThoiGian)) {
+                                                                                                        ?>
+                                    <?= $row['HoTen'] ?>
+                                <?php }
+                                ?></div>
+
+
                         </div>
                     <?php }
                     ?>

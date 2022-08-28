@@ -16,11 +16,13 @@
 </head>
 
 <body>
+    <?php require "../config/database.php"; ?>
+
     <div class="container">
         <div class="row">
             <h4>Thêm Thời gian bắt đầu - kết thúc</h4>
             <div class="row">
-                <form action="http://localhost/joomla/bienban/todoEdit.php" method="POST" style="display:flex; justify-content:space-between;">
+                <form action="http://localhost/joomla/bienban/todoEdit.php" method="POST" style="display:flex; justify-content:space-between;margin: 10px 0;">
                     <div class="col-sm-4">
 
                         <div class="row">
@@ -49,12 +51,67 @@
 
         </div>
 
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+
+                    <form style=" display: flex;" action="./todoEdit.php" method="post">
+                        <select class="form-select" style="width:300px; margin-right: 10px;" name="msvb" aria-label="Default select example">
+                            <option selected>--Mã số văn bản--</option>
+                            <?php
+                            $sqlSelectMaBienBan = "SELECT * from bienban";
+                            $resultMaBienBan = mysqli_query($con, $sqlSelectMaBienBan);
+                            while ($row = mysqli_fetch_array($resultMaBienBan)) { ?>
+                                <option value="<?= $row['idBienBan'] ?>"> <?= $row['idBienBan'] ?> </option>
+                            <?php }
+                            ?>
+                        </select>
+                        <select class="form-select" style="width:300px; margin-right: 10px;" name="tinhTrang" aria-label="Default select example">
+                            <option selected>--Tình trạng văn bản--</option>
+                            <option value="0">Chưa phát hành</option>
+                            <option value="1">Đang trình ký</option>
+                            <option value="2">Đã phát hành</option>
+                        </select>
+                        <button class="btn btn-primary" type="submit" name="submitTinhTrang">Cập nhật</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div class="row">
             <form action="./todoEdit.php" method="post">
-                <textarea name="editTextArea" id="editor" style="width:100%"></textarea>
+                <div class="row" style="margin: 10px 0;">
+                    <div class="col-sm-6"><select style="width: 300px;" class="form-select" name="selectDateBienBan" aria-label="Default select example">
+                            <option selected>--Ngày, tháng, năm--</option>
+                            <?php
+                            $sqlTime = "SELECT * FROM thoigian";
+                            $result = mysqli_query($con, $sqlTime);
+                            while ($row = mysqli_fetch_array($result)) { ?>
+                                <option <?php if (isset($_GET['selectDate']) && $_GET['selectDate'] == $row['idThoiGian']) {
+                                            echo "selected";
+                                        } ?> value="<?= $row['idThoiGian'] ?>">Từ <?= $row['NgayBatDau'] ?> đến <?= $row['NgayKetThuc'] ?></option>
+                            <?php }
+                            ?>
+                        </select></div>
+                    <div class="col-sm-6"><select style="width: 300px;" class="form-select" name="nguoiSoanBienBan" aria-label="Default select example">
+                            <option selected>--Chọn tên người soạn--</option>
+                            <?php
+                            $sql = "SELECT * FROM teacher";
+                            $result = mysqli_query($con, $sql);
+                            while ($row = mysqli_fetch_array($result)) { ?>
+                                <option value="<?= $row['MaCB'] ?>"><?= $row['HoTen'] ?></option>
+                            <?php    }
+                            ?>
+                        </select></div>
+                </div>
 
-                <button class="btn btn-primary" type="submit">Save</button>
+                <input type="text" name="tenBienBan" class="form-control" placeholder="Tên văn bản">
+                <textarea name="noiDungBienBan" id="editor" style="width:100%; height:400px;"></textarea>
+
+                <button class="btn btn-primary" type="submit" name="submitBienBan">Save</button>
             </form>
         </div>
 
