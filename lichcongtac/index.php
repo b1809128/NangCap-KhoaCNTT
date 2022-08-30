@@ -90,7 +90,17 @@
                             <td style="font-weight:700;">
                                 <p style="margin-bottom:0;">Thứ <?php if ($thu === 8) {
                                                                     echo "CN";
-                                                                } else echo $thu; ?></p> <?= $ngay ?>/8
+                                                                } else echo $thu; ?></p> <?php if ((($thang === 1 || $thang === 3 || $thang === 5 || $thang === 7 || $thang === 8 || $thang === 10 || $thang === 12) && ($ngay > 31)) || (($thang === 4 || $thang === 6 || $thang === 9 || $thang === 11) && ($ngay > 30)) || (($thang === 2) && ($ngay > 28))) {
+                                                                                                $ngay = 1;
+                                                                                                echo $ngay;
+                                                                                            } else {
+                                                                                                echo $ngay;
+                                                                                            }  ?>/<?php if ($ngay === 1) {
+                                                                                                        $thang = $thang + 1;
+                                                                                                        echo $thang;
+                                                                                                    } else {
+                                                                                                        echo $thang;
+                                                                                                    } ?>
                             </td>
                             <td>
                                 <?php
@@ -146,7 +156,17 @@
                             <td style="font-weight:700;">
                                 <p style="margin-bottom:0;">Thứ <?php if ($thu === 8) {
                                                                     echo "CN";
-                                                                } else echo $thu; ?></p> <?= $ngay ?>/8
+                                                                } else echo $thu; ?></p> <?php if ((($thang === 1 || $thang === 3 || $thang === 5 || $thang === 7 || $thang === 8 || $thang === 10 || $thang === 12) && ($ngay > 31)) || (($thang === 4 || $thang === 6 || $thang === 9 || $thang === 11) && ($ngay > 30)) || (($thang === 2) && ($ngay > 28))) {
+                                                                                                $ngay = 1;
+                                                                                                echo $ngay;
+                                                                                            } else {
+                                                                                                echo $ngay;
+                                                                                            }  ?>/<?php if ($ngay === 1) {
+                                                                            $thang = $thang + 1;
+                                                                            echo $thang;
+                                                                        } else {
+                                                                            echo $thang;
+                                                                        } ?>
                             </td>
                             <td>
                                 <?php

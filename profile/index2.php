@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php require("./config/database.php");
+    <?php require("../config/database.php");
 
     if (isset($_GET["profile"])) $profileName = $_GET["profile"];
     $sql = "SELECT * FROM teacher where MaCB='$profileName'";
@@ -303,7 +303,7 @@
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="panelsStayOpen-headingFive">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                            Publications
+                                            Publications Scientific Research & TextBooks
                                         </button>
                                     </h2>
                                     <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
@@ -312,18 +312,19 @@
                                                 <section id="timeline" class="timeline-outer">
                                                     <div class="container" id="content">
                                                         <div class="row">
+                                                            <h3>TextBooks</h3>
                                                             <div class="col s12 m12 l12">
                                                                 <ul class="timeline">
                                                                     <?php
-                                                                    if ($row['BaiBao'] !== "") {
-                                                                        foreach ($baibao as $i => $value) {
-                                                                            $details_baibao = explode("$", $value);
-                                                                            // echo $details_hocvan[0];
+                                                                    if (isset($_GET['profile'])) {
+
+                                                                        $sqlBaiBao = "SELECT * FROM manage_post where MaCB='$profileName' and GiaoTrinh != ''";
+                                                                        $resultBaiBao = mysqli_query($con, $sqlBaiBao);
+                                                                        while ($row = mysqli_fetch_array($resultBaiBao)) {
                                                                     ?>
-                                                                            <li class="event" data-date="<?php echo $details_baibao[0]; ?>">
-                                                                                <h3><?php echo $details_baibao[1]; ?></h3>
+                                                                            <li class="event" data-date="">
                                                                                 <p>
-                                                                                    <?php echo $details_baibao[2]; ?> </p>
+                                                                                    <?= $row['TenGiangVien'] ?>, <?= $row['GiangVienThamGia'] ?> <?php if ($row['GiangVienThamGia'] != "") echo ", " ?> <?= $row['GiaoTrinh'] ?>, <?= $row['NamXuatBan'] ?> </p>
                                                                             </li>
                                                                     <?php
                                                                         }
@@ -334,38 +335,20 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </section>
-
-                                                <br />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="panelsStayOpen-headingSix">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                            Professional Services
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
-                                        <div class="accordion-body">
-                                            <div class="main-container">
-                                                <section id="timeline" class="timeline-outer">
-                                                    <div class="container" id="content">
                                                         <div class="row">
+                                                            <h3>Scientific Research</h3>
                                                             <div class="col s12 m12 l12">
                                                                 <ul class="timeline">
                                                                     <?php
-                                                                    if ($row['ThamGia'] !== "") {
-                                                                        foreach ($thamgia as $i => $value) {
-                                                                            $details_thamgia = explode("$", $value);
-                                                                            // echo $details_hocvan[0];
+                                                                    if (isset($_GET['profile'])) {
+
+                                                                        $sqlBaiBao = "SELECT * FROM manage_post where MaCB='$profileName' and BaiBaoKhoaHoc != ''";
+                                                                        $resultBaiBao = mysqli_query($con, $sqlBaiBao);
+                                                                        while ($row = mysqli_fetch_array($resultBaiBao)) {
                                                                     ?>
-                                                                            <li class="event" data-date="<?php echo $details_thamgia[0]; ?>">
-                                                                                <h3><?php echo $details_thamgia[1]; ?></h3>
+                                                                            <li class="event" data-date="">
                                                                                 <p>
-                                                                                    <?php echo $details_thamgia[2]; ?> </p>
+                                                                                    <?= $row['TenGiangVien'] ?>, <?= $row['GiangVienThamGia'] ?> <?php if ($row['GiangVienThamGia'] != "") echo ", " ?> <?= $row['BaiBaoKhoaHoc'] ?>, <?= $row['NamXuatBan'] ?> </p>
                                                                             </li>
                                                                     <?php
                                                                         }

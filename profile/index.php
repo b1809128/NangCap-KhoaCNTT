@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php require("./config/database.php");
+    <?php require("../config/database.php");
     $slug = $_SERVER['REQUEST_URI'];
     echo $slug;
     $sql = "SELECT * FROM teacher";
