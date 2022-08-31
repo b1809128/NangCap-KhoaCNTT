@@ -359,6 +359,30 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
+                                                        <div class="row">
+                                                            <h3>Personal Scientific Research Topic </h3>
+                                                            <div class="col s12 m12 l12">
+                                                                <ul class="timeline">
+                                                                    <?php
+                                                                    if (isset($_GET['profile'])) {
+
+                                                                        $sqlDeTai = "SELECT * FROM topic where MaCB='$profileName'";
+                                                                        $resultDeTai = mysqli_query($con, $sqlDeTai);
+                                                                        while ($row = mysqli_fetch_array($resultDeTai)) {
+                                                                    ?>
+                                                                            <li class="event" data-date="">
+                                                                                <p>
+                                                                                    <?= $row['TenChuNhiem'] ?>, <?= $row['GiangVienThamGia'] ?> <?php if ($row['GiangVienThamGia'] != "") echo ", " ?> <?= $row['TenDeTai'] ?>, từ <?= $row['BatDau'] ?> đến <?= $row['KetThuc'] ?>. Cấp: <?= $row['Cap'] ?> </p>
+                                                                            </li>
+                                                                    <?php
+                                                                        }
+                                                                    }
+                                                                    ?>
+
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </section>
 

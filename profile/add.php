@@ -192,63 +192,16 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingFive">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
-                        PUBLICATIONS
+                        TextBooks And Scientific Research
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
                     <div class="accordion-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <form method="POST" action="http://localhost/joomla/todo.php?profile=<?php echo $profileName; ?>">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Time</label>
-                                        <input type="text" name="timePublication" class="form-control" placeholder="2019-2020, 2021-Present">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Title</label>
-                                        <input type="text" name="titlePublication" class="form-control" placeholder="Topic here, Ex: Can Tho University">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Element of topic</label>
-                                        <textarea type="text" name="elementPublication" class="form-control"></textarea>
-                                    </div>
-                                    <button type="submit" name="submitPublication" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-                        </div>
+                        <a href="http://localhost/joomla/tra-cuu/add.php">Add Here</a>
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingSix">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
-                        PROFESSIONAL SERVICES
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
-                    <div class="accordion-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <form method="POST" action="http://localhost/joomla/todo.php?profile=<?php echo $profileName; ?>">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Time</label>
-                                        <input type="text" name="timeProfessional" class="form-control" placeholder="2019-2020, 2021-Present">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Title</label>
-                                        <input type="text" name="titleProfessional" class="form-control" placeholder="Topic here, Ex: Can Tho University">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Element of topic</label>
-                                        <textarea type="text" name="elementProfessional" class="form-control"> </textarea>
-                                    </div>
-                                    <button type="submit" name="submitProfessional" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
 

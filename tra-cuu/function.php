@@ -75,6 +75,18 @@ function getBaiBaoKhoaHoc()
     return $json;
 }
 
+function getDeTai()
+{
+    require("../config/database.php");
+    $sql = "SELECT * FROM topic";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $json[] = $row;
+    }
+
+    return $json;
+}
+
 function getBaiBaoKhoaHocByBoMon($bomon)
 {
     require("../config/database.php");
