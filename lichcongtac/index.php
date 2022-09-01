@@ -20,28 +20,39 @@
         <!-- Content here -->
         <div class="row" style="margin: 10px 0;">
             <h4>Lịch công tác Khoa CNTT & TT</h4>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <form method="get" style="display:flex;">
                     <input type="date" class="form-control" name="searchDate" placeholder="Tìm Kiếm">
                     <button type="submit" class="btn btn-primary">Tìm</button>
                 </form>
             </div>
             <div class="col-sm-6">
-                <form style="display:flex;" method="get">
-                    <select style="width: 300px;" class="form-select" name="selectDate" aria-label="Default select example" name="mocThoiGian">
-                        <option selected>--Ngày, tháng, năm--</option>
-                        <?php
-                        $sql = "SELECT * FROM thoigian";
-                        $result = mysqli_query($con, $sql);
-                        while ($row = mysqli_fetch_array($result)) { ?>
-                            <option <?php if (isset($_GET['selectDate']) && $_GET['selectDate'] == $row['idThoiGian']) {
-                                        echo "selected";
-                                    } ?> value="<?= $row['idThoiGian'] ?>">Từ <?= $row['NgayBatDau'] ?> đến <?= $row['NgayKetThuc'] ?></option>
-                        <?php }
-                        ?>
-                    </select>
-                    <button type="submit" class="btn btn-primary">Lọc</button>
-                </form>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form style="display:flex;" method="get">
+                            <select style="width: 300px;" class="form-select" name="selectDate" aria-label="Default select example" name="mocThoiGian">
+                                <option selected>--Ngày, tháng, năm--</option>
+                                <?php
+                                $sql = "SELECT * FROM thoigian";
+                                $result = mysqli_query($con, $sql);
+                                while ($row = mysqli_fetch_array($result)) { ?>
+                                    <option <?php if (isset($_GET['selectDate']) && $_GET['selectDate'] == $row['idThoiGian']) {
+                                                echo "selected";
+                                            } ?> value="<?= $row['idThoiGian'] ?>">Từ <?= $row['NgayBatDau'] ?> đến <?= $row['NgayKetThuc'] ?></option>
+                                <?php }
+                                ?>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Lọc</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-6">
+                        <form method="get" style="display:flex;">
+                            <input type="text" class="form-control" name="searchText" placeholder="Tìm Kiếm">
+                            <button type="submit" class="btn btn-primary">Tìm</button>
+                        </form>
+                    </div>
+                </div>
+
 
             </div>
             <div class="col-sm-3">
@@ -68,13 +79,13 @@
                 </tr>
                 <?php
                 $thu = 2;
-                if (!isset($_GET['searchDate']) && !isset($_GET['selectDate'])) {
+                if (!isset($_GET['searchDate']) && !isset($_GET['selectDate']) && !isset($_GET['searchText'])) {
 
 
                     $sql = "SELECT * FROM thoigian";
                     $result = mysqli_query($con, $sql);
                     $length = mysqli_num_rows($result);
-                    $idThoiGian = $length - 2;
+                    $idThoiGian = 1;
                     while ($row = mysqli_fetch_array($result)) {
                         if ($idThoiGian == $row["idThoiGian"]) {
                             $ngay =  intval(explode("-", $row["NgayBatDau"])[2]);
@@ -162,11 +173,11 @@
                                                                                             } else {
                                                                                                 echo $ngay;
                                                                                             }  ?>/<?php if ($ngay === 1) {
-                                                                            $thang = $thang + 1;
-                                                                            echo $thang;
-                                                                        } else {
-                                                                            echo $thang;
-                                                                        } ?>
+                                                                                                        $thang = $thang + 1;
+                                                                                                        echo $thang;
+                                                                                                    } else {
+                                                                                                        echo $thang;
+                                                                                                    } ?>
                             </td>
                             <td>
                                 <?php
@@ -204,7 +215,7 @@
                         $thu += 1;
                         $ngay += 1;
                     }
-                } else {
+                } else if (isset($_GET['searchDate'])) {
                     $searchDate = $_GET['searchDate'];
                     while ($thu < 3) { ?>
 
@@ -244,11 +255,57 @@
                                 } ?>
                             </td>
                         </tr>
-                <?php
+                    <?php
                         $thu += 1;
+                    }
+                } else if (isset($_GET['searchText'])) {
+                    $searchText = $_GET['searchText'];
+                    $sqlSearchText = "SELECT distinct ThoiGian FROM lichcongtac where (NoiDung LIKE '%$searchText%' OR ThanhPhan LIKE '%$searchText%') ";
+                    $resultSearchText = mysqli_query($con, $sqlSearchText);
+                    while ($row = mysqli_fetch_array($resultSearchText)) {
+                        $tg = $row['ThoiGian']; ?>
+                        <tr>
+                            <td style="font-weight:700;">
+                                <?= $row['ThoiGian'] ?>
+                            </td>
+                            <td>
+                                <?php
+                                $sql = "SELECT * FROM lichcongtac where Buoi='Sáng' and DonViToChuc='Trường' and ThoiGian='$tg' and (NoiDung LIKE '%$searchText%' OR ThanhPhan LIKE '%$searchText%') ";
+                                $result = mysqli_query($con, $sql);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    require "./print/text.php";
+                                } ?>
+                            </td>
+                            <td>
+                                <?php
+                                $sql = "SELECT * FROM lichcongtac where Buoi='Sáng' and DonViToChuc='Khoa' and ThoiGian='$tg' and (NoiDung LIKE '%$searchText%' OR ThanhPhan LIKE '%$searchText%') ";
+                                $result = mysqli_query($con, $sql);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    require "./print/text.php";
+                                } ?>
+                            </td>
+                            <td><?php
+                                $sql = "SELECT * FROM lichcongtac where Buoi='Chiều' and DonViToChuc='Trường' and ThoiGian='$tg' and (NoiDung LIKE '%$searchText%' OR ThanhPhan LIKE '%$searchText%') ";
+                                $result = mysqli_query($con, $sql);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    require "./print/text.php";
+                                } ?>
+                            </td>
+                            <td>
+                                <?php
+
+                                $sql = "SELECT * FROM lichcongtac where Buoi='Chiều' and DonViToChuc='Khoa' and ThoiGian='$tg' and (NoiDung LIKE '%$searchText%' OR ThanhPhan LIKE '%$searchText%') ";
+                                $result = mysqli_query($con, $sql);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    require "./print/text.php";
+                                } ?>
+                            </td>
+                        </tr>
+                <?php
                     }
                 }
                 ?>
+
 
 
             </table>

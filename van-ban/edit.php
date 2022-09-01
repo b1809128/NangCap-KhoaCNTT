@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor</title>
+    <title>Soạn Văn Bản</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <style>
@@ -22,7 +22,7 @@
         <div class="row">
             <h4>Thêm Thời gian bắt đầu - kết thúc</h4>
             <div class="row">
-                <form action="http://localhost/joomla/bienban/todoEdit.php" method="POST" style="display:flex; justify-content:space-between;margin: 10px 0;">
+                <form action="./todoEdit.php" method="POST" style="display:flex; justify-content:space-between;margin: 10px 0;">
                     <div class="col-sm-4">
 
                         <div class="row">
@@ -59,10 +59,10 @@
                         <select class="form-select" style="width:300px; margin-right: 10px;" name="updateMSVB" aria-label="Default select example">
                             <option selected>--Mã số văn bản--</option>
                             <?php
-                            $sqlSelectMaBienBan = "SELECT * from bienban";
-                            $resultMaBienBan = mysqli_query($con, $sqlSelectMaBienBan);
-                            while ($row = mysqli_fetch_array($resultMaBienBan)) { ?>
-                                <option value="<?= $row['idBienBan'] ?>"> <?= $row['idBienBan'] ?> </option>
+                            $sqlSelectMaVanBan = "SELECT * from vanban";
+                            $resultMaVanBan = mysqli_query($con, $sqlSelectMaVanBan);
+                            while ($row = mysqli_fetch_array($resultMaVanBan)) { ?>
+                                <option value="<?= $row['idVanBan'] ?>"> <?= $row['idVanBan'] ?> </option>
                             <?php }
                             ?>
                         </select>
@@ -84,7 +84,7 @@
         <div class="row">
             <form action="./todoEdit.php" method="post">
                 <div class="row" style="margin: 10px 0;">
-                    <div class="col-sm-6"><select style="width: 300px;" class="form-select" name="selectDateBienBan" aria-label="Default select example">
+                    <div class="col-sm-6"><select style="width: 300px;" class="form-select" name="selectDateVanBan" aria-label="Default select example">
                             <option selected>--Ngày, tháng, năm--</option>
                             <?php
                             $sqlTime = "SELECT * FROM thoigian";
@@ -96,7 +96,7 @@
                             <?php }
                             ?>
                         </select></div>
-                    <div class="col-sm-6"><select style="width: 300px;" class="form-select" name="nguoiSoanBienBan" aria-label="Default select example">
+                    <div class="col-sm-6"><select style="width: 300px;" class="form-select" name="nguoiSoanVanBan" aria-label="Default select example">
                             <option selected>--Chọn tên người soạn--</option>
                             <?php
                             $sql = "SELECT * FROM teacher";
@@ -108,10 +108,10 @@
                         </select></div>
                 </div>
 
-                <input type="text" name="tenBienBan" class="form-control" placeholder="Tên văn bản">
-                <textarea name="noiDungBienBan" id="editor" style="width:100%; height:400px;"></textarea>
+                <input type="text" name="tenVanBan" class="form-control" placeholder="Tên văn bản">
+                <textarea name="noiDungVanBan" id="editor" style="width:100%; height:400px;"></textarea>
 
-                <button class="btn btn-primary" type="submit" name="submitBienBan">Save</button>
+                <button class="btn btn-primary" type="submit" name="submitVanBan">Save</button>
             </form>
         </div>
 

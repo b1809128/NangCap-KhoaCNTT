@@ -16,18 +16,12 @@
 
     ?>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <h4>Quản lý văn bản Khoa CNTT</h4>
-            </div>
-            <div class="col-sm-6">
-                <a href="http://localhost/joomla/bienban/edit.php" class="btn btn-primary">Soạn biên bản</a>
-            </div>
+        <div class="row" style="margin-top:10px;">
+            <h4>Quản lý văn bản Khoa CNTT</h4>
         </div>
         <div class="row">
             <div class="col-sm-4">
                 <form style="width: 300px; display: flex;" action="" method="post"><select class="form-select" name="tinhTrang" aria-label="Default select example">
-                        <option selected>--Tình trạng văn bản--</option>
                         <option value="all">Tất cả văn bản</option>
                         <option value="0">Chưa phát hành</option>
                         <option value="1">Đang trình ký</option>
@@ -37,21 +31,28 @@
                 </form>
 
             </div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <form method="get" style="display:flex;">
+                    <input type="text" class="form-control" name="searchVanBan" placeholder="Tìm Kiếm">
+                    <button type="submit" class="btn btn-primary">Tìm</button>
+                </form>
+            </div>
+            <div class="col-sm-4">
+                <a href="http://localhost/joomla/van-ban/edit.php" class="btn btn-primary">Soạn biên bản</a>
+            </div>
         </div>
         <?php
         if (isset($_POST['submitTinhTrang'])) {
             $tinhTrang = $_POST['tinhTrang'];
-            if ($tinhTrang == "all") {
-                header("Location: http://localhost/joomla/bienban/");
+            if ($tinhTrang === "all") {
+                header("Location: http://localhost/joomla/van-ban/");
             }
-            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM bienban WHERE TinhTrang='$tinhTrang'";
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM vanban WHERE TinhTrang='$tinhTrang'";
+        } else if (isset($_GET['searchVanBan'])) {
+            $searchVanBan = $_GET['searchVanBan'];
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM vanban WHERE (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%')";
         } else {
-            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM bienban;";
-        }
-
-        if (isset($_POST['submitTinhTrang'])) {
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM vanban;";
         }
         $resultYear = mysqli_query($con, $sqlYear);
         while ($row = mysqli_fetch_array($resultYear)) { ?>
@@ -60,10 +61,13 @@
             $nam = $row['year'];
             if (isset($_POST['submitTinhTrang'])) {
                 $tinhTrang = $_POST['tinhTrang'];
-                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM bienban WHERE year(Created_at) = $nam and TinhTrang='$tinhTrang';";
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM vanban WHERE year(Created_at) = $nam and TinhTrang='$tinhTrang';";
+            } else if (isset($_GET['searchVanBan'])) {
+                $searchVanBan = $_GET['searchVanBan'];
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM vanban WHERE year(Created_at) = $nam and (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%');";
             } else {
 
-                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM bienban WHERE year(Created_at) = $nam;";
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM vanban WHERE year(Created_at) = $nam;";
             }
             $resultMonth = mysqli_query($con, $sqlMonth);
             while ($row = mysqli_fetch_array($resultMonth)) { ?>
@@ -73,20 +77,24 @@
                     $thang = $row['month'];
                     if (isset($_POST['submitTinhTrang'])) {
                         $tinhTrang = $_POST['tinhTrang'];
-                        $sqlDay = "SELECT * FROM `bienban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and TinhTrang='$tinhTrang';";
+                        $sqlDay = "SELECT * FROM `vanban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and TinhTrang='$tinhTrang';";
+                    } else if (isset($_GET['searchVanBan'])) {
+                        $searchVanBan = $_GET['searchVanBan'];
+                        $sqlDay = "SELECT * FROM `vanban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%');";
                     } else {
 
-                        $sqlDay = "SELECT * FROM `bienban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01');";
+                        $sqlDay = "SELECT * FROM `vanban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01');";
                     }
                     $resultDay = mysqli_query($con, $sqlDay);
                     while ($row = mysqli_fetch_array($resultDay)) { ?>
-                        <div class="row" style="margin-left: 12px;">
+                        <div class="row" style="margin-left: 42px;">
                             <div class="col-sm-2">
-                                <p><span style="font-weight: 600;">Số phát hành:</span> <?= $row['idBienBan'] ?></p>
+                                <p><span style="font-weight: 600;">Số phát hành:</span> <?= $row['idVanBan'] ?></p>
                             </div>
-                            <div class="col-sm-2"><a href="http://localhost/joomla/bienban/details.php?idBienBan=<?= $row['idBienBan'] ?>">Chi tiết</a></div>
-                            <div class="col-sm-4"><span style="font-weight: 600;">Chỉnh sửa</span> <?= $row['Created_at'] ?></div>
-                            <div class="col-sm-4"><span style="font-weight: 600;">Người soạn: </span> <?php
+                            <div class="col-sm-3" style="font-weight:600;"><?= $row['TenVanBan'] ?></div>
+                            <div class="col-sm-1"><a href="http://localhost/joomla/van-ban/details.php?idVanBan=<?= $row['idVanBan'] ?>">Chi tiết</a></div>
+                            <div class="col-sm-3"><span style="font-weight: 600;">Ngày tạo: </span> <?= $row['Created_at'] ?></div>
+                            <div class="col-sm-3"><span style="font-weight: 600;">Người soạn: </span> <?php
 
                                                                                                         $macb = $row['MaCB'];
                                                                                                         $sqlSelectDate = "SELECT * from teacher where MaCB = '$macb'";

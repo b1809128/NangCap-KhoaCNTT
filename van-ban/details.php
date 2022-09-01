@@ -15,14 +15,14 @@
     <div class="container">
         <div class="row">
             <?php
-            if (isset($_GET['idBienBan'])) {
-                $idBienBan = $_GET['idBienBan'];
-                $sqlSelectBienBan = "SELECT * FROM bienban where idBienBan = '$idBienBan'";
-                $result = mysqli_query($con, $sqlSelectBienBan);
+            if (isset($_GET['idVanBan'])) {
+                $idVanBan = $_GET['idVanBan'];
+                $sqlSelectVanBan = "SELECT * FROM vanban where idVanBan = '$idVanBan'";
+                $result = mysqli_query($con, $sqlSelectVanBan);
                 while ($row = mysqli_fetch_array($result)) { ?>
                     <div class="col-sm-4">
                         <div class="row">
-                            Mã số biên bản: <?= $row['idBienBan'] ?>
+                            Mã số biên bản: <?= $row['idVanBan'] ?>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -59,10 +59,10 @@
         </div>
         <div class="row">
             <?php
-            if (isset($_GET['idBienBan'])) {
-                $idBienBan = $_GET['idBienBan'];
-                $sqlSelectBienBan2 = "SELECT * FROM bienban where idBienBan = '$idBienBan'";
-                $result2 = mysqli_query($con, $sqlSelectBienBan2);
+            if (isset($_GET['idVanBan'])) {
+                $idVanBan = $_GET['idVanBan'];
+                $sqlSelectVanBan2 = "SELECT * FROM vanban where idVanBan = '$idVanBan'";
+                $result2 = mysqli_query($con, $sqlSelectVanBan2);
                 while ($row = mysqli_fetch_array($result2)) { ?>
                     <div class="col-sm-12">
                         <?= base64_decode($row['NoiDung']) ?>
