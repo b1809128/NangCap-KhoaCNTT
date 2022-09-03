@@ -47,7 +47,7 @@
                                                     <option value="all">--Tất cả--</option>
                                                     <?php
                                                     require("../config/database.php");
-                                                    $sqlBoMon = "SELECT * from BoMon";
+                                                    $sqlBoMon = "SELECT * from bomon";
                                                     $res = mysqli_query($con, $sqlBoMon);
                                                     while ($row = mysqli_fetch_array($res)) {
                                                     ?>
@@ -115,7 +115,7 @@
                                                     <option value="all">--Tất cả--</option>
                                                     <?php
                                                     require("../config/database.php");
-                                                    $sqlBoMon = "SELECT * from BoMon";
+                                                    $sqlBoMon = "SELECT * from bomon";
                                                     $res = mysqli_query($con, $sqlBoMon);
                                                     while ($row = mysqli_fetch_array($res)) {
                                                     ?>

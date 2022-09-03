@@ -14,89 +14,8 @@
 </head>
 
 <body>
-    <?php
-
-    // use PressBook\Scripts;
-
-    require("../config/database.php");
-    if (isset($_GET['bomon'])) {
-        $bomonSelect = $_GET['bomon'];
-        if ($bomonSelect == 'all') {
-            header('Location: http://localhost/joomla/tra-cuu/');
-        }
-        $sqlTongSoBoMon = "SELECT * FROM manage_post where BoMon = '$bomonSelect'";
-        $resultTongSoBoMon = mysqli_query($con, $sqlTongSoBoMon);
-
-        $tongsobaivietBoMon = mysqli_num_rows($resultTongSoBoMon);
-        $tongsobaibaokhoahocBoMon = 0;
-        $tongsogiaotrinhBoMon = 0;
-        while ($row = mysqli_fetch_array($resultTongSoBoMon)) {
-            if ($row['GiaoTrinh'] != "") {
-                $tongsogiaotrinhBoMon += 1;
-            }
-            if ($row['BaiBaoKhoaHoc'] != "") {
-                $tongsobaibaokhoahocBoMon += 1;
-            }
-        }
-        $sqlDeTaiBoMon = "SELECT * FROM topic INNER JOIN teacher where teacher.MaCB=topic.MaCB AND teacher.BoMon='$bomonSelect'";
-        $resultDeTaiBoMon = mysqli_query($con, $sqlDeTaiBoMon);
-        $tongsodetaiBoMon = mysqli_num_rows($resultDeTaiBoMon);
-        $tongsobaivietBoMon += $tongsodetaiBoMon;
-    }
-    if (isset($_GET['nam'])) {
-        if ($_GET['nam'] === "all") {
-            header('Location: http://localhost/joomla/tra-cuu/');
-        }
-    }
-    if (isset($_GET['cap'])) {
-        if ($_GET['cap'] === "all") {
-            header('Location: http://localhost/joomla/tra-cuu/');
-        }
-    }
-    if (isset($_GET['search'])) {
-        $dataSearch = $_GET['search'];
-        $sqlTongSoSearch = "SELECT * FROM manage_post where MaCB LIKE '%$dataSearch%' OR GiangVienThamGia LIKE '%$dataSearch%' OR TenGiangVien LIKE '%$dataSearch%' OR NamXuatBan LIKE '%$dataSearch%';";
-
-        $resultTongSoSearch = mysqli_query($con, $sqlTongSoSearch);
-
-        $tongsobaivietSearch = mysqli_num_rows($resultTongSoSearch);
-        $tongsobaibaokhoahocSearch = 0;
-        $tongsogiaotrinhSearch = 0;
-        while ($row = mysqli_fetch_array($resultTongSoSearch)) {
-            if ($row['GiaoTrinh'] != "") {
-                $tongsogiaotrinhSearch += 1;
-            }
-            if ($row['BaiBaoKhoaHoc'] != "") {
-                $tongsobaibaokhoahocSearch += 1;
-            }
-        }
-        $sqlDeTaiSearch = "SELECT * FROM `topic` WHERE (MaCB LIKE '%$dataSearch%' OR TenDeTai LIKE '%$dataSearch%' OR GiangVienThamGia LIKE '%$dataSearch%' OR TenChuNhiem LIKE '%$dataSearch%' OR BatDau LIKE '%$dataSearch%' OR KetThuc LIKE '%$dataSearch%');";;
-        $resultDeTaiSearch = mysqli_query($con, $sqlDeTaiSearch);
-        $tongsodetaiSearch = mysqli_num_rows($resultDeTaiSearch);
-        $tongsobaivietSearch += $tongsodetaiSearch;
-    } else {
-
-        $sql2 = "SELECT * FROM manage_post";
-        $result2 = mysqli_query($con, $sql2);
-        $tongsobaiviet = mysqli_num_rows($result2);
-        $tongsobaibaokhoahoc = 0;
-        $tongsogiaotrinh = 0;
-        while ($row = mysqli_fetch_array($result2)) {
-            if ($row['GiaoTrinh'] != "") {
-                $tongsogiaotrinh += 1;
-            }
-            if ($row['BaiBaoKhoaHoc'] != "") {
-                $tongsobaibaokhoahoc += 1;
-            }
-        }
-
-        $sqlDeTai = "SELECT * FROM topic";
-        $resultDeTai = mysqli_query($con, $sqlDeTai);
-        $tongsodetai = mysqli_num_rows($resultDeTai);
-        $tongsobaiviet += $tongsodetai;
-    }
-
-    ?>
+    <?php require '../config/database.php' ?>
+    <?php require './process/countHeader.php' ?>
     <div class="container">
         <?php if (isset($_GET['bomon'])) { ?>
             <div style="<?php if (!isset($_GET['bomon'])) echo 'display:none' ?>">
@@ -128,7 +47,7 @@
             </div> <?php } ?>
 
 
-        <div class="row" style="margin:10px 0;">
+        <div class="row" style="<?php if (isset($_GET['bomon1']) && isset($_GET['nam1']) && isset($_GET['search1'])) echo "display:none;"; ?>margin:10px 0;">
 
             <div class="col-4">
 
@@ -136,7 +55,7 @@
                     <select class="form-select" name="bomon">
                         <option value="all">--Tất cả--</option>
                         <?php
-                        $sqlBoMon = "SELECT * from BoMon";
+                        $sqlBoMon = "SELECT * from bomon";
                         $res = mysqli_query($con, $sqlBoMon);
                         while ($row = mysqli_fetch_array($res)) {
                         ?>
@@ -169,6 +88,42 @@
                 </form>
             </div>
         </div>
+        <div class="row" style="<?php if (!isset($_GET['bomon'])) echo ""; ?>margin:10px 0;">
+
+            <form method="get" style="display:flex;">
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="search1" placeholder="Tìm Kiếm">
+                </div>
+
+                <select style="display:none;" class="form-select" name="bomon1">
+                    <option value="<?php if (isset($_GET['bomon'])) echo $_GET['bomon']; ?>">--Tất cả--</option>
+                    <?php
+                    $sqlBoMon = "SELECT * from bomon";
+                    $res = mysqli_query($con, $sqlBoMon);
+                    while ($row = mysqli_fetch_array($res)) {
+                    ?>
+                        <option <?php if (isset($_GET['bomon']) && $_GET['bomon'] == $row['BoMon']) {
+                                    echo "selected";
+                                } ?> value="<?= $row['BoMon'] ?>"><?= $row['TenBoMon'] ?></option>
+                    <?php } ?>
+                </select>
+
+                <div class="col-sm-2">
+                    <select class="form-select" name="nam1">
+                        <option value="all">--Tất cả--</option>
+                        <?php
+                        for ($i = 2009; $i <= 2022; $i += 1) {
+                        ?>
+                            <option value="<?= $i ?>"><?= $i ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+
+                    <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
+                </div>
+            </form>
+        </div>
         <div class="row" <?php if (isset($_GET['cap'])) {
                                 echo "style='display:none;'";
                             } ?>>
@@ -199,45 +154,14 @@
                     <th>TRANG ĐÓNG GÓP</th>
                 </thead>
                 <tbody>
-
-                    <?php
-                    if (isset($_GET['bomon'])) {
-                        $bomon = $_GET['bomon'];
-                        $sql = "SELECT * FROM manage_post where BoMon = '$bomon' AND GiaoTrinh != ''";
-                        $result = mysqli_query($con, $sql);
-                        while ($row = mysqli_fetch_array($result)) {
-                            require "./table/giaotrinh.php";
-                        }
-                    } else if (isset($_GET['search'])) {
-                        $search = $_GET['search'];
-                        $sqlSearch = "SELECT * FROM `manage_post` WHERE GiaoTrinh != '' AND (MaCB LIKE '%$search%' OR GiaoTrinh LIKE '%$search%' OR GiangVienThamGia LIKE '%$search%' OR TenGiangVien LIKE '%$search%' OR NamXuatBan LIKE '%$search%');";
-                        $resultSearch = mysqli_query($con, $sqlSearch);
-                        while ($row = mysqli_fetch_array($resultSearch)) {
-                            require "./table/giaotrinh.php";
-                        }
-                    } else if (isset($_GET['nam'])) {
-                        $nam = $_GET['nam'];
-                        $sqlNam = "SELECT * FROM `manage_post` WHERE GiaoTrinh != '' AND ( NamXuatBan LIKE '%$nam%');";
-                        $resultNam = mysqli_query($con, $sqlNam);
-                        while ($row = mysqli_fetch_array($resultNam)) {
-                            require "./table/giaotrinh.php";
-                        }
-                    } else {
-                        $sql1 = "SELECT * FROM manage_post where GiaoTrinh != '' LIMIT 5";
-                        $result1 = mysqli_query($con, $sql1);
-                        while ($row = mysqli_fetch_array($result1)) {
-                            require "./table/giaotrinh.php";
-                        }
-                    }
-                    ?>
-
+                    <?php require './process/bodyGiaoTrinh.php' ?>
                 </tbody>
 
             </table>
 
             <!-- PAGINATION -->
             <div>
-                <ul style="<?php if (isset($_GET['bomon']) || isset($_GET['search']) || isset($_GET['nam'])) {
+                <ul style="<?php if (isset($_GET['bomon']) || isset($_GET['search']) || isset($_GET['nam']) || isset($_GET['nam1']) || isset($_GET['bomon1']) || isset($_GET['search1'])) {
                                 echo "display:none;";
                             } ?>" class="pagination">
                     <li class="page-item"><a class="page-link" href="?idx=<?php if (isset($_GET['idx'])) echo $_GET['idx'] - 1; ?>">Previous</a></li>
@@ -284,46 +208,14 @@
                     <th>TRANG ĐÓNG GÓP</th>
                 </thead>
                 <tbody>
-
-                    <?php
-                    if (isset($_GET['bomon'])) {
-                        $bomon = $_GET['bomon'];
-                        $sql = "SELECT * FROM manage_post where BoMon = '$bomon' AND BaiBaoKhoaHoc != '' ";
-                        $result = mysqli_query($con, $sql);
-                        while ($row = mysqli_fetch_array($result)) {
-                            require "./table/baibaokhoahoc.php";
-                        }
-                    } else if (isset($_GET['search'])) {
-                        $search = $_GET['search'];
-                        $sqlSearch = "SELECT * FROM `manage_post` WHERE BaiBaoKhoaHoc != ''  AND (MaCB LIKE '%$search%' OR GiangVienThamGia LIKE '%$search%' OR BaiBaoKhoaHoc LIKE'%$search%' OR TenGiangVien LIKE '%$search%' OR NamXuatBan LIKE '%$search%');";
-                        $resultSearch = mysqli_query($con, $sqlSearch);
-                        while ($row = mysqli_fetch_array($resultSearch)) {
-                            require "./table/baibaokhoahoc.php";
-                        }
-                    } else if (isset($_GET['nam'])) {
-                        $nam = $_GET['nam'];
-                        $sqlNam = "SELECT * FROM `manage_post` WHERE BaiBaoKhoaHoc != ''  AND (NamXuatBan LIKE '%$nam%');";
-                        $resultNam = mysqli_query($con, $sqlNam);
-                        while ($row = mysqli_fetch_array($resultNam)) {
-                            require "./table/baibaokhoahoc.php";
-                        }
-                    } else {
-
-                        $sql1 = "SELECT * FROM manage_post where BaiBaoKhoaHoc != '' LIMIT 5";
-                        $result1 = mysqli_query($con, $sql1);
-                        while ($row = mysqli_fetch_array($result1)) {
-                            require "./table/baibaokhoahoc.php";
-                        }
-                    }
-                    ?>
-
+                    <?php require './process/bodyBaiBao.php' ?>
                 </tbody>
 
             </table>
 
             <!-- PAGINATION -->
             <div>
-                <ul style="<?php if (isset($_GET['bomon']) || isset($_GET['search']) || isset($_GET['nam'])) {
+                <ul style="<?php if (isset($_GET['bomon']) || isset($_GET['search']) || isset($_GET['nam']) || isset($_GET['nam1']) || isset($_GET['bomon1']) || isset($_GET['search1'])) {
                                 echo "display:none;";
                             }  ?>" class="pagination">
                     <li class="page-item"><a class="page-link" href="?idx=<?php if (isset($_GET['idx'])) echo $_GET['idx'] - 1; ?>">Previous</a></li>
@@ -388,52 +280,13 @@
                     <th>CẤP</th>
                 </thead>
                 <tbody>
-
-                    <?php
-                    if (isset($_GET['bomon'])) {
-                        $bomon = $_GET['bomon'];
-                        $sql = "SELECT * FROM topic INNER JOIN teacher ON teacher.MaCB = topic.MaCB AND teacher.BoMon = '$bomon'";
-                        $result = mysqli_query($con, $sql);
-                        while ($row = mysqli_fetch_array($result)) {
-                            require "./table/detai.php";
-                        }
-                    } else if (isset($_GET['search'])) {
-                        $search = $_GET['search'];
-                        $sqlSearch = "SELECT * FROM `topic` WHERE (MaCB LIKE '%$search%' OR TenDeTai LIKE '%$search%' OR GiangVienThamGia LIKE '%$search%' OR TenChuNhiem LIKE '%$search%' OR BatDau LIKE '%$search%' OR KetThuc LIKE '%$search%');";
-                        $resultSearch = mysqli_query($con, $sqlSearch);
-                        while ($row = mysqli_fetch_array($resultSearch)) {
-                            require "./table/detai.php";
-                        }
-                    } else if (isset($_GET['nam'])) {
-                        $nam = $_GET['nam'];
-                        $sqlNam = "SELECT * FROM `topic` WHERE (BatDau LIKE '%$nam%' OR KetThuc LIKE '%$nam%');";
-                        $resultNam = mysqli_query($con, $sqlNam);
-                        while ($row = mysqli_fetch_array($resultNam)) {
-                            require "./table/detai.php";
-                        }
-                    } else if (isset($_GET['cap'])) {
-                        $cap = $_GET['cap'];
-                        $sqlCap = "SELECT * FROM `topic` WHERE Cap='$cap';";
-                        $resultCap = mysqli_query($con, $sqlCap);
-                        while ($row = mysqli_fetch_array($resultCap)) {
-                            require "./table/detai.php";
-                        }
-                    } else {
-
-                        $sql1 = "SELECT * FROM topic LIMIT 5";
-                        $result1 = mysqli_query($con, $sql1);
-                        while ($row = mysqli_fetch_array($result1)) {
-                            require "./table/detai.php";
-                        }
-                    }
-                    ?>
-
+                    <?php require './process/bodyDeTai.php' ?>
                 </tbody>
 
             </table>
             <!-- PAGINATION -->
             <div>
-                <ul style="<?php if (isset($_GET['bomon']) || isset($_GET['search']) || isset($_GET['nam'])) {
+                <ul style="<?php if (isset($_GET['bomon']) || isset($_GET['search']) || isset($_GET['nam']) || isset($_GET['nam1']) || isset($_GET['bomon1']) || isset($_GET['search1'])) {
                                 echo "display:none;";
                             }  ?>" class="pagination">
                     <li class="page-item"><a class="page-link" href="?idx=<?php if (isset($_GET['idx'])) echo $_GET['idx'] - 1; ?>">Previous</a></li>
