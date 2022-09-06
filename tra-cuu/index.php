@@ -25,7 +25,6 @@
                 <p><span style="color: #009ed8;"><b>Số bài báo khoa học: </b></span><?= $tongsobaibaokhoahocBoMon ?></p>
                 <p><span style="color: #009ed8;"><b>Số đề tài nghiên cứu khoa học: </b></span><?= $tongsodetaiBoMon ?></p>
 
-                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
             </div>
         <?php }
         if (isset($_GET['search'])) { ?><div style="<?php if (!isset($_GET['search'])) echo 'display:none' ?>">
@@ -35,7 +34,6 @@
                 <p><span style="color: #009ed8;"><b>Số bài báo khoa học: </b></span><?= $tongsobaibaokhoahocSearch ?></p>
                 <p><span style="color: #009ed8;"><b>Số đề tài nghiên cứu khoa học: </b></span><?= $tongsodetaiSearch ?></p>
 
-                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
             </div> <?php } else { ?> <div style="<?php if (isset($_GET['search']) || isset($_GET['bomon'])) echo 'display:none' ?>">
 
                 <p><span style="color: #009ed8;"><b>Số bài viết: </b></span><?= $tongsobaiviet ?></p>
@@ -43,7 +41,7 @@
                 <p><span style="color: #009ed8;"><b>Số bài báo khoa học: </b></span><?= $tongsobaibaokhoahoc ?></p>
                 <p><span style="color: #009ed8;"><b>Số đề tài nghiên cứu khoa học: </b></span><?= $tongsodetai ?></p>
 
-                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                <canvas id="myChart" style="<?php if ((isset($_GET['bomon1']) && isset($_GET['nam1']) && isset($_GET['search1'])) || (isset($_GET['cap']))) echo "display:none;"; ?>width:100%;max-width:600px"></canvas>
             </div> <?php } ?>
 
 
@@ -68,7 +66,6 @@
                 </form>
             </div>
             <div class="col-6">
-
                 <form method="get" style="display:flex">
                     <input type="text" class="form-control" name="search" placeholder="Tìm Kiếm">
                     <button type="submit" style="width:120px;" class="btn btn-primary">Tìm Kiếm</button>
@@ -77,7 +74,7 @@
             <div class="col-sm-2">
                 <form method="get" style="display:flex">
                     <select class="form-select" name="nam">
-                        <option value="all">--Tất cả--</option>
+                        <option value="all">--Tất cả năm--</option>
                         <?php
                         for ($i = 2009; $i <= 2022; $i += 1) {
                         ?>
@@ -88,25 +85,15 @@
                 </form>
             </div>
         </div>
-        <div class="row" style="<?php if (!isset($_GET['bomon'])) echo ""; ?>margin:10px 0;">
-
+        <!-- SEARCH IN SELECT BO MON -->
+        <div class="row" style="<?php if (!isset($_GET['bomon'])) echo "display:none;"; ?>margin:10px 0;">
+            <p style="margin:0;  color: red;">*Tìm kiếm theo bộ môn:</p>
             <form method="get" style="display:flex;">
                 <div class="col-sm-4">
                     <input type="text" class="form-control" name="search1" placeholder="Tìm Kiếm">
                 </div>
-
-                <select style="display:none;" class="form-select" name="bomon1">
-                    <option value="<?php if (isset($_GET['bomon'])) echo $_GET['bomon']; ?>">--Tất cả--</option>
-                    <?php
-                    $sqlBoMon = "SELECT * from bomon";
-                    $res = mysqli_query($con, $sqlBoMon);
-                    while ($row = mysqli_fetch_array($res)) {
-                    ?>
-                        <option <?php if (isset($_GET['bomon']) && $_GET['bomon'] == $row['BoMon']) {
-                                    echo "selected";
-                                } ?> value="<?= $row['BoMon'] ?>"><?= $row['TenBoMon'] ?></option>
-                    <?php } ?>
-                </select>
+                <div class="col-sm-1"> <input type="text" style="display:none" name="bomon1" value="<?php if (isset($_GET['bomon'])) echo $_GET['bomon']; ?>">
+                </div>
 
                 <div class="col-sm-2">
                     <select class="form-select" name="nam1">

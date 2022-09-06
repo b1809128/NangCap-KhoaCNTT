@@ -110,7 +110,13 @@ class GoogleCalendarApi
     {
         $apiURL = self::CALENDAR_EVENT . $calendar_id . '/events';
 
-        $curlPost = array();
+        $curlPost = array('reminders' => [
+            'useDefault' => FALSE,
+            'overrides' => [
+                ['method' => 'email', 'minutes' => $event_data['reminders']],
+                ['method' => 'popup', 'minutes' => $event_data['reminders']],
+            ],
+        ],);
 
         // 'attendees' => array(
         //     array('email' => 'ngthaoanh2011@gmail.com'),

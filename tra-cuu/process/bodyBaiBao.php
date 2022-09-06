@@ -43,7 +43,7 @@ if (isset($_GET['bomon'])) {
     if ($nam == "all") {
         $sqlNam1 = "SELECT * FROM `manage_post` WHERE BaiBaoKhoaHoc != '' AND BoMon LIKE '%$bomon%' AND ( MaCB LIKE '%$search%' OR TenGiangVien LIKE '%$search%');";
     } else {
-        $sqlNam1 = "SELECT * FROM `manage_post` WHERE BaiBaoKhoaHoc != '' AND NamXuatBan LIKE '%$nam%' AND BoMon LIKE '%$bomon%';";
+        $sqlNam1 = "SELECT * FROM `manage_post` WHERE BaiBaoKhoaHoc != '' AND NamXuatBan LIKE '%$nam%' AND BoMon LIKE '%$bomon%' AND ( MaCB LIKE '%$search%' OR TenGiangVien LIKE '%$search%');";
     }
     $resultNam1 = mysqli_query($con, $sqlNam1);
     $length = mysqli_num_rows($resultNam1);

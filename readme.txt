@@ -1,4 +1,5 @@
 <script lang="javascript" src="./excel/JS-ExportToExcel/dist/xlsx.full.min.js"></script>
+<link rel="icon" href="/images/logo.png">
 
 SELECT * FROM teacher INNER JOIN manage_post ON teacher.MaCB = manage_post.MaCB AND teacher.MaCB = 'dtnghi'
 
