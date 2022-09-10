@@ -20,7 +20,7 @@
         <?php if (isset($_GET['bomon'])) { ?>
             <div style="<?php if (!isset($_GET['bomon'])) echo 'display:none' ?>">
 
-                <p><span style="color: #009ed8;"><b>Số bài viết: </b></span><?= $tongsobaivietBoMon ?></p>
+                <p><span style="color: #009ed8;"><b>Kết quả tìm được: </b></span><?= $tongsobaivietBoMon ?></p>
                 <p><span style="color: #009ed8;"><b>Số giáo trình: </b></span><?= $tongsogiaotrinhBoMon ?></p>
                 <p><span style="color: #009ed8;"><b>Số bài báo khoa học: </b></span><?= $tongsobaibaokhoahocBoMon ?></p>
                 <p><span style="color: #009ed8;"><b>Số đề tài nghiên cứu khoa học: </b></span><?= $tongsodetaiBoMon ?></p>
@@ -29,14 +29,14 @@
         <?php }
         if (isset($_GET['search'])) { ?><div style="<?php if (!isset($_GET['search'])) echo 'display:none' ?>">
 
-                <p><span style="color: #009ed8;"><b>Số bài viết: </b></span><?= $tongsobaivietSearch ?></p>
+                <p><span style="color: #009ed8;"><b>Kết quả tìm được: </b></span><?= $tongsobaivietSearch ?></p>
                 <p><span style="color: #009ed8;"><b>Số giáo trình: </b></span><?= $tongsogiaotrinhSearch ?></p>
                 <p><span style="color: #009ed8;"><b>Số bài báo khoa học: </b></span><?= $tongsobaibaokhoahocSearch ?></p>
                 <p><span style="color: #009ed8;"><b>Số đề tài nghiên cứu khoa học: </b></span><?= $tongsodetaiSearch ?></p>
 
             </div> <?php } else { ?> <div style="<?php if (isset($_GET['search']) || isset($_GET['bomon'])) echo 'display:none' ?>">
 
-                <p><span style="color: #009ed8;"><b>Số bài viết: </b></span><?= $tongsobaiviet ?></p>
+                <p><span style="color: #009ed8;"><b>Kết quả tìm được: </b></span><?= $tongsobaiviet ?></p>
                 <p><span style="color: #009ed8;"><b>Số giáo trình: </b></span><?= $tongsogiaotrinh ?></p>
                 <p><span style="color: #009ed8;"><b>Số bài báo khoa học: </b></span><?= $tongsobaibaokhoahoc ?></p>
                 <p><span style="color: #009ed8;"><b>Số đề tài nghiên cứu khoa học: </b></span><?= $tongsodetai ?></p>

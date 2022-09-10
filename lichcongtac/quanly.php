@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quan Ly Lich</title>
+    <title>QUẢN LÝ LỊCH CÔNG TÁC</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -17,30 +17,43 @@
     ?>
     <div class="container">
         <h4>Quản lý lịch công tác Khoa CNTT</h4>
-        <form action="" method="get">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="row">
-                        <div class="col-sm-6"><select class="form-select" id="" onchange="selectChanges()" aria-label="Default select example" name="selectTheoNam">
-                                <option selected>--Tất cả năm--</option>
-                                <?php
-                                $sql = "SELECT DISTINCT EXTRACT(YEAR FROM NgayBatDau) AS year FROM thoigian;";
-                                $result = mysqli_query($con, $sql);
-                                while ($row = mysqli_fetch_array($result)) { ?>
-                                    <option value="<?= $row['year'] ?>">Năm <?= $row['year'] ?></option>
-                                <?php }
-                                ?>
-                            </select></div>
-                        <div class="col-sm-6"> <button type="submit" class="btn btn-primary">Lọc</button>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <form action="" style="display: flex;" method="get">
 
-                </div>
+                    <select class="form-select" id="" onchange="selectChanges()" aria-label="Default select example" name="selectTheoNam">
+                        <option value="all">--Tất cả năm--</option>
+                        <?php
+                        $sql = "SELECT DISTINCT EXTRACT(YEAR FROM NgayBatDau) AS year FROM thoigian;";
+                        $result = mysqli_query($con, $sql);
+                        while ($row = mysqli_fetch_array($result)) { ?>
+                            <option value="<?= $row['year'] ?>">Năm <?= $row['year'] ?></option>
+                        <?php }
+                        ?>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Lọc</button>
+
+                </form>
             </div>
-        </form>
+            <div class="col-sm-6">
+                <form action="./timkiem.php" style="display: flex;" method="post">
+
+                    <input type="date" class="form-control" name="ngayBatDau" placeholder="Bắt đầu">
+                    <input type="date" class="form-control" name="ngayKetThuc" placeholder="Kết thúc">
+
+                    <button type="submit" class="btn btn-primary">Lọc</button>
+
+                </form>
+            </div>
+
+
+        </div>
         <?php
         if (isset($_GET['selectTheoNam'])) {
             $selectTheoNam = $_GET['selectTheoNam'];
+            if ($selectTheoNam === "all") {
+                header("Location: http://localhost/joomla/lichcongtac/quanly.php");
+            }
             $sqlYear = "SELECT DISTINCT $selectTheoNam AS year FROM thoigian;";
         } else {
 

@@ -18,9 +18,39 @@ if (isset($_GET['bomon'])) {
             $tongsobaibaokhoahocBoMon += 1;
         }
     }
-    $sqlDeTaiBoMon = "SELECT * FROM topic INNER JOIN teacher where teacher.MaCB=topic.MaCB AND teacher.BoMon='$bomonSelect'";
+    // $sqlDeTaiBoMon = "SELECT * FROM topic INNER JOIN teacher where teacher.MaCB=topic.MaCB AND teacher.BoMon='$bomonSelect'";
+    $sqlDeTaiBoMon = "select * from  teacher where teacher.BoMon='$bomonSelect'";
+
     $resultDeTaiBoMon = mysqli_query($con, $sqlDeTaiBoMon);
-    $tongsodetaiBoMon = mysqli_num_rows($resultDeTaiBoMon);
+    $idArray = [];
+    $idArray2 = [];
+    $data = [];
+
+    while ($row = mysqli_fetch_array($resultDeTaiBoMon)) {
+        $tenChuNhiem = $row['HoTen'];
+        $sql2 = "select * from topic WHERE TenChuNhiem Like '%$tenChuNhiem%'";
+        $result2 = mysqli_query($con, $sql2);
+        while ($row = mysqli_fetch_array($result2)) {
+            $idArray[] = $row['STT'];
+            // require "./table/detai.php";
+        }
+        $sql3 = "select * from topic WHERE GiangVienThamGia Like '%$tenChuNhiem%'";
+        $result3 = mysqli_query($con, $sql3);
+        while ($row = mysqli_fetch_array($result3)) {
+            $idArray2[] = $row['STT'];
+            // require "./table/detai.php";
+        }
+    }
+
+    // echo json_encode($data1);
+    // echo "<br>----<br>";
+    for ($i = 0; $i < count($idArray); $i += 1) {
+        $data[] = $idArray[$i];
+    }
+    for ($j = 0; $j < count($idArray2); $j += 1) {
+        $data[] = $idArray2[$j];
+    }
+    $tongsodetaiBoMon = count(array_unique($data));
     $tongsobaivietBoMon += $tongsodetaiBoMon;
 }
 if (isset($_GET['nam'])) {

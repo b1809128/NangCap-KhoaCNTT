@@ -8,3 +8,5 @@ change URL to ip address
 giang-vien, custom_asset, config, dbConfig.php, tra-cuu, teacher-info.php, van-ban
 
 currentTimeStamp not create null không thêm thuộc tính khi insert
+
+SELECT * FROM topic INNER JOIN teacher ON (teacher.MaCB = topic.MaCB AND teacher.BoMon = 'cntt' and teacher.MaCB = 'tmtan') OR (teacher.HoTen LIKE '%Pham The Phi, Tran Nguyen Minh Thu, Vo Huynh Tram%' AND teacher.BoMon = 'cntt')
