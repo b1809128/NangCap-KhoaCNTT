@@ -1,6 +1,7 @@
 <?php
 require("../config/database.php");
-
+ob_start();
+session_start();
 if (isset($_GET['themLichCongTac'])) {
     $mocThoiGian = $_GET['mocThoiGian'];
     $thu = $_GET['thu'];
@@ -20,9 +21,22 @@ if (isset($_GET['themLichCongTac'])) {
     } else {
         $bomon = $_GET['bomon'];
         $tpStringArray = "<br>";
+        $tpStringSession = "";
+        $length = count($bomon);
+        $index = 0;
         foreach ($bomon as $key => $value) {
             $tpStringArray = $tpStringArray . $value . "<br>";
+            $sqlMaCB = "SELECT * FROM teacher where HoTen LIKE '%$value%'";
+            $resultMaCB = mysqli_query($con, $sqlMaCB);
+            while ($row = mysqli_fetch_array($resultMaCB)) {
+                $tpStringSession = $tpStringSession . $row['Email'];
+            }
+            if ($index < $length - 1) {
+                $tpStringSession = $tpStringSession . ", ";
+            }
+            $index += 1;
         }
+        $_SESSION['emailSession'] = $tpStringSession;
     }
 
     //Check Duplicate
@@ -50,4 +64,9 @@ if (isset($_GET['themLichCongTac'])) {
             header("Refresh:1; url=http://localhost/joomla/lichcongtac/insert.php");
         }
     }
+}
+
+if (isset($_GET['destroySession'])) {
+    session_unset();
+    header("Location: http://localhost/joomla/google-calendar/");
 }

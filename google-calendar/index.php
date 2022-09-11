@@ -1,3 +1,7 @@
+<?php
+ob_start();
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +39,9 @@
         <div class="alert alert-<?php echo $status; ?>"><?php echo $statusMsg; ?></div>
     <?php } ?>
     <div class="container">
+        <div class="row">
+            <a href="http://localhost/joomla/lichcongtac/todoInsert.php?destroySession=1">Reset Form</a>
+        </div>
         <div class="col-md-12">
             <form method="post" action="addEvent.php" class="form">
                 <div class="form-group">
@@ -43,7 +50,8 @@
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <textarea name="description" class="form-control"><?php echo !empty($postData['description']) ? $postData['description'] : ''; ?></textarea>
+                    <textarea name="description" class="form-control"><?php echo !empty($postData['description']) ? $postData['description'] : (isset($_SESSION['emailSession']) ? $_SESSION['emailSession'] : "");
+                                                                        ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Location</label>
