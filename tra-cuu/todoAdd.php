@@ -11,7 +11,7 @@ if (isset($_POST['submitGiaoTrinh'])) {
 
     $sqlInsert = "INSERT INTO `manage_post` (`STT`, `MaCB`, `TenGiangVien`, `BoMon`, `GiangVienThamGia`, `GiaoTrinh`, `BaiBaoKhoaHoc`, `NamXuatBan`, `TrangDongGop`) VALUES (NULL, '$macb', '$hoten', '$bomon', '$giangvienthamgia', '$tengiaotrinh', '', '$namxuatban', '$trangdonggop');";
     if (mysqli_query($con, $sqlInsert)) {
-        header("Location: /manage-post");
+        header("Location: http://localhost/joomla/tra-cuu");
     }
 }
 
@@ -26,6 +26,6 @@ if (isset($_POST['submitBaiBao'])) {
 
     $sqlInsert = "INSERT INTO `manage_post` (`STT`, `MaCB`, `TenGiangVien`, `BoMon`, `GiangVienThamGia`, `GiaoTrinh`, `BaiBaoKhoaHoc`, `NamXuatBan`, `TrangDongGop`) VALUES (NULL, '$macb', '$hoten', '$bomon', '$giangvienthamgia', '', '$tenbaibao', '$namxuatban', '$trangdonggop');";
     if (mysqli_query($con, $sqlInsert)) {
-        header("Location: /joomla/manage-post?bomon='$bomon'");
+        header("Location: http://localhost/joomla/tra-cuu");
     }
 }
