@@ -1,21 +1,6 @@
 <?php
 require "../config/database.php";
 if (isset($_POST['submitDanhGia'])) {
-    // echo $_POST['macb'] . "<br>";
-    // echo $_POST['chucVu'] . "<br>";
-    // echo $_POST['bomon'] . "<br>";
-    // echo $_POST['idThoiGianDanhGia'] . "<br>";
-    // echo $_POST['chinhTriTuTuong'] . "<br>";
-    // echo $_POST['daoDucLoiSong'] . "<br>";
-    // echo $_POST['tacPhongLeLoi'] . "<br>";
-    // echo $_POST['yThucToChuc'] . "<br>";
-    // echo $_POST['thaiDoPhucVu'] . "<br>";
-    // echo "<div style='white-space: pre-line;'>" . $_POST['ketQuaThucHien'] . "</div><br>";
-    // echo $_POST['ketQuaHoatDong'] . "<br>";
-    // echo $_POST['nangLucLanhDao'] . "<br>";
-    // echo $_POST['tapHopDoanKet'] . "<br>";
-    // echo $_POST['uuKhuyetDiem'] . "<br>";
-    // echo $_POST['xepLoai'] . "<br>";
     $idThoiGianDanhGia = $_POST['idThoiGianDanhGia'];
     $macb = $_POST['macb'];
     $permission = $_POST['chucVu'];

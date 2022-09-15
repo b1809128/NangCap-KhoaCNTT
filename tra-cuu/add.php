@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Thêm Đề tài, bài báo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
@@ -95,7 +95,7 @@
                     <div class="accordion-body">
                         <div class="card">
                             <div class="card-body">
-                            <form method="POST" action="http://localhost/joomla/manage-post/todoAdd.php">
+                                <form method="POST" action="http://localhost/joomla/manage-post/todoAdd.php">
                                     <div class="mb-3">
                                         <label for="" class="form-label">Mã cán bộ</label>
                                         <input type="text" name="macbBaiBao" class="form-control" placeholder="Exmaple: dtnghi ,tmtan">
@@ -147,6 +147,60 @@
                                     </div>
 
                                     <button type="submit" name="submitBaiBao" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo2" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo2">
+                        THÊM BÀI ĐỀ TÀI NGHIÊN CỨU
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo2" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo2">
+                    <div class="accordion-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="POST" action="http://localhost/joomla/manage-post/todoAdd.php">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Mã cán bộ</label>
+                                        <input type="text" name="macbDeTai" class="form-control" placeholder="Exmaple: dtnghi ,tmtan">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Họ tên chủ nhiệm</label>
+                                        <input type="text" name="hoTenChuNhiem" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Giảng viên tham gia</label>
+                                        <input type="text" name="giangVienThamGiaDeTai" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Tên đề tài nghiên cứu</label>
+                                        <input type="text" name="tenDeTai" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Bắt đầu</label>
+                                        <input type="text" name="batDau" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Kết thúc </label>
+                                        <input type="text" name="ketThuc" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Cấp </label>
+                                        <select class="form-select" name="cap">
+                                            <option value="all">--Tất cả các cấp--</option>
+                                            <option value="Trung Ương">Trung Ương</option>
+                                            <option value="Nhà Nước">Nhà Nước</option>
+                                            <option value="Địa Phương">Địa Phương</option>
+                                            <option value="Tỉnh">Tỉnh</option>
+                                            <option value="Thành phố">Thành Phố</option>
+                                            <option value="Cơ sở">Cơ Sở</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" name="submitDeTai" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>

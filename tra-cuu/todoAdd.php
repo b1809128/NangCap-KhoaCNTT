@@ -29,3 +29,18 @@ if (isset($_POST['submitBaiBao'])) {
         header("Location: http://localhost/joomla/tra-cuu");
     }
 }
+
+if (isset($_POST['submitDeTai'])) {
+    $macb = $_POST['macbDeTai'];
+    $hoten = $_POST['hoTenChuNhiem'];
+    $giangvienthamgia = $_POST['giangVienThamGiaDeTai'];
+    $tenDeTai = $_POST['tenDeTai'];
+    $batDau = $_POST['batDau'];
+    $ketThuc = $_POST['ketThuc'];
+    $cap = $_POST['cap'];
+
+    $sqlInsert = "INSERT INTO `topic` (`STT`, `TenDeTai`, `MaCB`, `TenChuNhiem`, `GiangVienThamGia`, `BatDau`, `KetThuc`, `Cap`) VALUES (NULL, '$tenDeTai', '$macb', '$hoten', '$giangvienthamgia', '$batDau', '$ketThuc', '$cap');";
+    if (mysqli_query($con, $sqlInsert)) {
+        header("Location: http://localhost/joomla/tra-cuu");
+    }
+}

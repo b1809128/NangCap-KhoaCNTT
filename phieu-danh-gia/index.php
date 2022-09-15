@@ -5,175 +5,139 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phiếu đánh giá</title>
+    <title>Quản Lý Phiếu Đánh Giá</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
-    <?php
-    require "../config/database.php";
-    if (isset($_GET['profile'])) $profileName = $_GET['profile'];
+    <?php require("../config/database.php");
+
     ?>
     <div class="container">
-        <!-- Content here -->
-        <div class="accordion" id="accordionPanelsStayOpenExample">
-            <form method="POST" action="./todoEdit.php">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                            NỘI DUNG ĐÁNH GIÁ CÁN BỘ GIẢNG VIÊN, VIÊN CHỨC
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                        <div class="accordion-body">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Họ tên cán bộ, giảng viên</label>
-                                        <select class="form-select" name="macb">
-                                            <?php
-                                            $sqlTeacher = "SELECT * from teacher";
-                                            $res = mysqli_query($con, $sqlTeacher);
-                                            while ($row = mysqli_fetch_array($res)) {
-                                            ?>
-                                                <option value="<?= $row['MaCB'] ?>"><?= $row['HoTen'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Chức vụ</label>
-                                        <select class="form-select" name="chucVu">
-                                            <?php
-                                            $sqlTeacher = "SELECT * from roles where Permission > 2";
-                                            $res = mysqli_query($con, $sqlTeacher);
-                                            while ($row = mysqli_fetch_array($res)) {
-                                            ?>
-                                                <option value="<?= $row['Permission'] ?>"><?= $row['Role'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Bộ môn</label>
-                                        <select class="form-select" name="bomon">
-                                            <?php
-                                            $sqlBoMon = "SELECT * from bomon";
-                                            $res = mysqli_query($con, $sqlBoMon);
-                                            while ($row = mysqli_fetch_array($res)) {
-                                            ?>
-                                                <option <?php if (isset($_GET['bomon']) && $_GET['bomon'] == $row['BoMon']) {
-                                                            echo "selected";
-                                                        } ?> value="<?= $row['BoMon'] ?>"><?= $row['TenBoMon'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Thời gian đánh giá</label>
-                                        <select class="form-select" name="idThoiGianDanhGia">
-                                            <?php
-                                            $sqlTGDG = "SELECT * from thoigiandanhgia";
-                                            $res = mysqli_query($con, $sqlTGDG);
-                                            while ($row = mysqli_fetch_array($res)) {
-                                            ?>
-                                                <option value="<?= $row['idThoiGianDanhGia'] ?>"> Từ ngày <?= $row['BatDau'] ?> đến ngày<?= $row['KetThuc'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Chính trị, tư tưởng</label>
-                                        <textarea type="text" name="chinhTriTuTuong" class="form-control"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Đạo đức, lối sống</label>
-                                        <textarea type="text" name="daoDucLoiSong" class="form-control"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Tác phong, lề lối</label>
-                                        <textarea type="text" name="tacPhongLeLoi" class="form-control"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Ý thức tổ chức </label>
-                                        <textarea type="email" name="yThucToChuc" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Kết quả thực hiện</label>
-                                        <textarea type="text" name="ketQuaThucHien" class="form-control"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Thái độ phục vụ</label>
-                                        <textarea type="text" name="thaiDoPhucVu" class="form-control"></textarea>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                            NỘI DUNG ĐÁNH GIÁ DÀNH CHO LÃNH ĐẠO, CÁN BỘ QUẢN LÝ
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
-                        <div class="accordion-body">
-                            <div class="card">
-                                <div class="card-body">
-
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Kết quả hoạt động của cơ quan, tổ chức, đơn vị được giao quản lý, phụ trách</label>
-                                        <textarea type="text" name="ketQuaHoatDong" class="form-control"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Năng lực lãnh đạo</label>
-                                        <textarea type="text" name="nangLucLanhDao" class="form-control"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Năng lực tập hợp, đoàn kết</label>
-                                        <textarea type="text" name="tapHopDoanKet" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-                            TỰ ĐÁNH GIÁ, XẾP LOẠI CÁ NHÂN
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
-                        <div class="accordion-body">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Tự nhận xét ưu, khuyết điểm</label>
-                                        <textarea type="text" name="uuKhuyetDiem" class="form-control"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Xếp loại chất lượng</label>
-                                        <select class="form-select" name="xepLoai">
-                                            <option value="Hoàn thành xuất sắc nhiệm vụ">Hoàn thành xuất sắc nhiệm vụ</option>
-                                            <option value="Hoàn thành  tốt nhiệm vụ">Hoàn thành tốt nhiệm vụ</option>
-                                            <option value="Hoàn thành nhiệm vụ">Hoàn thành nhiệm vụ</option>
-                                            <option value="Không hoàn thành nhiệm vụ">Không hoàn thành nhiệm vụ</option>
-
-                                        </select>
-                                    </div>
-
-                                    <button type="submit" name="submitDanhGia" class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
+        <div class="row" style="margin-top:10px;">
+            <h4>Quản Lý Phiếu Đánh Giá Cán Bộ Viên Chức Khoa CNTT</h4>
         </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <form style="width: 300px; display: flex;" action="" method="post">
+                    <select class="form-select" name="bomon">
+                        <option value="all">--Tất cả bộ môn--</option>
+                        <?php
+                        $sqlBoMon = "SELECT * from bomon";
+                        $res = mysqli_query($con, $sqlBoMon);
+                        while ($row = mysqli_fetch_array($res)) {
+                        ?>
+                            <option <?php if (isset($_POST['bomon']) && $_POST['bomon'] == $row['BoMon']) {
+                                        echo "selected";
+                                    } ?> value="<?= $row['BoMon'] ?>"><?= $row['TenBoMon'] ?></option>
+                        <?php } ?>
+                    </select>
+                    <button class="btn btn-primary" type="submit" name="submitBoMon">Lọc</button>
+                </form>
+
+            </div>
+            <div class="col-sm-4">
+                <form method="get" style="display:flex;">
+                    <input type="text" class="form-control" name="searchVanBan" placeholder="Tìm Kiếm">
+                    <button type="submit" class="btn btn-primary">Tìm</button>
+                </form>
+            </div>
+            <div class="col-sm-4">
+                <a href="http://localhost/joomla/van-ban/edit.php" class="btn btn-primary">Soạn biên bản</a>
+            </div>
+        </div>
+        <?php
+        if (isset($_POST['submitBoMon'])) {
+            $bomon = $_POST['bomon'];
+            if ($bomon === "all") {
+                header("Location: http://localhost/joomla/phieu-danh-gia/quanly.php");
+            }
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM phieudanhgiavc WHERE BoMon='$bomon'";
+        } else if (isset($_GET['searchVanBan'])) {
+            $searchVanBan = $_GET['searchVanBan'];
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM vanban WHERE (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%')";
+        } else {
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM phieudanhgiavc;";
+        }
+        $resultYear = mysqli_query($con, $sqlYear);
+        while ($row = mysqli_fetch_array($resultYear)) { ?>
+            <p style="font-weight: 700;"> + <?= $row['year'] ?></p>
+            <?php
+            $nam = $row['year'];
+            if (isset($_POST['submitBoMon'])) {
+                $bomon = $_POST['bomon'];
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM phieudanhgiavc WHERE year(Created_at) = $nam and BoMon='$bomon';";
+            } else if (isset($_GET['searchVanBan'])) {
+                $searchVanBan = $_GET['searchVanBan'];
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM vanban WHERE year(Created_at) = $nam and (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%');";
+            } else {
+
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM phieudanhgiavc WHERE year(Created_at) = $nam;";
+            }
+            $resultMonth = mysqli_query($con, $sqlMonth);
+            while ($row = mysqli_fetch_array($resultMonth)) { ?>
+                <p class="collapsible" style="margin-left: 12px; font-weight: 700;"> <button class="btn">+</button> Thang <?= $row['month'] ?></p>
+                <div class="content">
+                    <?php
+                    $thang = $row['month'];
+                    if (isset($_POST['submitBoMon'])) {
+                        $bomon = $_POST['bomon'];
+                        $sqlDay = "SELECT * FROM `phieudanhgiavc` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and BoMon='$bomon';";
+                    } else if (isset($_GET['searchVanBan'])) {
+                        $searchVanBan = $_GET['searchVanBan'];
+                        $sqlDay = "SELECT * FROM `vanban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%');";
+                    } else {
+
+                        $sqlDay = "SELECT * FROM `phieudanhgiavc` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01');";
+                    }
+                    $resultDay = mysqli_query($con, $sqlDay);
+                    while ($row = mysqli_fetch_array($resultDay)) { ?>
+                        <div class="row" style="margin-left: 42px;">
+                            <div class="col-sm-2">
+                                <p><span style="font-weight: 600;">Số phát hành:</span> <?= $row['idDanhGia'] ?></p>
+                            </div>
+                            <div class="col-sm-1"><a href="http://localhost/joomla/van-ban/details.php?idVanBan=<?= $row['idDanhGia'] ?>">Chi tiết</a></div>
+                            <div class="col-sm-3"><span style="font-weight: 600;">Ngày tạo: </span> <?= $row['Created_at'] ?></div>
+                            <div class="col-sm-3"><span style="font-weight: 600;">Người soạn: </span> <?php
+
+                                                                                                        $macb = $row['MaCB'];
+                                                                                                        $sqlSelectDate = "SELECT * from teacher where MaCB = '$macb'";
+                                                                                                        $resultThoiGian = mysqli_query($con, $sqlSelectDate);
+                                                                                                        while ($row = mysqli_fetch_array($resultThoiGian)) {
+                                                                                                        ?>
+                                    <?= $row['HoTen'] ?>
+                                <?php }
+                                ?></div>
 
 
+                        </div>
+                    <?php }
+                    ?>
+                </div>
+
+            <?php }
+            ?>
+        <?php }
+        ?>
     </div>
+    <script type="text/javascript">
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
