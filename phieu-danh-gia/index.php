@@ -45,14 +45,14 @@
                 </form>
             </div>
             <div class="col-sm-4">
-                <a href="http://localhost/joomla/van-ban/edit.php" class="btn btn-primary">Soạn biên bản</a>
+                <a href="http://localhost/joomla/phieu-danh-gia/edit.php" class="btn btn-primary">Soạn biên bản</a>
             </div>
         </div>
         <?php
         if (isset($_POST['submitBoMon'])) {
             $bomon = $_POST['bomon'];
             if ($bomon === "all") {
-                header("Location: http://localhost/joomla/phieu-danh-gia/quanly.php");
+                header("Location: http://localhost/joomla/phieu-danh-gia/");
             }
             $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM phieudanhgiavc WHERE BoMon='$bomon'";
         } else if (isset($_GET['searchVanBan'])) {
@@ -98,7 +98,7 @@
                             <div class="col-sm-2">
                                 <p><span style="font-weight: 600;">Số phát hành:</span> <?= $row['idDanhGia'] ?></p>
                             </div>
-                            <div class="col-sm-1"><a href="http://localhost/joomla/van-ban/details.php?idVanBan=<?= $row['idDanhGia'] ?>">Chi tiết</a></div>
+                            <div class="col-sm-1"><a href="http://localhost/joomla/phieu-danh-gia/details.php?idVanBan=<?= $row['idDanhGia'] ?>">Chi tiết</a></div>
                             <div class="col-sm-3"><span style="font-weight: 600;">Ngày tạo: </span> <?= $row['Created_at'] ?></div>
                             <div class="col-sm-3"><span style="font-weight: 600;">Người soạn: </span> <?php
 
