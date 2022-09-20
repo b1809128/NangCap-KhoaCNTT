@@ -12,7 +12,8 @@
 
 <body>
     <?php
-    if (isset($_GET['profile'])) $profileName = $_GET['profile'];
+    require "../config/database.php";
+    if (isset($_GET['macb'])) $macb = $_GET['macb'];
     ?>
     <div class="container">
         <!-- Content here -->
@@ -20,7 +21,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        NỘI DUNG ĐÁNH GIÁ CÁN BỘ GIẢNG VIÊN, VIÊN CHỨC
+                        NỘI DUNG ĐÁNH GIÁ DÀNH CHO TRƯỞNG, PHÓ TRƯỞNG BỘ MÔN
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -38,19 +39,19 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Kết quả hoạt động của cơ quan, tổ chức, đơn vị được giao quản lý, phụ trách</label>
-                                        <textarea type="text" name="namsinhPerson" placeholder="yyyy-mm-dd, ex: 2000-02-09" class="form-control"></textarea>
+                                        <textarea type="text" name="namsinhPerson"  class="form-control"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Năng lực lãnh đạo</label>
-                                        <textarea type="text" name="namsinhPerson" placeholder="yyyy-mm-dd, ex: 2000-02-09" class="form-control"></textarea>
+                                        <textarea type="text" name="namsinhPerson"  class="form-control"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Năng lực tập hợp, đoàn kết</label>
-                                        <textarea type="text" name="namsinhPerson" placeholder="yyyy-mm-dd, ex: 2000-02-09" class="form-control"></textarea>
+                                        <textarea type="text" name="namsinhPerson"  class="form-control"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Xếp loại chất lượng</label>
-                                        <input type="text" name="namsinhPerson" placeholder="yyyy-mm-dd, ex: 2000-02-09" class="form-control">
+                                        <input type="text" name="namsinhPerson"  class="form-control">
                                     </div>
 
                                     <button type="submit" name="submitPerson" class="btn btn-primary">Submit</button>
@@ -63,7 +64,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                        NỘI DUNG ĐÁNH GIÁ CÁN BỘ GIẢNG VIÊN, VIÊN CHỨC
+                        NỘI DUNG ĐÁNH GIÁ DÀNH CHO TRƯỞNG, PHÓ TRƯỞNG KHOA
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
@@ -81,19 +82,19 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Kết quả hoạt động của cơ quan, tổ chức, đơn vị được giao quản lý, phụ trách</label>
-                                        <textarea type="text" name="namsinhPerson" placeholder="yyyy-mm-dd, ex: 2000-02-09" class="form-control"></textarea>
+                                        <textarea type="text" name="namsinhPerson"  class="form-control"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Năng lực lãnh đạo</label>
-                                        <textarea type="text" name="namsinhPerson" placeholder="yyyy-mm-dd, ex: 2000-02-09" class="form-control"></textarea>
+                                        <textarea type="text" name="namsinhPerson"  class="form-control"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Năng lực tập hợp, đoàn kết</label>
-                                        <textarea type="text" name="namsinhPerson" placeholder="yyyy-mm-dd, ex: 2000-02-09" class="form-control"></textarea>
+                                        <textarea type="text" name="namsinhPerson"  class="form-control"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Xếp loại chất lượng</label>
-                                        <input type="text" name="namsinhPerson" placeholder="yyyy-mm-dd, ex: 2000-02-09" class="form-control">
+                                        <input type="text" name="namsinhPerson"  class="form-control">
                                     </div>
 
                                     <button type="submit" name="submitPerson" class="btn btn-primary">Submit</button>

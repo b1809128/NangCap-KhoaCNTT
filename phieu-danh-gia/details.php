@@ -13,16 +13,23 @@
 
 <body>
     <?php require("../config/database.php");
-
+    if (isset($_GET['idVanBan'])) $idVanBan = $_GET['idVanBan'];
     ?>
     <div class="container">
+        <a href="http://localhost/joomla/phieu-danh-gia/edit.php?macb=<?php
+                                                                        $sqlSearchGV = "select * from phieudanhgiavc where idDanhGia='$idVanBan'";
+                                                                        $resultSearchGV = mysqli_query($con, $sqlSearchGV);
+                                                                        while ($row1 = mysqli_fetch_array($resultSearchGV)) {
+                                                                            echo $row1['MaCB'];
+                                                                        }
+                                                                        ?> ">Cập nhật đánh giá - Dành cho Trưởng, phó trưởng Bộ môn / Khoa</a>
         <button class="btn btn-success" onclick="Export2Word('exportContent');">Export as .doc</button>
         <div class="row" id="exportContent">
             <h4 style="font-weight:700; text-align:center;">PHIẾU ĐÁNH GIÁ, XẾP LOẠI CHẤT LƯỢNG VIÊN CHỨC</h4>
             <p style="font-weight:700; text-align:center;">Năm học 2021-2022</p>
             <?php
             if (isset($_GET['idVanBan'])) {
-                $idVanBan = $_GET['idVanBan'];
+                // $idVanBan = $_GET['idVanBan'];
                 $sqlSelectVanBan2 = "SELECT * FROM phieudanhgiavc where idDanhGia = '$idVanBan'";
                 $result2 = mysqli_query($con, $sqlSelectVanBan2);
 
@@ -102,40 +109,21 @@
 
                     <p style="font-weight:700;">III. Ý KIẾN NHẬN XÉT, ĐÁNH GIÁ ĐỐI VỚI CẤP PHÓ CỦA NGƯỜI ĐỨNG ĐẦU</p>
 
-                    <p>Ghi nhận xét:</p>
-                    <p>Mức xếp loại:</p>
-                    (Hoàn thành xuất sắc nhiệm vụ; hoàn thành tốt nhiệm vụ; hoàn thành nhiệm vụ; không hoàn thành nhiệm vụ).
+                    <p><span style="font-weight:700;">1. Nhận xét ưu, khuyết điểm: </span> <?= $row['NhanXetDanhGiaCapBoMon'] ?></p>
+                    <p><span style="font-weight:700;">2. Mức xếp loại: </span> <?= $row['XepLoaiCapBoMon'] ?></p>
 
-                    <p></p>
-                    ....., ngày....tháng....năm 2022
-
-                    NGƯỜI NHẬN XÉT, ĐÁNH GIÁ
-                    (Ký, ghi rõ họ tên)
-
-
-
-
-
-
-
-
+                    <p style="text-align:right;"> Cần Thơ, ngày .. tháng .. năm 20.. </p>
+                    <p style="text-align:right;"> NGƯỜI NHẬN XÉT, ĐÁNH GIÁ</p>
+                    <p style="margin-bottom: 100px;text-align:right;"> (Ký, ghi rõ họ tên)</p>
 
                     <p style="font-weight:700;">IV. KẾT QUẢ ĐÁNH GIÁ, XẾP LOẠI CHẤT LƯỢNG VIÊN CHỨC</p>
-
                     <p style="font-weight:700;">1. Nhận xét ưu, khuyết điểm:</p>
-
-
+                    <p><?= $row['NhanXetDanhGiaCapKhoa'] ?></p>
                     <p style="font-weight:700;">2. Kết quả đánh giá, xếp loại chất lượng:</p>
-
-                    (Hoàn thành xuất sắc nhiệm vụ; hoàn thành tốt nhiệm vụ; hoàn thành nhiệm vụ; không hoàn thành nhiệm vụ).
-
-
-
-
-
-                    Cần Thơ, ngày....tháng....năm....
-                    HIỆU TRƯỞNG/TRƯỞNG ĐƠN VỊ
-                    (Ký, ghi rõ họ tên)
+                    <p><?= $row['XepLoaiCapKhoa'] ?></p>
+                    <p style="text-align:right;"> Cần Thơ, ngày .. tháng .. năm 20.. </p>
+                    <p style="text-align:right;">HIỆU TRƯỞNG/TRƯỞNG ĐƠN VỊ</p>
+                    <p style="margin-bottom: 100px;text-align:right;"> (Ký, ghi rõ họ tên)</p>
             <?php }
             }
             ?>

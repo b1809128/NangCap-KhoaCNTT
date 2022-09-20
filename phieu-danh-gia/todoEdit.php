@@ -17,7 +17,7 @@ if (isset($_POST['submitDanhGia'])) {
     $uuKhuyetDiem = $_POST['uuKhuyetDiem'];
     $xepLoai = $_POST['xepLoai'];
 
-    $sqlInsert = "INSERT INTO `phieudanhgiavc` (`idDanhGia`, `idThoiGianDanhGia`, `MaCB`, `Permission`, `BoMon`, `ChinhTriTuTuong`, `DaoDucLoiSong`, `TacPhongLeLoi`, `YThucToChuc`, `KetQuaThucHien`, `ThaiDoPhucVu`, `KetQuaHoatDong`, `NangLucLanhDao`, `TapHopDoanKet`, `UuKhuyetDiem`, `XepLoai`,`Created_at`)  VALUES (Null,'$idThoiGianDanhGia','$macb','$permission','$bomon','$chinhTriTuTuong','$daoDucLoiSong','$tacPhongLeLoi','$yThucToChuc','$ketQuaThucHien','$thaiDoPhucVu','$ketQuaHoatDong','$nangLucLanhDao','$tapHopDoanKet','$uuKhuyetDiem','$xepLoai',Null) ;";
+    $sqlInsert = "INSERT INTO `phieudanhgiavc` (`idDanhGia`, `idThoiGianDanhGia`, `MaCB`, `Permission`, `BoMon`, `ChinhTriTuTuong`, `DaoDucLoiSong`, `TacPhongLeLoi`, `YThucToChuc`, `KetQuaThucHien`, `ThaiDoPhucVu`, `KetQuaHoatDong`, `NangLucLanhDao`, `TapHopDoanKet`, `UuKhuyetDiem`, `XepLoai`,`NhanXetDanhGiaCapBoMon`,`XepLoaiCapBoMon`,`NhanXetDanhGiaCapKhoa`,`XepLoaiCapKhoa`,`Created_at`)  VALUES (Null,'$idThoiGianDanhGia','$macb','$permission','$bomon','$chinhTriTuTuong','$daoDucLoiSong','$tacPhongLeLoi','$yThucToChuc','$ketQuaThucHien','$thaiDoPhucVu','$ketQuaHoatDong','$nangLucLanhDao','$tapHopDoanKet','$uuKhuyetDiem','$xepLoai','','','','',Null) ;";
     if (mysqli_query($con, $sqlInsert)) {
         header("Location: http://localhost/joomla/phieu-danh-gia");
     }
