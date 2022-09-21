@@ -117,7 +117,7 @@
 
             <div style="display:flex; justify-content:space-between;">
                 <h4 style="color: #009ed8;">QUẢN LÝ CÁC GIÁO TRÌNH</h4>
-                <button style="width:120px;" onclick="exportToExcel('test1','test1','tableGiaoTrinhPHP')" class="btn btn-success">Export</button>
+                <button style="width:120px;" onclick="exportToExcel('TongHopGiaoTrinh','TongHopGiaoTrinh','tableGiaoTrinhPHP')" class="btn btn-success">Export</button>
 
             </div>
             <!-- TABLE JAVASCRIPT -->
@@ -171,7 +171,7 @@
             <!-- TABLE BAI BAO -->
             <div style="display:flex; justify-content:space-between;">
                 <h4 style="color: #009ed8;">QUẢN LÝ CÁC BÀI BÁO, NGHIÊN CỨU KHOA HỌC</h4>
-                <button style="width:120px;" onclick="exportToExcel('test2','test2','tableBaiBaoPHP')" class="btn btn-success">Export</button>
+                <button style="width:120px;" onclick="exportToExcel('TongHopBaiBaoKhoaHoc','TongHopBaiBaoKhoaHoc','tableBaiBaoPHP')" class="btn btn-success">Export</button>
 
             </div>
             <!-- TABLE JAVASCRIPT -->
@@ -228,7 +228,7 @@
             <div style="display:flex; justify-content:space-between;">
 
                 <h4 style="color: #009ed8;">QUẢN LÝ CÁC ĐỀ TÀI NGHIÊN KHOA HỌC CÁC CẤP</h4>
-                <button style="width:120px;" onclick="exportToExcel('test3','test3','tableDeTaiPHP')" class="btn btn-success">Export</button>
+                <button style="width:120px;" onclick="exportToExcel('TongHopDeTaiNghienCuu','TongHopDeTaiNghienCuu','tableDeTaiPHP')" class="btn btn-success">Export</button>
             </div>
             <div class="row">
                 <div class="col-sm-4">

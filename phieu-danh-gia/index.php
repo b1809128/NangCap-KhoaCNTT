@@ -8,7 +8,8 @@
     <title>Quản Lý Phiếu Đánh Giá</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <script lang="javascript" src="../excel/dist/xlsx.full.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -121,6 +122,49 @@
             ?>
         <?php }
         ?>
+        <div class="row">
+            <button style="width:120px;" onclick="exportToExcel('DanhSachDanhGiaTongHop2021_2022','DanhSachDanhGiaTongHop2021_2022','tableDanhSachDanhGia')" class="btn btn-success">Export</button>
+            <h4>DANH SÁCH TỔNG HỢP ĐÁNH GIÁ, PHÂN LOẠI VIÊN CHỨC NĂM HỌC 2021- 2022</h4>
+            <table id="tableDanhSachDanhGia" class="table table-striped table-hover">
+                <thead>
+                    <th>STT</th>
+                    <th style="width:250px;">Họ và tên</th>
+                    <th>MSCB</th>
+                    <th style="width:260px;">Chức danh/ Chức vụ</th>
+                    <th style="width:450px;">Ý kiến thủ trưởng ĐV<br>(Kết quả đánh giá, phân loại)</th>
+                    <th>Ghi chú</th>
+                </thead>
+                <?php
+                if (isset($_POST['submitBoMon'])) {
+                    $bomon = $_POST['bomon'];
+                    $sql1 = "SELECT * FROM phieudanhgiavc where BoMon = '$bomon'";
+                } else {
+                    $sql1 = "SELECT * FROM phieudanhgiavc";
+                }
+                $result1 = mysqli_query($con, $sql1);
+                while ($row = mysqli_fetch_array($result1)) { ?>
+                    <tr>
+                        <td><?php echo $row['idDanhGia'] ?></td>
+                        <td><?php $macbTable = $row['MaCB'];
+                            $sqlTenByMaCB = "select * from teacher where MaCB = '$macbTable'";
+                            $resultTenByMaCB = mysqli_query($con, $sqlTenByMaCB);
+                            while ($rowT = mysqli_fetch_array($resultTenByMaCB)) {
+                                echo $rowT['HoTen'];
+                            }
+                            ?></td>
+                        <td><?php echo $row['MaCB'] ?></td>
+                        <td><?php $permissionTable = $row['Permission'];
+                            $sqlRoleByMaCB = "select * from roles where Permission = '$permissionTable'";
+                            $resultRoleByMaCB = mysqli_query($con, $sqlRoleByMaCB);
+                            while ($rowP = mysqli_fetch_array($resultRoleByMaCB)) {
+                                echo $rowP['Role'];
+                            }
+                            ?></td>
+                        <td><?php echo $row['XepLoaiCapKhoa'] ?></td>
+                        <td></td>
+                    </tr> <?php } ?>
+            </table>
+        </div>
     </div>
     <script type="text/javascript">
         var coll = document.getElementsByClassName("collapsible");
@@ -136,6 +180,20 @@
                     content.style.display = "block";
                 }
             });
+        }
+
+        function exportToExcel(fileName, sheetName, table) {
+            let wb;
+            if (table && table !== '') {
+                wb = XLSX.utils.table_to_book($('#' + table)[0]);
+            } else {
+                // const ws = XLSX.utils.json_to_sheet(dataGiaoTrinhProcess);
+                // // console.log('ws', ws);
+                // wb = XLSX.utils.book_new();
+                // XLSX.utils.book_append_sheet(wb, ws, sheetName);
+            }
+            // console.log('wb', wb);
+            XLSX.writeFile(wb, `${fileName}.xlsx`);
         }
     </script>
 </body>

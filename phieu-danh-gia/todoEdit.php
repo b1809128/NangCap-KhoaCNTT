@@ -22,3 +22,24 @@ if (isset($_POST['submitDanhGia'])) {
         header("Location: http://localhost/joomla/phieu-danh-gia");
     }
 }
+
+
+if (isset($_POST['submitDanhGiaCapBoMon'])) {
+    $idDanhGia = $_POST['idDanhGia'];
+    $nhanXetDanhGiaCapBoMon = $_POST['nhanXetDanhGiaCapBoMon'];
+    $xepLoaiCapBoMon = $_POST['xepLoaiCapBoMon'];
+    $sqlUpdate = "UPDATE `phieudanhgiavc` SET `NhanXetDanhGiaCapBoMon` = ' $nhanXetDanhGiaCapBoMon', `XepLoaiCapBoMon` = '$xepLoaiCapBoMon' WHERE `phieudanhgiavc`.`idDanhGia` = '$idDanhGia';";
+    if (mysqli_query($con, $sqlUpdate)) {
+        header("Location: http://localhost/joomla/phieu-danh-gia");
+    }
+}
+
+if (isset($_POST['submitDanhGiaCapKhoa'])) {
+    $idDanhGia = $_POST['idDanhGia'];
+    $nhanXetDanhGiaCapKhoa = $_POST['nhanXetDanhGiaCapKhoa'];
+    $xepLoaiCapKhoa = $_POST['xepLoaiCapKhoa'];
+    $sqlUpdate = "UPDATE `phieudanhgiavc` SET `NhanXetDanhGiaCapKhoa` = ' $nhanXetDanhGiaCapKhoa', `XepLoaiCapKhoa` = '$xepLoaiCapKhoa' WHERE `phieudanhgiavc`.`idDanhGia` = '$idDanhGia';";
+    if (mysqli_query($con, $sqlUpdate)) {
+        header("Location: http://localhost/joomla/phieu-danh-gia");
+    }
+}

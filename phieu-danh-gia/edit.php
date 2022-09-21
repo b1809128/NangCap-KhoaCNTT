@@ -13,7 +13,10 @@
 <body>
     <?php
     require "../config/database.php";
-    if (isset($_GET['macb'])) $macbParams = $_GET['macb'];
+    if (isset($_GET['macb']) && isset($_GET['idDanhGia'])) {
+        $macbParams = $_GET['macb'];
+        $idDanhGia = $_GET['idDanhGia'];
+    };
     ?>
     <div class="container">
         <!-- Content here -->
@@ -347,22 +350,28 @@
                     <div class="accordion-body">
                         <div class="card">
                             <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Nhận xét, đánh giá</label>
-                                    <textarea type="text" name="nhanXetDanhGiaCapBoMon" class="form-control"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Mức xếp loại</label>
-                                    <select class="form-select" name="xepLoaiCapBoMon">
-                                        <option value="Hoàn thành xuất sắc nhiệm vụ">Hoàn thành xuất sắc nhiệm vụ</option>
-                                        <option value="Hoàn thành  tốt nhiệm vụ">Hoàn thành tốt nhiệm vụ</option>
-                                        <option value="Hoàn thành nhiệm vụ">Hoàn thành nhiệm vụ</option>
-                                        <option value="Không hoàn thành nhiệm vụ">Không hoàn thành nhiệm vụ</option>
+                                <form action="./todoEdit.php" method="post">
+                                    <div class="mb-3">
+                                        <input type="text" style="display:none;" name="idDanhGia" value="<?php echo $idDanhGia ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Nhận xét, đánh giá</label>
+                                        <textarea type="text" name="nhanXetDanhGiaCapBoMon" class="form-control"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Mức xếp loại</label>
+                                        <select class="form-select" name="xepLoaiCapBoMon">
+                                            <option value="Hoàn thành xuất sắc nhiệm vụ">Hoàn thành xuất sắc nhiệm vụ</option>
+                                            <option value="Hoàn thành  tốt nhiệm vụ">Hoàn thành tốt nhiệm vụ</option>
+                                            <option value="Hoàn thành nhiệm vụ">Hoàn thành nhiệm vụ</option>
+                                            <option value="Không hoàn thành nhiệm vụ">Không hoàn thành nhiệm vụ</option>
 
-                                    </select>
-                                </div>
+                                        </select>
+                                    </div>
 
-                                <button type="submit" name="submitDanhGia" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="submitDanhGiaCapBoMon" class="btn btn-primary">Submit</button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -378,22 +387,27 @@
                     <div class="accordion-body">
                         <div class="card">
                             <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Nhận xét, đánh giá</label>
-                                    <textarea type="text" name="uuKhuyetDiem" class="form-control"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Mức xếp loại</label>
-                                    <select class="form-select" name="xepLoai">
-                                        <option value="Hoàn thành xuất sắc nhiệm vụ">Hoàn thành xuất sắc nhiệm vụ</option>
-                                        <option value="Hoàn thành  tốt nhiệm vụ">Hoàn thành tốt nhiệm vụ</option>
-                                        <option value="Hoàn thành nhiệm vụ">Hoàn thành nhiệm vụ</option>
-                                        <option value="Không hoàn thành nhiệm vụ">Không hoàn thành nhiệm vụ</option>
+                                <form action="./todoEdit.php" method="post">
+                                    <div class="mb-3">
+                                        <input type="text" style="display:none;" name="idDanhGia" value="<?php echo $idDanhGia ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Nhận xét, đánh giá</label>
+                                        <textarea type="text" name="nhanXetDanhGiaCapKhoa" class="form-control"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Mức xếp loại</label>
+                                        <select class="form-select" name="xepLoaiCapKhoa">
+                                            <option value="Hoàn thành xuất sắc nhiệm vụ">Hoàn thành xuất sắc nhiệm vụ</option>
+                                            <option value="Hoàn thành  tốt nhiệm vụ">Hoàn thành tốt nhiệm vụ</option>
+                                            <option value="Hoàn thành nhiệm vụ">Hoàn thành nhiệm vụ</option>
+                                            <option value="Không hoàn thành nhiệm vụ">Không hoàn thành nhiệm vụ</option>
 
-                                    </select>
-                                </div>
+                                        </select>
+                                    </div>
 
-                                <button type="submit" name="submitDanhGia" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="submitDanhGiaCapKhoa" class="btn btn-primary">Submit</button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -20,7 +20,7 @@
                                                                         $sqlSearchGV = "select * from phieudanhgiavc where idDanhGia='$idVanBan'";
                                                                         $resultSearchGV = mysqli_query($con, $sqlSearchGV);
                                                                         while ($row1 = mysqli_fetch_array($resultSearchGV)) {
-                                                                            echo $row1['MaCB'];
+                                                                            echo $row1['MaCB'] . "&idDanhGia=" . $row1['idDanhGia'];
                                                                         }
                                                                         ?> ">Cập nhật đánh giá - Dành cho Trưởng, phó trưởng Bộ môn / Khoa</a>
         <button class="btn btn-success" onclick="Export2Word('exportContent');">Export as .doc</button>
