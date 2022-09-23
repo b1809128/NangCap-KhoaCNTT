@@ -17,7 +17,9 @@
     <?php require '../config/database.php' ?>
     <?php require './process/countHeader.php' ?>
     <div class="container">
-        <?php if (isset($_GET['bomon'])) { ?>
+        <?php
+        require '../navbar/navbar.php';
+        if (isset($_GET['bomon'])) { ?>
             <div style="<?php if (!isset($_GET['bomon'])) echo 'display:none' ?>">
 
                 <p><span style="color: #009ed8;"><b>Kết quả tìm được: </b></span><?= $tongsobaivietBoMon ?></p>

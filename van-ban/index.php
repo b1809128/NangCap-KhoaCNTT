@@ -16,6 +16,7 @@
 
     ?>
     <div class="container">
+        <?php require '../navbar/navbar.php'; ?>
         <div class="row" style="margin-top:10px;">
             <h4>Quản lý văn bản Khoa CNTT</h4>
         </div>
