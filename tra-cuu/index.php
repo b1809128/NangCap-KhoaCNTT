@@ -240,8 +240,7 @@
                             <option value="Trung Ương">Trung Ương</option>
                             <option value="Nhà Nước">Nhà Nước</option>
                             <option value="Địa Phương">Địa Phương</option>
-                            <option value="Tỉnh">Tỉnh</option>
-                            <option value="Thành phố">Thành Phố</option>
+                            <option value="Tỉnh">Tỉnh, Thành Phố</option>
                             <option value="Cơ sở">Cơ Sở</option>
                         </select>
                         <button type="submit" class="btn btn-primary">Lọc</button>

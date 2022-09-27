@@ -10,3 +10,7 @@ giang-vien, custom_asset, config, dbConfig.php, tra-cuu, teacher-info.php, van-b
 currentTimeStamp not create null không thêm thuộc tính `create_at` khi insert
 
 SELECT * FROM topic INNER JOIN teacher ON (teacher.MaCB = topic.MaCB AND teacher.BoMon = 'cntt' and teacher.MaCB = 'tmtan') OR (teacher.HoTen LIKE '%Pham The Phi, Tran Nguyen Minh Thu, Vo Huynh Tram%' AND teacher.BoMon = 'cntt')
+
+echo "<script>alert('Thêm thông tin thành công');</script>";
+echo "<script>alert('Cập nhật thông tin thành công');</script>";
+header("Refresh:1; url= http://localhost/joomla/cap-nhat/");
