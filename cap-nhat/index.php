@@ -70,6 +70,61 @@
                 </div>
             </div>
             <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne1">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne1" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne1">
+                        CẬP NHẬT LỊCH CÔNG TÁC
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne1" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne1">
+                    <div class="accordion-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="POST" action="http://localhost/joomla/cap-nhat/todoUpdate.php">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Chọn mã số lịch cập nhật</label>
+                                        <select class="form-select" style="width:300px; margin-right: 10px;" name="maSoLich" aria-label="Default select example">
+                                            <option>--Mã lịch cập nhật--</option>
+                                            <?php
+                                            $sqlSelectMSGT = "SELECT * from lichcongtac ";
+                                            $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
+                                            while ($row = mysqli_fetch_array($resultMSGT)) { ?>
+                                                <option value="<?= $row['idLichCongTac'] ?>">Lịch công tác - <?= $row['idLichCongTac'] ?> </option>
+                                            <?php }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Chọn mục cập nhật</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <select class="form-select" name="mucCapNhat">
+                                                    <option>--Mục cập nhật--</option>
+                                                    <option value="Thu">Thứ</option>
+                                                    <option value="Buoi">Buổi</option>
+                                                    <option value="Gio">Giờ</option>
+                                                    <option value="HinhThucHop">Hình thức họp</option>
+                                                    <option value="TaiLieuHop">Tài liệu họp</option>
+                                                    <option value="DonViToChuc">Đơn vị tổ chức</option>
+                                                    <option value="DiaDiem">Địa điểm</option>
+                                                    <option value="NoiDung">Nội dung</option>
+                                                    <option value="ThanhPhan">Thành phần</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Nội dung cập nhật</label>
+                                        <input type="text" class="form-control" name="noiDungCapNhat">
+                                    </div>
+                                    <button type="submit" name="capNhatLichCongTac" class="btn btn-primary">Cập nhật</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo1">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo1" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo1">
                         CẬP NHẬT LỊCH TRÌNH
@@ -286,6 +341,71 @@
                                         <input type="text" name="noiDungCapNhat" class="form-control">
                                     </div>
                                     <button type="submit" name="submitCapNhatDeTai" class="btn btn-primary">Cập nhật</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo4" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo4">
+                        XÓA LỊCH CÔNG TÁC, MỐC THỜI GIAN
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo4" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo4">
+                    <div class="accordion-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="POST" action="http://localhost/joomla/cap-nhat/todoUpdate.php">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Chọn mục để xóa thông tin</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <select class="form-select" name="mucXoa">
+                                                    <option>--Mục cần xóa--</option>
+                                                    <option value="lichcongtac">Lịch công tác khoa</option>
+                                                    <option value="thoigian">Mốc thời gian (lịch công tác khoa)</option>
+                                                    <option value="thoigiandanhgia">Mốc thời gian (phiếu đánh giá)</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Chọn mã số để xóa</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <select class="form-select" name="maSoXoa" aria-label="Default select example">
+                                                    <option>========MÃ SỐ LỊCH CÔNG TÁC========</option>
+                                                    <?php
+                                                    $sqlSelectMSGT = "SELECT * from lichcongtac;";
+                                                    $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
+                                                    while ($row = mysqli_fetch_array($resultMSGT)) { ?>
+                                                        <option value="<?= $row['idLichCongTac'] ?>">Mã số lịch công tác - <?= $row['idLichCongTac'] ?> </option>
+                                                    <?php }
+                                                    ?>
+                                                    <option>========MÃ SỐ MỐC THỜI GIAN ĐÁNH GIÁ========</option>
+                                                    <?php
+                                                    $sqlSelectMSGT = "SELECT * from thoigiandanhgia";
+                                                    $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
+                                                    while ($row = mysqli_fetch_array($resultMSGT)) { ?>
+                                                        <option value="<?= $row['idThoiGianDanhGia'] ?>"><?= $row['idThoiGianDanhGia'] ?> - Từ ngày <?= $row['BatDau'] ?> đến ngày <?= $row['KetThuc'] ?> </option>
+                                                    <?php }
+                                                    ?>
+                                                    <option>========MÃ SỐ MỐC THỜI GIAN LỊCH CÔNG TÁC========</option>
+                                                    <?php
+                                                    $sqlSelectMSGT = "SELECT * from thoigian;";
+                                                    $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
+                                                    while ($row = mysqli_fetch_array($resultMSGT)) { ?>
+                                                        <option value="<?= $row['idThoiGian'] ?>"><?= $row['idThoiGian'] ?> - Từ ngày <?= $row['NgayBatDau'] ?> đến ngày <?= $row['NgayKetThuc'] ?> </option>
+                                                    <?php }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" name="submitXoaLich" class="btn btn-danger">Xóa thông tin</button>
                                 </form>
                             </div>
                         </div>

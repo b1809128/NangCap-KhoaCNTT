@@ -44,6 +44,19 @@ if (isset($_POST['submitCapNhatThoiGian'])) {
     }
 }
 
+if (isset($_POST['capNhatLichCongTac'])) {
+    $stt = $_POST['maSoLich'];
+    $mucCapNhat = $_POST['mucCapNhat'];
+    $noiDungCapNhat = $_POST['noiDungCapNhat'];
+
+    $sqlUpdate = "UPDATE `lichcongtac` set `$mucCapNhat`='$noiDungCapNhat' where idLichCongTac='$stt'";
+
+    if (mysqli_query($con, $sqlUpdate)) {
+        echo "<script>alert('Cập nhật thông tin thành công');</script>";
+        header("Refresh:0; url= http://localhost/joomla/cap-nhat/");
+    }
+}
+
 
 if (isset($_POST['submitCapNhatGiaoTrinh'])) {
     $stt = $_POST['maSoGiaoTrinh'];
@@ -84,6 +97,24 @@ if (isset($_POST['submitCapNhatDeTai'])) {
     if (mysqli_query($con, $sqlUpdate)) {
         echo "<script>alert('Cập nhật thông tin thành công');</script>";
         header("Refresh:0; url= http://localhost/joomla/tra-cuu/");
+    }
+}
+
+if (isset($_POST['submitXoaLich'])) {
+    $mucXoa = $_POST['mucXoa'];
+    $maSoXoa = $_POST['maSoXoa'];
+
+    if ($mucXoa === "lichcongtac") {
+        $sqlDelete = "DELETE FROM `$mucXoa` WHERE `idLichCongTac` = '$maSoXoa'";
+    } else if ($mucXoa === "thoigiandanhgia") {
+        $sqlDelete = "DELETE FROM `$mucXoa` WHERE `idThoiGianDanhGia` = '$maSoXoa'";
+    } else {
+        $sqlDelete = "DELETE FROM `$mucXoa` WHERE `idThoiGian` = '$maSoXoa'";
+    }
+
+    if (mysqli_query($con, $sqlDelete)) {
+        echo "<script>alert('Xóa thông tin thành công');</script>";
+        header("Refresh:0; url= http://localhost/joomla/cap-nhat/");
     }
 }
 
