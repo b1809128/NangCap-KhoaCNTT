@@ -13,6 +13,16 @@
 <body>
     <?php
     require "../config/database.php";
+    $today = date("Y-m-d");
+    $sqlCheckTimeDanhGia = "SELECT * FROM thoigiandanhgia ORDER BY idThoiGianDanhGia DESC LIMIT 1;";
+    $resultCheckTimeDanhGia = mysqli_query($con, $sqlCheckTimeDanhGia);
+    while ($row = mysqli_fetch_array($resultCheckTimeDanhGia)) {
+        $another = $row["KetThuc"];
+    }
+    if (strtotime($today) > strtotime($another)) {
+        echo "<script>alert('Hết hạn đánh giá dành cho cán bộ, viên chức');</script>";
+        header("Refresh:0; url= http://localhost/joomla/phieu-danh-gia/");
+    }
     if (isset($_GET['macb']) && isset($_GET['idDanhGia'])) {
         $macbParams = $_GET['macb'];
         $idDanhGia = $_GET['idDanhGia'];
@@ -36,6 +46,7 @@
                                         <div class="mb-3">
                                             <label for="" class="form-label">Họ tên cán bộ, giảng viên</label>
                                             <select class="form-select" name="macb">
+                                                <option>--Chọn họ tên cán bộ, giảng viên--</option>
                                                 <?php
                                                 $sqlTeacher = "SELECT * from teacher";
                                                 $res = mysqli_query($con, $sqlTeacher);
@@ -48,6 +59,7 @@
                                         <div class="mb-3">
                                             <label for="" class="form-label">Chức vụ</label>
                                             <select class="form-select" name="chucVu">
+                                                <option>--Chọn chức vụ--</option>
                                                 <?php
                                                 $sqlTeacher = "SELECT * from roles where Permission > 2";
                                                 $res = mysqli_query($con, $sqlTeacher);
@@ -60,6 +72,7 @@
                                         <div class="mb-3">
                                             <label for="" class="form-label">Bộ môn</label>
                                             <select class="form-select" name="bomon">
+                                                <option>--Chọn bộ môn, đơn vị--</option>
                                                 <?php
                                                 $sqlBoMon = "SELECT * from bomon";
                                                 $res = mysqli_query($con, $sqlBoMon);
@@ -74,6 +87,7 @@
                                         <div class="mb-3">
                                             <label for="" class="form-label">Thời gian đánh giá</label>
                                             <select class="form-select" name="idThoiGianDanhGia">
+                                                <option>--Chọn thời gian đánh giá--</option>
                                                 <?php
                                                 $sqlTGDG = "SELECT * from thoigiandanhgia";
                                                 $res = mysqli_query($con, $sqlTGDG);
@@ -158,6 +172,7 @@
                                         <div class="mb-3">
                                             <label for="" class="form-label">Xếp loại chất lượng</label>
                                             <select class="form-select" name="xepLoai">
+                                                <option>--Chọn mức xếp loại--</option>
                                                 <option value="Hoàn thành xuất sắc nhiệm vụ">Hoàn thành xuất sắc nhiệm vụ</option>
                                                 <option value="Hoàn thành  tốt nhiệm vụ">Hoàn thành tốt nhiệm vụ</option>
                                                 <option value="Hoàn thành nhiệm vụ">Hoàn thành nhiệm vụ</option>
@@ -361,6 +376,7 @@
                                     <div class="mb-3">
                                         <label for="" class="form-label">Mức xếp loại</label>
                                         <select class="form-select" name="xepLoaiCapBoMon">
+                                            <option>--Chọn mức xếp loại--</option>
                                             <option value="Hoàn thành xuất sắc nhiệm vụ">Hoàn thành xuất sắc nhiệm vụ</option>
                                             <option value="Hoàn thành  tốt nhiệm vụ">Hoàn thành tốt nhiệm vụ</option>
                                             <option value="Hoàn thành nhiệm vụ">Hoàn thành nhiệm vụ</option>
@@ -398,6 +414,7 @@
                                     <div class="mb-3">
                                         <label for="" class="form-label">Mức xếp loại</label>
                                         <select class="form-select" name="xepLoaiCapKhoa">
+                                            <option>--Chọn mức xếp loại--</option>
                                             <option value="Hoàn thành xuất sắc nhiệm vụ">Hoàn thành xuất sắc nhiệm vụ</option>
                                             <option value="Hoàn thành  tốt nhiệm vụ">Hoàn thành tốt nhiệm vụ</option>
                                             <option value="Hoàn thành nhiệm vụ">Hoàn thành nhiệm vụ</option>

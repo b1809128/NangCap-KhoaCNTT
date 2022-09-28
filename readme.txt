@@ -13,4 +13,4 @@ SELECT * FROM topic INNER JOIN teacher ON (teacher.MaCB = topic.MaCB AND teacher
 
 echo "<script>alert('Thêm thông tin thành công');</script>";
 echo "<script>alert('Cập nhật thông tin thành công');</script>";
-header("Refresh:1; url= http://localhost/joomla/cap-nhat/");
+header("Refresh:0; url= http://localhost/joomla/cap-nhat/");

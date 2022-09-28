@@ -9,7 +9,38 @@ if (isset($_POST['themThoiGian'])) {
 
     if (mysqli_query($con, $sqlInsert)) {
         echo "<script>alert('Thêm thông tin thành công');</script>";
-        header("Refresh:1; url= http://localhost/joomla/cap-nhat/");
+        header("Refresh:0; url= http://localhost/joomla/cap-nhat/");
+    }
+}
+
+if (isset($_POST['themThoiGianDanhGia'])) {
+    $ngayBatDau = $_POST['ngayBatDau'];
+    $ngayKetThuc = $_POST['ngayKetThuc'];
+
+    $sqlInsert = "INSERT INTO `thoigiandanhgia` (idThoiGianDanhGia, BatDau, KetThuc) VALUES (NULL,'$ngayBatDau','$ngayKetThuc')";
+
+    if (mysqli_query($con, $sqlInsert)) {
+        echo "<script>alert('Thêm thông tin thành công');</script>";
+        header("Refresh:0; url= http://localhost/joomla/cap-nhat/");
+    }
+}
+
+
+if (isset($_POST['submitCapNhatThoiGian'])) {
+    $lichCapNhat = $_POST['lichCapNhat'];
+    $mucCapNhat = $_POST['mucCapNhat'];
+    $stt = $_POST['maThoiGianCapNhat'];
+    $ngayCapNhat = $_POST['ngayCapNhat'];
+    if ($lichCapNhat === "lichcongtac") {
+        $sqlUpdate = "UPDATE `thoigian` set `$mucCapNhat`='$ngayCapNhat' where idThoiGian='$stt'";
+    } else {
+        $sqlUpdate = "UPDATE `thoigiandanhgia` set `$mucCapNhat`='$ngayCapNhat' where idThoiGianDanhGia='$stt'";
+    }
+
+
+    if (mysqli_query($con, $sqlUpdate)) {
+        echo "<script>alert('Cập nhật thông tin thành công');</script>";
+        header("Refresh:0; url= http://localhost/joomla/cap-nhat/");
     }
 }
 
@@ -24,7 +55,7 @@ if (isset($_POST['submitCapNhatGiaoTrinh'])) {
 
     if (mysqli_query($con, $sqlUpdate)) {
         echo "<script>alert('Cập nhật thông tin thành công');</script>";
-        header("Refresh:1; url= http://localhost/joomla/tra-cuu/");
+        header("Refresh:0; url= http://localhost/joomla/tra-cuu/");
     }
 }
 
@@ -38,7 +69,7 @@ if (isset($_POST['submitCapNhatBaiBao'])) {
 
     if (mysqli_query($con, $sqlUpdate)) {
         echo "<script>alert('Cập nhật thông tin thành công');</script>";
-        header("Refresh:1; url= http://localhost/joomla/tra-cuu/");
+        header("Refresh:0; url= http://localhost/joomla/tra-cuu/");
     }
 }
 

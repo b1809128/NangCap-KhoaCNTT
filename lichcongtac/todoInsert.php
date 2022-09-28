@@ -61,7 +61,7 @@ if (isset($_GET['themLichCongTac'])) {
     } else {
         if ($lengthDuplicate > 0) {
             echo "<script>alert('Không thể thêm do trùng lịch. Kiểm tra lại giờ, địa điểm')</script>";
-            header("Refresh:1; url=http://localhost/joomla/lichcongtac/insert.php");
+            header("Refresh:0; url=http://localhost/joomla/lichcongtac/insert.php");
         }
     }
 }
