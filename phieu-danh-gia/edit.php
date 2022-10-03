@@ -1,3 +1,6 @@
+<?php ob_start();
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phiếu đánh giá</title>
+    <title>ĐÁNH GIÁ CÁN BỘ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
@@ -13,6 +16,31 @@
 <body>
     <?php
     require "../config/database.php";
+    if (!isset($_SESSION['tokenId'])) {
+        echo "<script>alert('Không có quyền truy cập !');</script>";
+        header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+    }
+    if (isset($_SESSION['tokenId']) && isset($_GET['idDanhGia'])) {
+        // $tokenUser = $_SESSION['tokenUser'];
+        $tokenId = $_SESSION['tokenId'];
+        // echo $tokenId;
+        $sqlToken = "SELECT * FROM access_token where idToken='$tokenId'";
+        $resToken = mysqli_query($con, $sqlToken);
+        $row = mysqli_fetch_array($resToken);
+        if ($row['Permission'] === '5') {
+            $idDanhGiaParams = $_GET['idDanhGia'];
+            $sqlDanhGia = "SELECT * FROM phieudanhgiavc where idDanhGia='$idDanhGiaParams'";
+            $resDanhGia = mysqli_query($con, $sqlDanhGia);
+            $row1 = mysqli_fetch_array($resDanhGia);
+            if ($row1['BoMon'] !== $row['BoMon']) {
+                echo "<script>alert('Không có quyền truy cập Bộ môn " . $row1['BoMon'] . " !');</script>";
+                header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+            }
+        } else if ($row['Permission'] < 5) {
+            echo "<script>alert('Không có quyền truy cập !');</script>";
+            header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+        }
+    }
     $today = date("Y-m-d");
     $sqlCheckTimeDanhGia = "SELECT * FROM thoigiandanhgia ORDER BY idThoiGianDanhGia DESC LIMIT 1;";
     $resultCheckTimeDanhGia = mysqli_query($con, $sqlCheckTimeDanhGia);
@@ -27,9 +55,20 @@
         $macbParams = $_GET['macb'];
         $idDanhGia = $_GET['idDanhGia'];
     };
+    if (isset($_POST['resetToken'])) {
+        session_destroy();
+        // session_unset();
+        echo "<script>alert('Hết phiên làm việc');</script>";
+        header("Refresh:0; url= http://localhost/joomla/phieu-danh-gia");
+    }
     ?>
     <div class="container">
         <!-- Content here -->
+        <div class="row" <?php if (!isset($_SESSION['tokenId'])) echo "style='display:none;'"; ?>>
+            <form action="" method="post">
+                <button class="btn btn-primary" type="submit" name="resetToken">LOG OUT</button>
+            </form>
+        </div>
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div style="<?php echo isset($_GET['macb']) ?  'display: none;' : '' ?>">
                 <form method="POST" action="./todoEdit.php">

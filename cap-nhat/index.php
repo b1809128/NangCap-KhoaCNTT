@@ -72,7 +72,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne1">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne1" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne1">
-                        CẬP NHẬT LỊCH CÔNG TÁC
+                        CẬP NHẬT CÁC THÔNG TIN LỊCH CÔNG TÁC
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne1" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne1">
@@ -127,7 +127,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo1">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo1" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo1">
-                        CẬP NHẬT LỊCH TRÌNH
+                        CẬP NHẬT LỊCH TRÌNH PHIẾU ĐÁNH GIÁ VÀ LỊCH CÔNG TÁC
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseTwo1" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo1">
