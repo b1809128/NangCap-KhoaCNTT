@@ -1,4 +1,6 @@
-<?php ob_start() ?>
+<?php ob_start();
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +16,7 @@
 
 <body>
     <?php
-    require '../config/database.php';
-    ?>
+    require '../config/database.php'; ?>
     <div class="container">
         <?php require("../navbar/navbar.php"); ?>
         <div class="row" style="margin-top: 20px;">
@@ -52,7 +53,7 @@
             <div class="col-sm-4"></div>
         </div>
         <div class="row" style="margin-top: 20px;">
-            <form action="" method="post">
+            <form action="" method="get">
                 <button class="btn btn-primary" name="resetToken">Reset Token</button>
             </form>
             <h4>DANH SÁCH TOKEN</h4>
@@ -113,11 +114,11 @@
             }
         }
 
-        if (isset($_POST['resetToken'])) {
+        if (isset($_GET['resetToken'])) {
             session_destroy();
             // session_unset();
-            echo "<script>alert('Reset token thành công');</script>";
-            header("Refresh:0; url= http://localhost/joomla/login-system/token.php");
+            echo "<script>alert('Hết hạn phiên làm việc !');</script>";
+            header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
         }
         ?>
     </div>

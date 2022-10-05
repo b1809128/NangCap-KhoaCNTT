@@ -15,3 +15,7 @@ echo "<script>alert('Thêm thông tin thành công');</script>";
 echo "<script>alert('Cập nhật thông tin thành công');</script>";
 header("Refresh:0; url= http://localhost/joomla/cap-nhat/");
 <?php require("../navbar/navbar.php"); ?>
+
+<?php ob_start();
+session_start();
+?>

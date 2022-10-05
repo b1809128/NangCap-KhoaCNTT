@@ -1,3 +1,6 @@
+<?php ob_start();
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +18,7 @@
 <body>
     <?php require("../config/database.php"); ?>
     <div class="container">
+        <?php require("../navbar/navbar.php"); ?>
         <div class="row" style="margin-top:10px;">
             <h4>Quản Lý Phiếu Đánh Giá Cán Bộ Viên Chức Khoa CNTT</h4>
         </div>
@@ -37,13 +41,26 @@
                 </form>
 
             </div>
+            <div class="col-sm-2">
+                <form style="display: flex;" action="" method="post">
+                    <select class="form-select" name="selectNam">
+                        <option value="all">--Tất cả năm--</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                    </select>
+                    <button class="btn btn-primary" type="submit" name="submitNam">Lọc</button>
+                </form>
+
+            </div>
             <div class="col-sm-4">
                 <form method="get" style="display:flex;">
                     <input type="text" class="form-control" name="searchVanBan" placeholder="Tìm Kiếm">
                     <button type="submit" class="btn btn-primary">Tìm</button>
                 </form>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <a href="http://localhost/joomla/phieu-danh-gia/edit.php" class="btn btn-primary">Soạn biên bản</a>
             </div>
         </div>
@@ -56,7 +73,13 @@
             $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM phieudanhgiavc WHERE BoMon='$bomon'";
         } else if (isset($_GET['searchVanBan'])) {
             $searchVanBan = $_GET['searchVanBan'];
-            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM vanban WHERE (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%')";
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM phieudanhgiavc WHERE (idDanhGia = '$searchVanBan' OR MaCB = '$searchVanBan' OR Created_at Like '%$searchVanBan%')";
+        } else if (isset($_POST['submitNam'])) {
+            $selectNam = $_POST['selectNam'];
+            if ($selectNam === "all") {
+                header("Location: http://localhost/joomla/phieu-danh-gia/");
+            }
+            $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM phieudanhgiavc WHERE  Created_at Like '%$selectNam%'";
         } else {
             $sqlYear = "SELECT DISTINCT EXTRACT(YEAR FROM Created_at) AS year FROM phieudanhgiavc;";
         }
@@ -70,7 +93,10 @@
                 $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM phieudanhgiavc WHERE year(Created_at) = $nam and BoMon='$bomon';";
             } else if (isset($_GET['searchVanBan'])) {
                 $searchVanBan = $_GET['searchVanBan'];
-                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM vanban WHERE year(Created_at) = $nam and (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%');";
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM phieudanhgiavc WHERE year(Created_at) = $nam and (idDanhGia = '$searchVanBan' OR MaCB = '$searchVanBan' OR Created_at Like '%$searchVanBan%');";
+            } else if (isset($_POST['submitNam'])) {
+                $selectNam = $_POST['selectNam'];
+                $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM phieudanhgiavc WHERE year(Created_at) = $nam and (Created_at Like '%$selectNam%');";
             } else {
 
                 $sqlMonth = "SELECT DISTINCT EXTRACT(MONTH FROM Created_at) AS month FROM phieudanhgiavc WHERE year(Created_at) = $nam;";
@@ -86,7 +112,10 @@
                         $sqlDay = "SELECT * FROM `phieudanhgiavc` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and BoMon='$bomon';";
                     } else if (isset($_GET['searchVanBan'])) {
                         $searchVanBan = $_GET['searchVanBan'];
-                        $sqlDay = "SELECT * FROM `vanban` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and (idVanBan Like '%$searchVanBan%' OR TenVanBan Like '%$searchVanBan%' OR MaCB Like '%$searchVanBan%' OR Created_at Like '%$searchVanBan%');";
+                        $sqlDay = "SELECT * FROM `phieudanhgiavc` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and (idDanhGia = '$searchVanBan' OR MaCB = '$searchVanBan' OR Created_at Like '%$searchVanBan%');";
+                    } else if (isset($_POST['submitNam'])) {
+                        $selectNam = $_POST['selectNam'];
+                        $sqlDay = "SELECT * FROM `phieudanhgiavc` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01') and ( Created_at Like '%$selectNam%');";
                     } else {
 
                         $sqlDay = "SELECT * FROM `phieudanhgiavc` WHERE year(`Created_at`) = Year('$nam-01-01') AND month(`Created_at`) = month('$nam-$thang-01');";
@@ -136,6 +165,9 @@
                 if (isset($_POST['submitBoMon'])) {
                     $bomon = $_POST['bomon'];
                     $sql1 = "SELECT * FROM phieudanhgiavc where BoMon = '$bomon'";
+                } else if (isset($_POST['submitNam'])) {
+                    $selectNam = $_POST['selectNam'];
+                    $sql1 = "SELECT * FROM phieudanhgiavc where Created_at Like '%$selectNam%'";
                 } else {
                     $sql1 = "SELECT * FROM phieudanhgiavc";
                 }

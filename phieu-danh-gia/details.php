@@ -1,3 +1,6 @@
+<?php ob_start();
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +19,7 @@
     if (isset($_GET['idVanBan'])) $idVanBan = $_GET['idVanBan'];
     ?>
     <div class="container">
-        <a href="http://localhost/joomla/phieu-danh-gia/edit.php?macb=<?php
+        <a href="http://localhost/joomla/phieu-danh-gia/update.php?macb=<?php
                                                                         $sqlSearchGV = "select * from phieudanhgiavc where idDanhGia='$idVanBan'";
                                                                         $resultSearchGV = mysqli_query($con, $sqlSearchGV);
                                                                         while ($row1 = mysqli_fetch_array($resultSearchGV)) {
