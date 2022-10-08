@@ -31,6 +31,7 @@ session_start();
         }
     } ?>
     <div class="container">
+        <?php require "../navbar/navbar.php"; ?>
         <h4>Thêm lịch chi tiết</h4>
         <form action="http://localhost/joomla/lichcongtac/todoInsert.php" method="get">
             <div class="row">

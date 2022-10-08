@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi tiết Phiếu đánh giá</title>
+    <title>CHI TIẾT ĐÁNH GIÁ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -103,21 +103,32 @@ session_start();
 
                     <p><?= $row['UuKhuyetDiem'] ?></p>
 
-                    <p style="font-weight:700;">2. Tự xếp loại chất lượng:
+                    <p><span style="font-weight:700;">2. Tự xếp loại: </span>
                         <?= $row['XepLoai'] ?>
                         .</p>
                     <p style="text-align:right;"> Cần Thơ, ngày .. tháng .. năm 20.. </p>
                     <p style="margin-bottom: 100px;text-align:right;"> NGƯỜI TỰ NHẬN XÉT </p>
-
+                    <p style="text-align:right;"><?php
+                                                    $sqlCB = "SELECT * FROM teacher where MaCB='$macb'";
+                                                    $resultCB = mysqli_query($con, $sqlCB);
+                                                    while ($rowCB = mysqli_fetch_array($resultCB)) {
+                                                        echo $rowCB['HoTen'];
+                                                    }
+                                                    ?></p>
 
                     <p style="font-weight:700;">III. Ý KIẾN NHẬN XÉT, ĐÁNH GIÁ ĐỐI VỚI CẤP PHÓ CỦA NGƯỜI ĐỨNG ĐẦU</p>
-
                     <p><span style="font-weight:700;">1. Nhận xét ưu, khuyết điểm: </span> <?= $row['NhanXetDanhGiaCapBoMon'] ?></p>
                     <p><span style="font-weight:700;">2. Mức xếp loại: </span> <?= $row['XepLoaiCapBoMon'] ?></p>
-
                     <p style="text-align:right;"> Cần Thơ, ngày .. tháng .. năm 20.. </p>
                     <p style="text-align:right;"> NGƯỜI NHẬN XÉT, ĐÁNH GIÁ</p>
                     <p style="margin-bottom: 100px;text-align:right;"> (Ký, ghi rõ họ tên)</p>
+                    <p style="text-align:right;"><?php
+                                                    $sqlBM = "SELECT * FROM teacher where BoMon='$donvi' and Permission=5";
+                                                    $resultBM = mysqli_query($con, $sqlBM);
+                                                    while ($rowBM = mysqli_fetch_array($resultBM)) {
+                                                        echo $rowBM['HoTen'];
+                                                    }
+                                                    ?></p>
 
                     <p style="font-weight:700;">IV. KẾT QUẢ ĐÁNH GIÁ, XẾP LOẠI CHẤT LƯỢNG VIÊN CHỨC</p>
                     <p style="font-weight:700;">1. Nhận xét ưu, khuyết điểm:</p>
@@ -127,6 +138,13 @@ session_start();
                     <p style="text-align:right;"> Cần Thơ, ngày .. tháng .. năm 20.. </p>
                     <p style="text-align:right;">HIỆU TRƯỞNG/TRƯỞNG ĐƠN VỊ</p>
                     <p style="margin-bottom: 100px;text-align:right;"> (Ký, ghi rõ họ tên)</p>
+                    <p style="text-align:right;"><?php
+                                                    $sqlKH = "SELECT * FROM teacher where Permission=7";
+                                                    $resultKH = mysqli_query($con, $sqlKH);
+                                                    while ($rowKH = mysqli_fetch_array($resultKH)) {
+                                                        echo $rowKH['HoTen'];
+                                                    }
+                                                    ?></p>
             <?php }
             }
             ?>

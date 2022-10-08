@@ -26,39 +26,8 @@ session_start();
         header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
     } ?>
     <div class="container">
-        <div class="row">
-            <h4>Thêm Thời gian bắt đầu - kết thúc</h4>
-            <div class="row">
-                <form action="./todoEdit.php" method="POST" style="display:flex; justify-content:space-between;margin: 10px 0;">
-                    <div class="col-sm-4">
-
-                        <div class="row">
-                            <div class="col-sm-3" style="display:flex; float:right;">Bắt đầu:</div>
-                            <div class="col-sm-8"> <input type="date" class="form-control" name="ngayBatDau" placeholder="mm/dd/yyyy">
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="col-sm-3" style="float:right;"> Kết thúc:</div>
-                            <div class="col-sm-8"> <input type="date" class="form-control" name="ngayKetThuc" placeholder="mm/dd/yyyy">
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="submit" class="btn btn-primary" name="themThoiGian">Thêm</button>
-                    </div>
-                </form>
-
-            </div>
-
-        </div>
-
-        <div class="row">
+        <?php require '../navbar/navbar.php'; ?>
+        <div class="row" style="margin-top: 10px;">
             <div class="col-sm-12">
                 <div class="row">
 
@@ -86,7 +55,6 @@ session_start();
             </div>
 
         </div>
-
 
         <div class="row">
             <form action="./todoEdit.php" method="post">
@@ -121,7 +89,6 @@ session_start();
                 <button class="btn btn-primary" type="submit" name="submitVanBan">Save</button>
             </form>
         </div>
-
     </div>
 
     <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
