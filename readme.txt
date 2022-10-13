@@ -1,4 +1,7 @@
 <script lang="javascript" src="./excel/JS-ExportToExcel/dist/xlsx.full.min.js"></script>
+//Them dong nay khi excel bi loi
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
 <link rel="icon" href="/images/logo.png">
 
 SELECT * FROM teacher INNER JOIN manage_post ON teacher.MaCB = manage_post.MaCB AND teacher.MaCB = 'dtnghi'

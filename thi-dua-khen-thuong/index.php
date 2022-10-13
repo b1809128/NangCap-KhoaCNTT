@@ -25,6 +25,10 @@ session_start();
                     <th>CHI TIẾT</th>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>Đánh giá Chiến sỹ thi đua cấp Khoa</td>
+                        <td><a href="http://localhost/joomla/thi-dua-khen-thuong/danhgia.php">Chi tiết</a></td>
+                    </tr>
                     <?php
                     $sql = "SELECT * FROM bomon";
                     $result = mysqli_query($con, $sql);
