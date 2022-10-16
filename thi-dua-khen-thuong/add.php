@@ -55,10 +55,10 @@ session_start();
         if (isset($_POST['submit'])) {
             $selectBoMon = $_POST['selectBoMon'];
             $selectMaCB = $_POST['selectMaCB'];
-            $sql = "INSERT INTO `thiduakhenthuong` (`idThiDua`, `BoMon`, `MaCB`, `LaoDongTienTien`, `ChienSiThiDuaBoMon`, `ChienSiThiDuaKhoa`, `Created_at`) VALUES (NULL, '$selectBoMon', '$selectMaCB', '0', '0', '0', current_timestamp());";
+            $sql = "INSERT INTO `thiduakhenthuong` (`idThiDua`, `BoMon`, `MaCB`, `LaoDongTienTien`,`KhongLaoDongTienTien`, `ChienSiThiDuaBoMon`,`KhongChienSiThiDuaBoMon`, `ChienSiThiDuaKhoa`,`KhongChienSiThiDuaKhoa`,`HoiDongThiDua`, `Created_at`) VALUES (NULL, '$selectBoMon', '$selectMaCB', '0', '0', '0', '0', '0', '0','0', current_timestamp());";
             if (mysqli_query($con, $sql)) {
                 echo "<script>alert('Thêm thành viên thành công');</script>";
-                header("Refresh:0; url= http://localhost/joomla/thi-dua-khen-thuong/details.php?bomon=".$_GET['bomon']);
+                header("Refresh:0; url= http://localhost/joomla/thi-dua-khen-thuong/details.php?bomon=" . $_GET['bomon']);
             }
         }
         ?>

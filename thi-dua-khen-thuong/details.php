@@ -114,10 +114,14 @@ session_start();
             </table>
         </div>
         <div class="row">
-            <a href="http://localhost/joomla/thi-dua-khen-thuong/add.php?bomon=<?php echo $_GET['bomon']; ?>">Thêm thành viên</a>
+            <a href="http://localhost/joomla/thi-dua-khen-thuong/add.php?bomon=<?php echo $_GET['bomon']; ?>">Thêm thành viên bộ môn</a>
+            <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetBoMon=<?php echo $_GET['bomon']; ?>">Khởi tạo lại giá trị ban đầu</a>
             <div class="col-sm-6">
                 <h4>BẦU CHỌN DANH HIỆU LAO ĐỘNG TIÊN TIẾN</h4>
                 <div class="row" style="margin: 20px 0;">
+                    <div style="font-weight:600;" class="col-sm-4">Họ tên</div>
+                    <div style="font-weight:600;" class="col-sm-4">Đồng ý</div>
+                    <div style="font-weight:600;" class="col-sm-4">Không đồng ý</div>
                     <form action="./todoEdit.php" method="post">
                         <input type="text" class="form-control" value="<?php echo $bomon ?>" style="display:none;" name="maBoMon">
                         <?php
@@ -126,16 +130,23 @@ session_start();
                         while ($row = mysqli_fetch_array($resultUser)) {
                         ?>
                             <div class="row" style="margin: 5px 0;">
-                                <div class="col">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="bomon[]">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        <?php $ms = $row['MaCB'];
-                                        $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
-                                        $resultMaCB = mysqli_query($con, $sqlMaCB);
-                                        while ($row1 = mysqli_fetch_array($resultMaCB)) {
-                                            echo $row1['HoTen'];
-                                        }
-                                        ?> </label>
+                                <div style="padding-left:0px;" class="col-sm-4">
+                                    <?php $ms = $row['MaCB'];
+                                    $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
+                                    $resultMaCB = mysqli_query($con, $sqlMaCB);
+                                    while ($row1 = mysqli_fetch_array($resultMaCB)) { ?>
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            <?php echo $row1['HoTen']; ?>
+                                        </label>
+                                    <?php }
+                                    ?>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="ldttCo[]">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="ldttKhong[]">
+
                                 </div>
 
                             </div> <?php } ?>
@@ -144,8 +155,11 @@ session_start();
                 </div>
             </div>
             <div class="col-sm-6">
-                <h4>XÉT DANH HIỆU CHIẾN SỸ THI ĐUA</h4>
+                <h4>BẦU CHỌN XÉT DANH HIỆU CHIẾN SỸ THI ĐUA</h4>
                 <div class="row" style="margin: 20px 0;">
+                    <div style="font-weight:600;" class="col-sm-4">Họ tên</div>
+                    <div style="font-weight:600;" class="col-sm-4">Đồng ý</div>
+                    <div style="font-weight:600;" class="col-sm-4">Không đồng ý</div>
                     <form action="./todoEdit.php" method="post">
                         <input type="text" class="form-control" value="<?php echo $bomon ?>" style="display:none;" name="maBoMon">
                         <?php
@@ -154,17 +168,23 @@ session_start();
                         while ($row = mysqli_fetch_array($resultUser)) {
                         ?>
                             <div class="row" style="margin: 5px 0;">
-                                <div class="col">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="bomon[]">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        <?php $ms = $row['MaCB'];
-                                        $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
-                                        $resultMaCB = mysqli_query($con, $sqlMaCB);
-                                        while ($row1 = mysqli_fetch_array($resultMaCB)) {
-                                            echo $row1['HoTen'];
-                                        }
-                                        ?>
-                                    </label>
+                                <div style="padding-left:0px;" class="col-sm-4">
+                                    <?php $ms = $row['MaCB'];
+                                    $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
+                                    $resultMaCB = mysqli_query($con, $sqlMaCB);
+                                    while ($row1 = mysqli_fetch_array($resultMaCB)) { ?>
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            <?php echo $row1['HoTen']; ?>
+                                        </label>
+                                    <?php }
+                                    ?>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="cstdCo[]">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="cstdKhong[]">
+
                                 </div>
 
                             </div> <?php } ?>

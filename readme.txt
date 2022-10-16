@@ -1,4 +1,6 @@
 <script lang="javascript" src="./excel/JS-ExportToExcel/dist/xlsx.full.min.js"></script>
+<script lang="javascript" src="/tra-cuu/excel/JS-ExportToExcel/dist/xlsx.full.min.js"></script>
+
 //Them dong nay khi excel bi loi
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  

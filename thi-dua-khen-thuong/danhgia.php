@@ -21,7 +21,7 @@ session_start();
         <?php require "../navbar/navbar.php"; ?>
         <div class="row" style="margin-top: 10px;">
             <div style="display:flex; justify-content:space-between;">
-                <h4>DANH SÁCH XÉT THI ĐUA KHEN THƯỞNG CÁN BỘ VIÊN CHỨC, GIẢNG VIÊN</h4>
+                <h4>DANH SÁCH XÉT DANH HIỆU CHIẾN SỸ THI ĐUA CƠ SỞ</h4>
                 <button style="width:120px;" onclick="exportToExcel('ThiDuaKhenThuongBoMon','ThiDuaKhenThuongBoMon','tableKetQuaThiDua')" class="btn btn-success">Export</button>
             </div>
             <table id="tableKetQuaThiDua" class="table table-striped">
@@ -39,7 +39,7 @@ session_start();
                 $result = mysqli_query($con, $sql);
                 $sqlTeacher = "SELECT * FROM teacher";
                 $resultTeacher = mysqli_query($con, $sqlTeacher);
-                $sqlThiDua = "SELECT * FROM thiduakhenthuong";
+                $sqlThiDua = "SELECT * FROM thiduakhenthuong where HoiDongThiDua > 0";
                 $resultThiDua = mysqli_query($con, $sqlThiDua);
                 $cntt = 0;
                 $khmt = 0;
@@ -118,16 +118,16 @@ session_start();
                             }
                             ?></td>
                         <td><?php
-                            $cstdk =  ($row['ChienSiThiDuaKhoa'] / $userLength) * 100;
+                            $cstdk = $userLength > 0 ? ($row['ChienSiThiDuaKhoa'] / $userLength) * 100 : 0;
                             echo round($cstdk, 2) . "%";
                             ?></td>
                         <td><a href="http://localhost/joomla/phieu-danh-gia/details.php?idVanBan=<?php
-                        $mscb = $row['MaCB'];
-                        $sqlDanhGia = "Select * from phieudanhgiavc where MaCB='$mscb'";
-                        $resultDanhGia = mysqli_query($con, $sqlDanhGia);
-                        $rowDanhGia = mysqli_fetch_array($resultDanhGia);
-                        echo $rowDanhGia['idDanhGia'];
-                        ?>">Chi tiết</a></td>
+                                                                                                    $mscb = $row['MaCB'];
+                                                                                                    $sqlDanhGia = "Select * from phieudanhgiavc where MaCB='$mscb'";
+                                                                                                    $resultDanhGia = mysqli_query($con, $sqlDanhGia);
+                                                                                                    $rowDanhGia = mysqli_fetch_array($resultDanhGia);
+                                                                                                    echo $rowDanhGia['idDanhGia'];
+                                                                                                    ?>">Chi tiết</a></td>
                         <td><?php
                             if (round($cstdk, 2) >= 50) {
                                 echo "Đạt danh hiệu Chiến sỹ thi đua cấp Khoa";
@@ -138,31 +138,66 @@ session_start();
             </table>
         </div>
         <div class="row">
+            <a href="http://localhost/joomla/thi-dua-khen-thuong/addhoidong.php">Thêm thành viên hội đồng</a>
+            <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetHoiDong=1">Khởi tạo lại giá trị ban đầu</a>
+            <div class="col-sm-12">
+                <p style="font-weight:700;">HỘI ĐỒNG XÉT THI ĐUA KHEN THƯỞNG KHOA CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG</p>
+                <p><span style="font-weight:700;">Chủ tọa:</span> Ông Nguyễn Hữu Hòa, Trưởng khoa, Chủ tịch Hội đồng TĐ-KT</p>
+                <?php
+                $sqlUser = "select * from thiduakhenthuong where HoiDongThiDua > 0";
+                $resultUser = mysqli_query($con, $sqlUser);
+                $i = 1;
+                while ($row = mysqli_fetch_array($resultUser)) {
+                ?>
+                    <p><?php $ms = $row['MaCB'];
+                        $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
+                        $resultMaCB = mysqli_query($con, $sqlMaCB);
+                        while ($row1 = mysqli_fetch_array($resultMaCB)) {
+                            echo $i . "-" . $row1['HoTen'];
+                        }
+                        ?></p>
+                <?php $i += 1;
+                } ?>
+
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-6">
-                <h4>XÉT DANH HIỆU CHIẾN SỸ THI ĐUA CẤP KHOA</h4>
+                <h4>BẦU CHỌN DANH HIỆU CHIẾN SỸ THI ĐUA CẤP KHOA</h4>
+
                 <div class="row" style="margin: 20px 0;">
+                    <div style="font-weight:600;" class="col-sm-4">Họ tên</div>
+                    <div style="font-weight:600;" class="col-sm-4">Đồng ý</div>
+                    <div style="font-weight:600;" class="col-sm-4">Không đồng ý</div>
                     <form action="./todoEdit.php" method="post">
+                        <input type="text" class="form-control" value="<?php echo $bomon ?>" style="display:none;" name="maBoMon">
                         <?php
-                        $sqlUser = "select * from thiduakhenthuong";
+                        $sqlUser = "select * from thiduakhenthuong where ChienSiThiDuaBoMon > 0";
                         $resultUser = mysqli_query($con, $sqlUser);
                         while ($row = mysqli_fetch_array($resultUser)) {
                         ?>
                             <div class="row" style="margin: 5px 0;">
-                                <div class="col">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="bomon[]">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        <?php $ms = $row['MaCB'];
-                                        $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
-                                        $resultMaCB = mysqli_query($con, $sqlMaCB);
-                                        while ($row1 = mysqli_fetch_array($resultMaCB)) {
-                                            echo $row1['HoTen'];
-                                        }
-                                        ?>
-                                    </label>
+                                <div style="padding-left:0px;" class="col-sm-4">
+                                    <?php $ms = $row['MaCB'];
+                                    $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
+                                    $resultMaCB = mysqli_query($con, $sqlMaCB);
+                                    while ($row1 = mysqli_fetch_array($resultMaCB)) { ?>
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            <?php echo $row1['HoTen']; ?>
+                                        </label>
+                                    <?php }
+                                    ?>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="cstdCo[]">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="cstdKhong[]">
+
                                 </div>
 
                             </div> <?php } ?>
-                        <button class="btn btn-primary" type="submit" name="submitChienSiThiDuaCapKhoa">Submit</button>
+                        <button class="btn btn-primary" type="submit" name="submitChienSiThiDuaKhoa">Submit</button>
                     </form>
                 </div>
             </div>
