@@ -15,7 +15,22 @@ session_start();
 
 <body>
     <?php
-    require '../config/database.php';    ?>
+    require '../config/database.php';
+    if (!isset($_SESSION['tokenId'])) {
+        echo "<script>alert('Không có quyền truy cập !');</script>";
+        header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+    }
+    if (isset($_SESSION['tokenId'])) {
+        $tokenId = $_SESSION['tokenId'];
+        $sqlToken = "SELECT * FROM access_token where idToken='$tokenId'";
+        $resToken = mysqli_query($con, $sqlToken);
+        $row = mysqli_fetch_array($resToken);
+        if ((int)$row['Permission'] < 6) {
+            echo "<script>alert('Không có quyền truy cập !');</script>";
+            header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+        }
+    }
+    ?>
     <div class="container">
         <?php require '../navbar/navbar.php'; ?>
         <!-- Content here -->

@@ -17,6 +17,27 @@ session_start();
 <body>
     <?php
     require '../config/database.php';
+    if (!isset($_SESSION['tokenId'])) {
+        echo "<script>alert('Không có quyền truy cập !');</script>";
+        header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+    }
+    if (isset($_SESSION['tokenId'])) {
+        $tokenId = $_SESSION['tokenId'];
+        $sqlToken = "SELECT * FROM access_token where idToken='$tokenId'";
+        $resToken = mysqli_query($con, $sqlToken);
+        $row = mysqli_fetch_array($resToken);
+        if ((int)$row['Permission'] > 3) {
+            $bm = $_GET['bomon'];
+
+            if ($bm !== $row['BoMon']) {
+                echo "<script>alert('Không có quyền truy cập Bộ môn " . $bm . " !');</script>";
+                header("Refresh:0; url= http://localhost/joomla/thi-dua-khen-thuong");
+            }
+        } else if ((int)$row['Permission'] < 4) {
+            echo "<script>alert('Không có quyền truy cập !');</script>";
+            header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+        }
+    }
     if (isset($_GET['bomon'])) $bomon = $_GET['bomon'];
     ?>
     <div class="container">
