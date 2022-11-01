@@ -26,8 +26,8 @@ session_start();
             <div class="col-sm-4">
                 <form action="" method="post" style="display:block; text-align:center;">
                     <h3>ĐĂNG NHẬP HỆ THỐNG </h3>
-                    <input style="margin-top: 10px;" class="form-control" type="text" name="user" placeholder="Tên tài khoản">
-                    <input style="margin-top: 10px;" class="form-control" type="password" name="password" placeholder="Mật khẩu">
+                    <!-- <input style="margin-top: 10px;" class="form-control" type="text" name="user" placeholder="Tên tài khoản"> -->
+                    <input style="margin-top: 10px;" class="form-control" type="password" name="password" placeholder="Private Token">
                     <button style="margin-top: 10px;" class="btn btn-primary" type="submit" name="submit">Đăng nhập</button>
             </div>
             </form>
@@ -39,8 +39,7 @@ session_start();
             $token = $_POST['password'];
             $sqlToken = "SELECT * FROM access_token where Token='$token'";
             $resToken = mysqli_query($con, $sqlToken);
-            // $historyUrl = $_SERVER['HTTP_REFERER'];
-            $_SESSION['tokenUser'] = $user;
+            // $historyUrl = $_SERVER['HTTP_REFERER'];ll
             if (mysqli_num_rows($resToken)  > 0) {
                 echo "<script>alert('Đăng nhập thành công !');</script>";
                 header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
@@ -50,8 +49,14 @@ session_start();
             }
             while ($row = mysqli_fetch_array($resToken)) {
                 $_SESSION['tokenId'] = $row['idToken'];
-                $_SESSION['tokenData'] = $row['Token'];
             }
+        }
+
+        if (isset($_GET['resetToken'])) {
+            session_destroy();
+            // session_unset();
+            echo "<script>alert('Hết hạn phiên làm việc !');</script>";
+            header("Refresh:0; url= http://localhost/joomla/login-system/");
         }
         ?>
     </div>

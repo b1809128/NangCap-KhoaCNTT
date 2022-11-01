@@ -29,7 +29,7 @@
                 <a class="nav-link" href="http://localhost/joomla/login-system/token.php">Token</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" <?php echo !isset($_SESSION['tokenId']) ? "style='display:none;'" : "" ?> href="http://localhost/joomla/login-system/token.php?resetToken=1">Log Out</a>
+                <a class="nav-link" <?php echo !isset($_SESSION['tokenId']) ? "style='display:none;'" : "" ?> href="http://localhost/joomla/login-system/?resetToken=1">Log Out</a>
             </li>
         </ul>
     </div>
