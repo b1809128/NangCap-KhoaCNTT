@@ -28,10 +28,11 @@ session_start();
         $row = mysqli_fetch_array($resToken);
         if ((int)$row['Permission'] > 3) {
             $bm = $_GET['bomon'];
-
-            if ($bm !== $row['BoMon']) {
-                echo "<script>alert('Không có quyền truy cập Bộ môn " . $bm . " !');</script>";
-                header("Refresh:0; url= http://localhost/joomla/thi-dua-khen-thuong");
+            if ((int)$row['Permission'] < 6) {
+                if ($bm !== $row['BoMon']) {
+                    echo "<script>alert('Không có quyền truy cập Bộ môn " . $bm . " !');</script>";
+                    header("Refresh:0; url= http://localhost/joomla/thi-dua-khen-thuong");
+                }
             }
         } else if ((int)$row['Permission'] < 4) {
             echo "<script>alert('Không có quyền truy cập !');</script>";
