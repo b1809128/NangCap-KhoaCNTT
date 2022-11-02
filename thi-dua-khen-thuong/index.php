@@ -33,6 +33,7 @@ session_start();
                     $sql = "SELECT * FROM bomon";
                     $result = mysqli_query($con, $sql);
                     while ($row = mysqli_fetch_array($result)) {
+                        if ($row['BoMon'] === "dev") continue;
                     ?>
                         <tr>
                             <td><?= $row['TenBoMon'] ?></td>

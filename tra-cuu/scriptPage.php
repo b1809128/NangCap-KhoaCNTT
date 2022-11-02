@@ -40,8 +40,7 @@
 
     //TODO: SCRIPT FOR BAI BAO KHOA HOC
     var tHeadBaiBaoKhoaHoc = `<thead>
-    <th>STT</th>
-                    <th>MÃ CB</th>
+                    <th>STT</th>
                     <th>GIẢNG VIÊN</th>
                     <th>BỘ MÔN</th>
                     <th>ĐỒNG TÁC GIẢ</th>
@@ -52,8 +51,7 @@
 
     //TODO: SCRIPT FOR GIAO TRINH
     var tHeadGiaoTrinh = `<thead>
-    <th>STT</th>
-                    <th>MÃ CB</th>
+                    <th>STT</th>
                     <th>GIẢNG VIÊN</th>
                     <th>BỘ MÔN</th>
                     <th>ĐỒNG TÁC GIẢ</th>
@@ -82,7 +80,6 @@
         for (let index = 0; index < BaiBaoHaveIndex[pageNumber].length; index++) {
             str = str + `<tr>
             <td>` + BaiBaoHaveIndex[pageNumber][index]['STT'] + `</td>
-            <td>` + BaiBaoHaveIndex[pageNumber][index]['MaCB'] + `</td>
             <td>` + BaiBaoHaveIndex[pageNumber][index]['TenGiangVien'] + `</td>
             <td>` + BaiBaoHaveIndex[pageNumber][index]['BoMon'] + `</td>
             <td>` + BaiBaoHaveIndex[pageNumber][index]['GiangVienThamGia'] + `</td>
@@ -102,7 +99,6 @@
         for (let index = 0; index < GiaoTrinhHaveIndex[pageNumberIndex].length; index++) {
             strIndexGiaoTrinh = strIndexGiaoTrinh + `<tr>
             <td>` + GiaoTrinhHaveIndex[pageNumberIndex][index]['STT'] + `</td>
-            <td>` + GiaoTrinhHaveIndex[pageNumberIndex][index]['MaCB'] + `</td>
             <td>` + GiaoTrinhHaveIndex[pageNumberIndex][index]['TenGiangVien'] + `</td>
             <td>` + GiaoTrinhHaveIndex[pageNumberIndex][index]['BoMon'] + `</td>
             <td>` + GiaoTrinhHaveIndex[pageNumberIndex][index]['GiangVienThamGia'] + `</td>

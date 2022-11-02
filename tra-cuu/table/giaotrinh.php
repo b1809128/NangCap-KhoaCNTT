@@ -1,8 +1,7 @@
 <tr>
     <td><?php echo $row['STT'] ?></td>
-    <td><?php echo $row['MaCB'] ?></td>
     <td><?php echo $row['TenGiangVien'] ?></td>
-    <td><?php echo $row['BoMon'] ?></td>
+    <td><?php echo strtoupper($row['BoMon']) ?></td>
     <td><?php if ($row['GiangVienThamGia'] != '') {
             echo $row['GiangVienThamGia'];
         } else {

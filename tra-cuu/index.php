@@ -134,7 +134,6 @@
                                             } ?> class="table table-striped table-hover">
                 <thead>
                     <th>STT</th>
-                    <th>MÃ CB</th>
                     <th>GIẢNG VIÊN</th>
                     <th>BỘ MÔN</th>
                     <th>ĐỒNG TÁC GIẢ</th>
@@ -188,7 +187,6 @@
                                         } ?> class="table table-striped table-hover">
                 <thead>
                     <th>STT</th>
-                    <th>MÃ CB</th>
                     <th>GIẢNG VIÊN</th>
                     <th>BỘ MÔN</th>
                     <th>ĐỒNG TÁC GIẢ</th>
