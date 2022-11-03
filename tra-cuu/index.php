@@ -42,8 +42,14 @@
                 <p><span style="color: #009ed8;"><b>Số giáo trình: </b></span><?= $tongsogiaotrinh ?></p>
                 <p><span style="color: #009ed8;"><b>Số bài báo khoa học: </b></span><?= $tongsobaibaokhoahoc ?></p>
                 <p><span style="color: #009ed8;"><b>Số đề tài nghiên cứu khoa học: </b></span><?= $tongsodetai ?></p>
-
-                <canvas id="myChart" style="<?php if ((isset($_GET['bomon1']) && isset($_GET['nam1']) && isset($_GET['search1'])) || (isset($_GET['cap']))) echo "display:none;"; ?>width:100%;max-width:600px"></canvas>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <canvas id="myChart" style="<?php if ((isset($_GET['bomon1']) && isset($_GET['nam1']) && isset($_GET['search1'])) || (isset($_GET['cap']))) echo "display:none;"; ?>width:100%;max-width:600px"></canvas>
+                    </div>
+                    <div class="col-sm-6" style="width:300px;">
+                        <canvas id="myChart2" style="<?php if ((isset($_GET['bomon1']) && isset($_GET['nam1']) && isset($_GET['search1'])) || (isset($_GET['cap']))) echo "display:none;"; ?>width:100%;max-width:600px"></canvas>
+                    </div>
+                </div>
             </div> <?php } ?>
 
 
@@ -133,13 +139,13 @@
                                                 echo "style='display:none;'";
                                             } ?> class="table table-striped table-hover">
                 <thead>
-                    <th>STT</th>
-                    <th>GIẢNG VIÊN</th>
-                    <th>BỘ MÔN</th>
-                    <th>ĐỒNG TÁC GIẢ</th>
-                    <th>TÊN GIÁO TRÌNH</th>
-                    <th>NĂM XUẤT BẢN</th>
-                    <th>TRANG ĐÓNG GÓP</th>
+                    <th style="text-align:center;">STT</th>
+                    <th style="text-align:center;">GIẢNG VIÊN</th>
+                    <th style="text-align:center;">BỘ MÔN</th>
+                    <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
+                    <th style="text-align:center;">TÊN GIÁO TRÌNH</th>
+                    <th style="text-align:center;">NĂM XUẤT BẢN</th>
+                    <th style="text-align:center;">TRANG ĐÓNG GÓP</th>
                 </thead>
                 <tbody>
                     <?php require './process/bodyGiaoTrinh.php' ?>
@@ -186,13 +192,13 @@
                                             echo "style='display:none;'";
                                         } ?> class="table table-striped table-hover">
                 <thead>
-                    <th>STT</th>
-                    <th>GIẢNG VIÊN</th>
-                    <th>BỘ MÔN</th>
-                    <th>ĐỒNG TÁC GIẢ</th>
-                    <th>TÊN NGHIÊN CỨU, TRÍCH DẪN</th>
-                    <th>NĂM XUẤT BẢN</th>
-                    <th>TRANG ĐÓNG GÓP</th>
+                    <th style="text-align:center;">STT</th>
+                    <th style="text-align:center;">GIẢNG VIÊN</th>
+                    <th style="text-align:center;">BỘ MÔN</th>
+                    <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
+                    <th style="text-align:center;">TÊN NGHIÊN CỨU, TRÍCH DẪN</th>
+                    <th style="text-align:center;">NĂM XUẤT BẢN</th>
+                    <th style="text-align:center;">TRANG ĐÓNG GÓP</th>
                 </thead>
                 <tbody>
                     <?php require './process/bodyBaiBao.php' ?>
@@ -235,8 +241,8 @@
                     <form method="get" style="display:flex">
                         <select class="form-select" name="cap">
                             <option value="all">--Tất cả các cấp--</option>
-                            <option value="Trung Ương">Trung Ương</option>
                             <option value="Nhà Nước">Nhà Nước</option>
+                            <option value="Bộ">Bộ</option>
                             <option value="Địa Phương">Địa Phương</option>
                             <option value="Tỉnh">Tỉnh, Thành Phố</option>
                             <option value="Cơ sở">Cơ Sở</option>
@@ -257,13 +263,13 @@
                                             echo "style='display:none;'";
                                         } ?> class="table table-striped table-hover">
                 <thead>
-                    <th>STT</th>
-                    <th>TÊN ĐỀ TÀI</th>
-                    <th>CHỦ NHIỆM</th>
-                    <th>ĐỒNG TÁC GIẢ</th>
-                    <th>BẮT ĐẦU</th>
-                    <th>KẾT THÚC</th>
-                    <th>CẤP</th>
+                    <th style="text-align:center;">STT</th>
+                    <th style="text-align:center;">TÊN ĐỀ TÀI</th>
+                    <th style="text-align:center;">CHỦ NHIỆM</th>
+                    <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
+                    <th style="text-align:center;">BẮT ĐẦU</th>
+                    <th style="text-align:center;">KẾT THÚC</th>
+                    <th style="text-align:center;">CẤP</th>
                 </thead>
                 <tbody>
                     <?php require './process/bodyDeTai.php' ?>

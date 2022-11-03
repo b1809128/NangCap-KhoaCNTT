@@ -40,34 +40,34 @@
 
     //TODO: SCRIPT FOR BAI BAO KHOA HOC
     var tHeadBaiBaoKhoaHoc = `<thead>
-                    <th>STT</th>
-                    <th>GIẢNG VIÊN</th>
-                    <th>BỘ MÔN</th>
-                    <th>ĐỒNG TÁC GIẢ</th>
-                    <th>TÊN GIÁO TRÌNH</th>
-                    <th>NĂM XUẤT BẢN</th>
-                    <th>TRANG ĐÓNG GÓP</th>
+                    <th style="text-align:center;">STT</th>
+                    <th style="text-align:center;">GIẢNG VIÊN</th>
+                    <th style="text-align:center;">BỘ MÔN</th>
+                    <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
+                    <th style="text-align:center;">TÊN GIÁO TRÌNH</th>
+                    <th style="text-align:center;">NĂM XUẤT BẢN</th>
+                    <th style="text-align:center;">TRANG ĐÓNG GÓP</th>
             </thead>`
 
     //TODO: SCRIPT FOR GIAO TRINH
     var tHeadGiaoTrinh = `<thead>
-                    <th>STT</th>
-                    <th>GIẢNG VIÊN</th>
-                    <th>BỘ MÔN</th>
-                    <th>ĐỒNG TÁC GIẢ</th>
-                    <th>TÊN NGHIÊN CỨU, TRÍCH DẪN</th>
-                    <th>NĂM XUẤT BẢN</th>
-                    <th>TRANG ĐÓNG GÓP</th>
+                    <th style="text-align:center;">STT</th>
+                    <th style="text-align:center;">GIẢNG VIÊN</th>
+                    <th style="text-align:center;">BỘ MÔN</th>
+                    <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
+                    <th style="text-align:center;">TÊN NGHIÊN CỨU, TRÍCH DẪN</th>
+                    <th style="text-align:center;">NĂM XUẤT BẢN</th>
+                    <th style="text-align:center;">TRANG ĐÓNG GÓP</th>
             </thead>`
 
     var tHeadDeTai = `<thead>
-    <th>STT</th>
-                    <th>TÊN ĐỀ TÀI</th>
-                    <th>CHỦ NHIỆM</th>
-                    <th>ĐỒNG TÁC GIẢ</th>
-                    <th>BẮT ĐẦU</th>
-                    <th>KẾT THÚC</th>
-                    <th>CẤP</th>
+    <th style="text-align:center;">STT</th>
+                    <th style="text-align:center;">TÊN ĐỀ TÀI</th>
+                    <th style="text-align:center;">CHỦ NHIỆM</th>
+                    <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
+                    <th style="text-align:center;">BẮT ĐẦU</th>
+                    <th style="text-align:center;">KẾT THÚC</th>
+                    <th style="text-align:center;">CẤP</th>
             </thead>`
 
     <?php
@@ -116,13 +116,13 @@
         let pageNumberIndexDeTai = <?php echo (int)$_GET['idx']; ?> - 1;
         for (let index = 0; index < DeTaiHaveIndex[pageNumberIndexDeTai].length; index++) {
             strIndexDeTai = strIndexDeTai + `<tr>
-            <td>` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['STT'] + `</td>
+            <td style="text-align:center;">` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['STT'] + `</td>
             <td>` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['TenDeTai'] + `</td>
             <td>` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['TenChuNhiem'] + `</td>
             <td>` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['GiangVienThamGia'] + `</td>
-            <td>` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['BatDau'] + `</td>
-            <td>` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['KetThuc'] + `</td>
-            <td>` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['Cap'] + `</td>
+            <td style="text-align:center;">` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['BatDau'] + `</td>
+            <td style="text-align:center;">` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['KetThuc'] + `</td>
+            <td style="text-align:center;">` + DeTaiHaveIndex[pageNumberIndexDeTai][index]['Cap'] + `</td>
         </tr>`
         }
         document.getElementById("tableDeTai").innerHTML = tHeadDeTai + `<div>` + strIndexDeTai + `</div>`;
@@ -149,4 +149,31 @@
         // console.log('wb', wb);
         XLSX.writeFile(wb, `${fileName}.xlsx`);
     }
+
+    var xValues = ["Nhà nước", "Bộ", "Địa phương", "Tỉnh, Thành phố", "Cơ sở"];
+    var yValues = <?php echo json_encode(getDeTaiDetails()); ?>;
+    var barColors = [
+        "#b91d47",
+        "#00aba9",
+        "#2b5797",
+        "#e8c3b9",
+        "#1e7145"
+    ];
+
+    new Chart("myChart2", {
+        type: "pie",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Biểu đồ số lượng đề tài nghiên cứu khoa học"
+            }
+        }
+    });
 </script>

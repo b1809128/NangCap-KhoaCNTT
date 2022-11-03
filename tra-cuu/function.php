@@ -87,6 +87,38 @@ function getDeTai()
     return $json;
 }
 
+
+function getDeTaiDetails()
+{
+    require("../config/database.php");
+    $sql = "SELECT * FROM topic";
+    $result = mysqli_query($con, $sql);
+    $bo = 0;
+    $nhanuoc = 0;
+    $tinh = 0;
+    $coso = 0;
+    $diaphuong = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        if($row['Cap'] === 'Nhà nước'){
+            $nhanuoc +=1;
+        }
+        if($row['Cap'] === 'Bộ'){
+            $bo +=1;
+        }
+        if($row['Cap'] === 'Địa phương'){
+            $diaphuong +=1;
+        }
+        if($row['Cap'] === 'Tỉnh'){
+            $tinh +=1;
+        }
+        if($row['Cap'] === 'Cơ sở'){
+            $coso +=1;
+        }
+    }
+
+    return [$nhanuoc,$bo,$diaphuong,$tinh,$coso];
+}
+
 function getBaiBaoKhoaHocByBoMon($bomon)
 {
     require("../config/database.php");
