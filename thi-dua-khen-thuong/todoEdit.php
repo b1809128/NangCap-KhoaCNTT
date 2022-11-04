@@ -1,83 +1,83 @@
 <?php
+ob_start();
+session_start();
+
 require "../config/database.php";
+
 if (isset($_POST['submitLaoDongTienTien'])) {
-    $ldttCo = $_POST['ldttCo'];
-    $ldttKhong = $_POST['ldttKhong'];
-
-    foreach ($ldttCo as $value) {
-        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$value'";
+    $bm = $_POST['maBoMon'];
+    $sqlDSLD = "SELECT * FROM thiduakhenthuong where BoMon = '$bm'";
+    $resultDSLD = mysqli_query($con, $sqlDSLD);
+    $length = mysqli_num_rows($resultDSLD);
+    // echo "length:" . $length;
+    $i = 0;
+    while ($row = mysqli_fetch_array($resultDSLD)) {
+        $macb = $row['MaCB'];
+        // echo $row['MaCB'] . "-" . $_POST['num' . $i] . "<br>";
+        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$macb'";
         $result = mysqli_query($con, $sql);
-        $row = mysqli_fetch_array($result);
-
-        $s = $row['LaoDongTienTien'] += 1;
-        $sqlUpdate = "UPDATE `thiduakhenthuong` SET `LaoDongTienTien` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$value';";
-        $resultUpdate = mysqli_query($con, $sqlUpdate);
+        $row1 = mysqli_fetch_array($result);
+        $s = $row1['LaoDongTienTien'];
+        if ((int)$_POST['num' . $i] > 0) {
+            $s += 1;
+            $sqlUpdate = "UPDATE `thiduakhenthuong` SET `LaoDongTienTien` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$macb';";
+            $resultUpdate = mysqli_query($con, $sqlUpdate);
+        }
+        $i++;
     }
-
-    foreach ($ldttKhong as $value) {
-        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$value'";
-        $result = mysqli_query($con, $sql);
-        $row = mysqli_fetch_array($result);
-
-        $s = $row['KhongLaoDongTienTien'] += 1;
-        $sqlUpdate = "UPDATE `thiduakhenthuong` SET `KhongLaoDongTienTien` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$value';";
-        $resultUpdate = mysqli_query($con, $sqlUpdate);
-    }
+    $_SESSION['LDTT'] = $_SESSION['LDTT'] +=1;
     echo "<script>alert('Bầu chọn thành công !')</script>";
     header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
 }
 
 if (isset($_POST['submitChienSiThiDua'])) {
-    $cstdCo = $_POST['cstdCo'];
-    $cstdKhong = $_POST['cstdKhong'];
-
-    foreach ($cstdCo as $value) {
-        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$value'";
+    $bm = $_POST['maBoMon'];
+    $sqlDSLD = "SELECT * FROM thiduakhenthuong where BoMon = '$bm'";
+    $resultDSLD = mysqli_query($con, $sqlDSLD);
+    $length = mysqli_num_rows($resultDSLD);
+    // echo "length:" . $length;
+    $i = 0;
+    while ($row = mysqli_fetch_array($resultDSLD)) {
+        $macb = $row['MaCB'];
+        // echo $row['MaCB'] . "-" . $_POST['num' . $i] . "<br>";
+        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$macb'";
         $result = mysqli_query($con, $sql);
-        $row = mysqli_fetch_array($result);
-
-        $s = $row['ChienSiThiDuaBoMon'] += 1;
-        $sqlUpdate = "UPDATE `thiduakhenthuong` SET `ChienSiThiDuaBoMon` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$value';";
-        $resultUpdate = mysqli_query($con, $sqlUpdate);
+        $row1 = mysqli_fetch_array($result);
+        $s = $row1['ChienSiThiDuaBoMon'];
+        if ((int)$_POST['num' . $i] > 0) {
+            $s += 1;
+            $sqlUpdate = "UPDATE `thiduakhenthuong` SET `ChienSiThiDuaBoMon` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$macb';";
+            $resultUpdate = mysqli_query($con, $sqlUpdate);
+        }
+        $i++;
     }
-
-    foreach ($cstdKhong as $value) {
-        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$value'";
-        $result = mysqli_query($con, $sql);
-        $row = mysqli_fetch_array($result);
-
-        $s = $row['KhongChienSiThiDuaBoMon'] += 1;
-        $sqlUpdate = "UPDATE `thiduakhenthuong` SET `KhongChienSiThiDuaBoMon` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$value';";
-        $resultUpdate = mysqli_query($con, $sqlUpdate);
-    }
+    $_SESSION['CSTD'] = $_SESSION['CSTD'] +=1;
     echo "<script>alert('Bầu chọn thành công !')</script>";
     header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
 }
 
 
 if (isset($_POST['submitChienSiThiDuaKhoa'])) {
-    $cstdCo = $_POST['cstdCo'];
-    $cstdKhong = $_POST['cstdKhong'];
-
-    foreach ($cstdCo as $value) {
-        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$value'";
+    $sqlDSLD = "select * from thiduakhenthuong where ChienSiThiDuaBoMon > 0";
+    $resultDSLD = mysqli_query($con, $sqlDSLD);
+    $length = mysqli_num_rows($resultDSLD);
+    // echo "length:" . $length;
+    $i = 0;
+    while ($row = mysqli_fetch_array($resultDSLD)) {
+        $macb = $row['MaCB'];
+        // echo $row['MaCB'] . "-" . $_POST['num' . $i] . "<br>";
+        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$macb'";
         $result = mysqli_query($con, $sql);
-        $row = mysqli_fetch_array($result);
-
-        $s = $row['ChienSiThiDuaKhoa'] += 1;
-        $sqlUpdate = "UPDATE `thiduakhenthuong` SET `ChienSiThiDuaKhoa` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$value';";
-        $resultUpdate = mysqli_query($con, $sqlUpdate);
+        $row1 = mysqli_fetch_array($result);
+        $s = $row1['ChienSiThiDuaKhoa'];
+        if ((int)$_POST['num' . $i] > 0) {
+            $s += 1;
+            $sqlUpdate = "UPDATE `thiduakhenthuong` SET `ChienSiThiDuaKhoa` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$macb';";
+            $resultUpdate = mysqli_query($con, $sqlUpdate);
+        }
+        $i++;
     }
-
-    foreach ($cstdKhong as $value) {
-        $sql = "SELECT * FROM thiduakhenthuong where MaCB='$value'";
-        $result = mysqli_query($con, $sql);
-        $row = mysqli_fetch_array($result);
-
-        $s = $row['KhongChienSiThiDuaKhoa'] += 1;
-        $sqlUpdate = "UPDATE `thiduakhenthuong` SET `KhongChienSiThiDuaKhoa` = '$s' WHERE `thiduakhenthuong`.`MaCB` = '$value';";
-        $resultUpdate = mysqli_query($con, $sqlUpdate);
-    }
+    $_SESSION['CSTDK'] = $_SESSION['CSTDK'] +=1;
     echo "<script>alert('Bầu chọn thành công !')</script>";
     header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
 }
@@ -86,12 +86,16 @@ if (isset($_POST['submitChienSiThiDuaKhoa'])) {
 
 if (isset($_GET['resetBoMon'])) {
     $bomon = $_GET['resetBoMon'];
+    $_SESSION['LDTT'] = 0;
+    $_SESSION['CSTD'] = 0;
+    $_SESSION['CSTDK'] = 0;
+
     $sqlT = "SELECT * FROM thiduakhenthuong where BoMon = '$bomon'";
     $resultT = mysqli_query($con, $sqlT);
 
     while ($row = mysqli_fetch_array($resultT)) {
         $id = $row['idThiDua'];
-        $sqlUpdate = "UPDATE `thiduakhenthuong` SET `LaoDongTienTien` = '0', `KhongLaoDongTienTien` = '0', `ChienSiThiDuaBoMon` = '0', `KhongChienSiThiDuaBoMon` = '0',`ChienSiThiDuaKhoa` = '0', `KhongChienSiThiDuaKhoa` = '0' WHERE `thiduakhenthuong`.`idThiDua` = '$id';";
+        $sqlUpdate = "UPDATE `thiduakhenthuong` SET `LaoDongTienTien` = '0',  `ChienSiThiDuaBoMon` = '0', `ChienSiThiDuaKhoa` = '0' WHERE `thiduakhenthuong`.`idThiDua` = '$id';";
         $resultUpdate = mysqli_query($con, $sqlUpdate);
     }
     echo "<script>alert('Reset thành công !')</script>";
@@ -100,6 +104,10 @@ if (isset($_GET['resetBoMon'])) {
 
 
 if (isset($_GET['resetHoiDong'])) {
+    $_SESSION['LDTT'] = 0;
+    $_SESSION['CSTD'] = 0;
+    $_SESSION['CSTDK'] = 0;
+    
     $value = $_GET['resetHoiDong'];
     $sqlT = "SELECT * FROM thiduakhenthuong where HoiDongThiDua = '$value'";
     $resultT = mysqli_query($con, $sqlT);

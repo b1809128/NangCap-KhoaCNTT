@@ -19,7 +19,7 @@ session_start();
     require '../config/database.php';
     if (!isset($_SESSION['tokenId'])) {
         echo "<script>alert('Không có quyền truy cập !');</script>";
-        header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+        header("Refresh:0; url= http://localhost/joomla/login-system/");
     }
     if (isset($_SESSION['tokenId'])) {
         $tokenId = $_SESSION['tokenId'];
@@ -36,7 +36,7 @@ session_start();
             }
         } else if ((int)$row['Permission'] < 4) {
             echo "<script>alert('Không có quyền truy cập !');</script>";
-            header("Refresh:0; url= http://localhost/joomla/login-system/index.php");
+            header("Refresh:0; url= http://localhost/joomla/login-system/");
         }
     }
     if (isset($_GET['bomon'])) $bomon = $_GET['bomon'];
@@ -68,7 +68,7 @@ session_start();
                         <?php }
                         ?>
                     </select>
-                    <button style="margin-top: 10px;" class="btn btn-primary" type="submit" name="submit">Khởi tạo</button>
+                    <button style="margin-top: 10px;" class="btn btn-primary" type="submit" name="submit">Thêm thành viên</button>
             </div>
             </form>
             <div class="col-sm-4"></div>

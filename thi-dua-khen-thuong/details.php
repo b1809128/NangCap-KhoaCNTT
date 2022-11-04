@@ -1,5 +1,7 @@
 <?php ob_start();
 session_start();
+if(!isset($_SESSION['LDTT'])) $_SESSION['LDTT'] = 0;
+if(!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,7 @@ session_start();
         <h4>DANH SÁCH KHEN THƯỞNG CÁN BỘ VIÊN CHỨC, GIẢNG VIÊN</h4>
         <div class="row">
             <table class="table table-striped">
-                <thead>
+                <thead style="text-align:center;">
                     <th>HỌ TÊN</th>
                     <th>XẾP LOẠI</th>
                     <th>GHI CHÚ</th>
@@ -69,7 +71,7 @@ session_start();
                 <button style="width:120px;" onclick="exportToExcel('ThiDuaKhenThuongBoMon','ThiDuaKhenThuongBoMon','tableKetQuaThiDua')" class="btn btn-success">Export</button>
             </div>
             <table id="tableKetQuaThiDua" class="table table-striped">
-                <thead>
+                <thead style="text-align:center;">
                     <th>HỌ TÊN</th>
                     <th>LAO ĐỘNG TIÊN TIẾN</th>
                     <th>CHIẾN SỸ THI ĐUA CẤP BỘ MÔN</th>
@@ -90,34 +92,66 @@ session_start();
                             $row0 = mysqli_fetch_array($result0);
                             echo $row0['HoTen'];
                             ?></td>
-                        <td><?php
-                            $ldtt =  ($row['LaoDongTienTien'] / $userLength) * 100;
-                            echo round($ldtt, 2) . "%";
-                            ?></td>
-                        <td><?php
-                            $cstdbm =  ($row['ChienSiThiDuaBoMon'] / $userLength) * 100;
-                            echo round($cstdbm, 2) . "%";
-                            ?></td>
+                        <td style="text-align:center;"><?php
+                                                        $ldtt =  ($row['LaoDongTienTien'] / $userLength) * 100;
+                                                        echo $row['LaoDongTienTien'] . "/" . $userLength . " (" . round($ldtt, 2) . "%)";
+                                                        ?></td>
+                        <td style="text-align:center;"><?php
+                                                        $cstdbm =  ($row['ChienSiThiDuaBoMon'] / $userLength) * 100;
+                                                        echo $row['ChienSiThiDuaBoMon'] . "/" . $userLength . " (" . round($cstdbm, 2) . "%)";
+                                                        ?></td>
 
-                        <td><?php
-                            if (round($ldtt, 2) >= 50) {
-                                echo "Đạt danh hiệu Lao động tiên tiến<br>";
-                                if (round($cstdbm, 2) >= 80) {
-                                    echo "Xét danh hiệu Chiến sỹ thi đua cấp Khoa";
-                                }
-                            } else {
-                                echo "Chưa đủ số phiếu";
-                            }
-                            ?></td>
+                        <td style="text-align:center;"><?php
+                                                        if (round($ldtt, 2) >= 50) {
+                                                            echo "Đạt danh hiệu Lao động tiên tiến<br>";
+                                                            if (round($cstdbm, 2) >= 80) {
+                                                                echo "Xét danh hiệu Chiến sỹ thi đua cấp Khoa";
+                                                            }
+                                                        }
+                                                        ?></td>
                     </tr>
                 <?php } ?>
             </table>
         </div>
+        <!-- <div class="row">
+            <div class="col-sm-12">
+                <p style="font-weight:700;">HỘI ĐỒNG XÉT THI ĐUA KHEN THƯỞNG</p>
+                <?php
+                $sqlLeader = "select * from teacher where BoMon = '$bomon'";
+                $resultLeader = mysqli_query($con, $sqlLeader);
+                while ($row = mysqli_fetch_array($resultLeader)) {
+                    if ((int)$row['Permission'] === 4) {
+                        echo $row['HoTen'] . "- Phó trưởng khoa.<br>";
+                    }
+                    if ((int)$row['Permission'] === 5) {
+                        echo $row['HoTen'] . "- Trưởng khoa.<br>";
+                    }
+                }
+                ?>
+                <?php
+                $sqlUser = "select * from thiduakhenthuong where HoiDongThiDuaBoMon > 0";
+                $resultUser = mysqli_query($con, $sqlUser);
+                $i = 1;
+                while ($row = mysqli_fetch_array($resultUser)) {
+                ?>
+                    <p><?php $ms = $row['MaCB'];
+                        $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
+                        $resultMaCB = mysqli_query($con, $sqlMaCB);
+                        while ($row1 = mysqli_fetch_array($resultMaCB)) {
+                            echo $i . ". " . $row1['HoTen'] . " - Thành viên";
+                        }
+                        ?></p>
+                <?php $i += 1;
+                } ?>
+
+            </div>
+        </div> -->
         <div class="row">
             <a href="http://localhost/joomla/thi-dua-khen-thuong/add.php?bomon=<?php echo $_GET['bomon']; ?>">Thêm thành viên bộ môn</a>
             <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetBoMon=<?php echo $_GET['bomon']; ?>">Khởi tạo lại giá trị ban đầu</a>
             <div class="col-sm-6">
                 <h4>BẦU CHỌN DANH HIỆU LAO ĐỘNG TIÊN TIẾN</h4>
+                <p><span style="font-weight:500; color: #0d6efd;">Số lượt đã bình chọn: </span><?php echo $_SESSION['LDTT']; ?></p>
                 <div class="row" style="margin: 20px 0;">
                     <div style="font-weight:600;" class="col-sm-4">Họ tên</div>
                     <div style="font-weight:600;" class="col-sm-4">Đồng ý</div>
@@ -127,6 +161,7 @@ session_start();
                         <?php
                         $sqlUser = "select * from thiduakhenthuong where BoMon = '$bomon'";
                         $resultUser = mysqli_query($con, $sqlUser);
+                        $radioI = 0;
                         while ($row = mysqli_fetch_array($resultUser)) {
                         ?>
                             <div class="row" style="margin: 5px 0;">
@@ -142,20 +177,21 @@ session_start();
                                     ?>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="ldttCo[]">
+                                    <input class="form-check-input" type="radio" value="1" name="num<?= $radioI ?>">
                                 </div>
                                 <div class="col-sm-4">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="ldttKhong[]">
-
+                                    <input class="form-check-input" type="radio" value="0" name="num<?= $radioI ?>">
                                 </div>
 
-                            </div> <?php } ?>
-                        <button class="btn btn-primary" type="submit" name="submitLaoDongTienTien">Submit</button>
+                            </div> <?php $radioI += 1;
+                                } ?>
+                        <button class="btn btn-primary" <?php if ((int)$_SESSION['LDTT'] === $userLength) echo "disabled"; ?> type="submit" name="submitLaoDongTienTien">Submit</button>
                     </form>
                 </div>
             </div>
             <div class="col-sm-6">
                 <h4>BẦU CHỌN XÉT DANH HIỆU CHIẾN SỸ THI ĐUA</h4>
+                <p><span style="font-weight:500; color: #0d6efd;">Số lượt đã bình chọn: </span><?php echo $_SESSION['CSTD']; ?></p>
                 <div class="row" style="margin: 20px 0;">
                     <div style="font-weight:600;" class="col-sm-4">Họ tên</div>
                     <div style="font-weight:600;" class="col-sm-4">Đồng ý</div>
@@ -165,6 +201,7 @@ session_start();
                         <?php
                         $sqlUser = "select * from thiduakhenthuong where BoMon = '$bomon'";
                         $resultUser = mysqli_query($con, $sqlUser);
+                        $radioX = 0;
                         while ($row = mysqli_fetch_array($resultUser)) {
                         ?>
                             <div class="row" style="margin: 5px 0;">
@@ -180,15 +217,15 @@ session_start();
                                     ?>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="cstdCo[]">
+                                    <input class="form-check-input" type="radio" value="1" name="num<?= $radioX ?>">
                                 </div>
                                 <div class="col-sm-4">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="cstdKhong[]">
-
+                                    <input class="form-check-input" type="radio" value="0" name="num<?= $radioX ?>">
                                 </div>
 
-                            </div> <?php } ?>
-                        <button class="btn btn-primary" type="submit" name="submitChienSiThiDua">Submit</button>
+                            </div> <?php $radioX += 1;
+                                } ?>
+                        <button class="btn btn-primary" <?php if ((int)$_SESSION['CSTD'] === $userLength) echo "disabled"; ?> type="submit" name="submitChienSiThiDua">Submit</button>
                     </form>
                 </div>
             </div>

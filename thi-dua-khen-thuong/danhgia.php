@@ -1,5 +1,6 @@
 <?php ob_start();
 session_start();
+if (!isset($_SESSION['CSTDK'])) $_SESSION['CSTDK'] = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,7 +143,7 @@ session_start();
             <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetHoiDong=1">Khởi tạo lại giá trị ban đầu</a>
             <div class="col-sm-12">
                 <p style="font-weight:700;">HỘI ĐỒNG XÉT THI ĐUA KHEN THƯỞNG KHOA CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG</p>
-                <p><span style="font-weight:700;">Chủ tọa:</span> Ông Nguyễn Hữu Hòa, Trưởng khoa, Chủ tịch Hội đồng TĐ-KT</p>
+                <p><span style="font-weight:700;">Chủ tọa:</span> Ông Nguyễn Hữu Hòa, Hiệu trưởng, Chủ tịch Hội đồng TĐ-KT</p>
                 <?php
                 $sqlUser = "select * from thiduakhenthuong where HoiDongThiDua > 0";
                 $resultUser = mysqli_query($con, $sqlUser);
@@ -153,7 +154,7 @@ session_start();
                         $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
                         $resultMaCB = mysqli_query($con, $sqlMaCB);
                         while ($row1 = mysqli_fetch_array($resultMaCB)) {
-                            echo $i . "-" . $row1['HoTen'];
+                            echo $i . ". " . $row1['HoTen'] . " - Thành viên";
                         }
                         ?></p>
                 <?php $i += 1;
@@ -164,16 +165,16 @@ session_start();
         <div class="row">
             <div class="col-sm-6">
                 <h4>BẦU CHỌN DANH HIỆU CHIẾN SỸ THI ĐUA CẤP KHOA</h4>
-
+                <p><span style="font-weight:500; color: #0d6efd;">Số lượt đã bình chọn: </span><?php echo $_SESSION['CSTDK']; ?></p>
                 <div class="row" style="margin: 20px 0;">
                     <div style="font-weight:600;" class="col-sm-4">Họ tên</div>
                     <div style="font-weight:600;" class="col-sm-4">Đồng ý</div>
                     <div style="font-weight:600;" class="col-sm-4">Không đồng ý</div>
                     <form action="./todoEdit.php" method="post">
-                        <input type="text" class="form-control" value="<?php echo $bomon ?>" style="display:none;" name="maBoMon">
                         <?php
                         $sqlUser = "select * from thiduakhenthuong where ChienSiThiDuaBoMon > 0";
                         $resultUser = mysqli_query($con, $sqlUser);
+                        $radioX = 0;
                         while ($row = mysqli_fetch_array($resultUser)) {
                         ?>
                             <div class="row" style="margin: 5px 0;">
@@ -189,15 +190,15 @@ session_start();
                                     ?>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="cstdCo[]">
+                                    <input class="form-check-input" type="radio" value="1" name="num<?= $radioX ?>">
                                 </div>
                                 <div class="col-sm-4">
-                                    <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="cstdKhong[]">
-
+                                    <input class="form-check-input" type="radio" value="0" name="num<?= $radioX ?>">
                                 </div>
 
-                            </div> <?php } ?>
-                        <button class="btn btn-primary" type="submit" name="submitChienSiThiDuaKhoa">Submit</button>
+                            </div> <?php $radioX += 1;
+                                } ?>
+                        <button class="btn btn-primary" <?php if ((int)$_SESSION['CSTDK'] === $i) echo "disabled"; ?> type="submit" name="submitChienSiThiDuaKhoa">Submit</button>
                     </form>
                 </div>
             </div>

@@ -163,3 +163,16 @@ if (isset($_POST['submitXoaThongTinCanBo'])) {
         header("Refresh:0; url= http://localhost/joomla/cap-nhat/");
     }
 }
+
+
+if (isset($_POST['submitCapNhatQuyenHan'])) {
+    $macb = $_POST['macb'];
+    $maquyenhan = $_POST['maquyenhan'];
+
+    $sqlUpdate = "UPDATE `teacher` set `Permission`='$maquyenhan' where MaCB='$macb'";
+
+    if (mysqli_query($con, $sqlUpdate)) {
+        echo "<script>alert('Cập nhật thông tin thành công');</script>";
+        header("Refresh:0; url= http://localhost/joomla/cap-nhat/");
+    }
+}

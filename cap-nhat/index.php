@@ -36,6 +36,52 @@ session_start();
         <!-- Content here -->
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo11">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo11" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo11">
+                        CẬP NHẬT QUYỀN HẠN CÁN BỘ, GIẢNG VIÊN
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo11" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo11">
+                    <div class="accordion-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="POST" action="http://localhost/joomla/cap-nhat/todoUpdate.php">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Chọn cán bộ, giảng viên</label>
+                                        <select style="width: 600px;" class="form-select" name="macb" aria-label="Default select example" name="mocThoiGian">
+                                            <option selected>--Họ tên giảng viên--</option>
+                                            <?php
+                                            $sql = "SELECT * FROM teacher";
+                                            $result = mysqli_query($con, $sql);
+                                            while ($row = mysqli_fetch_array($result)) { ?>
+                                                <option value="<?= $row['MaCB'] ?>"><?= $row['MaCB'] ?> - <?= $row['HoTen'] ?></option>
+                                            <?php }
+                                            ?>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Quyền hạn</label>
+                                        <select style="width: 600px;" class="form-select" name="maquyenhan" aria-label="Default select example" name="mocThoiGian">
+                                            <option selected>--Chọn quyền hạn--</option>
+                                            <?php
+                                            $sql = "SELECT * FROM roles";
+                                            $result = mysqli_query($con, $sql);
+                                            while ($row = mysqli_fetch_array($result)) { ?>
+                                                <option value="<?= $row['Permission'] ?>"><?= $row['Permission'] ?> - <?= $row['Role'] ?></option>
+                                            <?php }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <button type="submit" name="submitCapNhatQuyenHan" class="btn btn-primary">Cập nhật</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                         THÊM THỜI GIAN LỊCH CÔNG TÁC
