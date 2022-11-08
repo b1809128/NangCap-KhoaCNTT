@@ -6,6 +6,7 @@
 <link rel="icon" href="/images/logo.png">
 
 SELECT * FROM teacher INNER JOIN manage_post ON teacher.MaCB = manage_post.MaCB AND teacher.MaCB = 'dtnghi'
+SELECT * FROM teacher WHERE MaCB NOT IN (SELECT MaCB FROM thiduakhenthuong);
 
 change URL to ip address
 

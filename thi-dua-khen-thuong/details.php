@@ -1,7 +1,7 @@
 <?php ob_start();
 session_start();
-if(!isset($_SESSION['LDTT'])) $_SESSION['LDTT'] = 0;
-if(!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
+if (!isset($_SESSION['LDTT'])) $_SESSION['LDTT'] = 0;
+if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,7 +79,7 @@ if(!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
                 </thead>
 
                 <?php
-                $sql = "SELECT * FROM thiduakhenthuong where BoMon='$bomon'";
+                $sql = "SELECT * FROM thiduakhenthuong where BoMon='$bomon' and HoiDongThiDuaBoMon = 0";
                 $result = mysqli_query($con, $sql);
                 $userLength = mysqli_num_rows($result);
                 while ($row = mysqli_fetch_array($result)) {
@@ -113,21 +113,20 @@ if(!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
                 <?php } ?>
             </table>
         </div>
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-sm-12">
                 <p style="font-weight:700;">HỘI ĐỒNG XÉT THI ĐUA KHEN THƯỞNG</p>
-                <?php
-                $sqlLeader = "select * from teacher where BoMon = '$bomon'";
-                $resultLeader = mysqli_query($con, $sqlLeader);
-                while ($row = mysqli_fetch_array($resultLeader)) {
-                    if ((int)$row['Permission'] === 4) {
-                        echo $row['HoTen'] . "- Phó trưởng khoa.<br>";
-                    }
-                    if ((int)$row['Permission'] === 5) {
-                        echo $row['HoTen'] . "- Trưởng khoa.<br>";
-                    }
-                }
-                ?>
+                <p style="font-weight:700;"><?php
+                                            $sqlLeader = "select * from teacher where BoMon = '$bomon'";
+                                            $resultLeader = mysqli_query($con, $sqlLeader);
+                                            while ($row = mysqli_fetch_array($resultLeader)) {
+                                                if ((int)$row['Permission'] === 5) {
+                                                    echo $row['HoTen'] . " - Trưởng khoa, Chủ nhiệm hội đồng.<br>";
+                                                }
+                                            }
+                                            ?></p>
+
+
                 <?php
                 $sqlUser = "select * from thiduakhenthuong where HoiDongThiDuaBoMon > 0";
                 $resultUser = mysqli_query($con, $sqlUser);
@@ -145,7 +144,7 @@ if(!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
                 } ?>
 
             </div>
-        </div> -->
+        </div>
         <div class="row">
             <a href="http://localhost/joomla/thi-dua-khen-thuong/add.php?bomon=<?php echo $_GET['bomon']; ?>">Thêm thành viên bộ môn</a>
             <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetBoMon=<?php echo $_GET['bomon']; ?>">Khởi tạo lại giá trị ban đầu</a>
