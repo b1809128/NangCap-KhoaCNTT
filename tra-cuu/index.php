@@ -141,7 +141,7 @@
                 <thead>
                     <th style="text-align:center;">STT</th>
                     <th style="text-align:center;">GIẢNG VIÊN</th>
-                    <th style="text-align:center;">BỘ MÔN</th>
+                    <th style="text-align:center;">KHOA</th>
                     <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
                     <th style="text-align:center;">TÊN GIÁO TRÌNH</th>
                     <th style="text-align:center;">NĂM XUẤT BẢN</th>
@@ -194,7 +194,7 @@
                 <thead>
                     <th style="text-align:center;">STT</th>
                     <th style="text-align:center;">GIẢNG VIÊN</th>
-                    <th style="text-align:center;">BỘ MÔN</th>
+                    <th style="text-align:center;">KHOA</th>
                     <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
                     <th style="text-align:center;">TÊN NGHIÊN CỨU, TRÍCH DẪN</th>
                     <th style="text-align:center;">NĂM XUẤT BẢN</th>

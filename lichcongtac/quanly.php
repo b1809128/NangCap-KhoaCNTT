@@ -19,7 +19,7 @@ session_start();
 
     ?>
     <div class="container">
-        <h4>Quản lý lịch công tác Khoa CNTT</h4>
+        <h4 style="color: #0d6efd;">QUẢN LÝ LỊCH TRƯỜNG CNTT & TT</h4>
         <div class="row">
             <div class="col-sm-6">
                 <form action="" style="display: flex;" method="get">

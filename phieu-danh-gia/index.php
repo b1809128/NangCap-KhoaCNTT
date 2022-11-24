@@ -20,7 +20,7 @@ session_start();
     <div class="container">
         <?php require("../navbar/navbar.php"); ?>
         <div class="row" style="margin-top:10px;">
-            <h4>Quản Lý Phiếu Đánh Giá Cán Bộ Viên Chức Khoa CNTT</h4>
+            <h4 style="color: #0d6efd;">ĐÁNH GIÁ CÁN BỘ, GIẢNG VIÊN TRƯỜNG CNTT & TT</h4>
         </div>
         <div class="row">
             <div class="col-sm-4">
@@ -151,7 +151,7 @@ session_start();
         ?>
         <div class="row">
             <button style="width:120px;" onclick="exportToExcel('DanhSachDanhGiaTongHop2021_2022','DanhSachDanhGiaTongHop2021_2022','tableDanhSachDanhGia')" class="btn btn-success">Export</button>
-            <h4>DANH SÁCH TỔNG HỢP ĐÁNH GIÁ, PHÂN LOẠI VIÊN CHỨC NĂM HỌC 2021- 2022</h4>
+            <h4 style="color: #0d6efd;">DANH SÁCH TỔNG HỢP ĐÁNH GIÁ, PHÂN LOẠI VIÊN CHỨC NĂM HỌC 2021- 2022</h4>
             <table id="tableDanhSachDanhGia" class="table table-striped table-hover">
                 <thead>
                     <th>STT</th>

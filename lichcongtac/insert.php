@@ -32,7 +32,7 @@ session_start();
     } ?>
     <div class="container">
         <?php require "../navbar/navbar.php"; ?>
-        <h4>Thêm lịch chi tiết</h4>
+        <h4 style="color: #0d6efd;">THÊM LỊCH CÔNG TÁC</h4>
         <form action="http://localhost/joomla/lichcongtac/todoInsert.php" method="get">
             <div class="row">
                 <div class="col-sm-4">

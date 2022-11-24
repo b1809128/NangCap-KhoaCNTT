@@ -25,7 +25,7 @@ session_start();
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                 <form action="" method="post" style="display:block; text-align:center;">
-                    <h3>ĐĂNG NHẬP HỆ THỐNG </h3>
+                    <h3 style="color: #0d6efd;">ĐĂNG NHẬP HỆ THỐNG </h3>
                     <!-- <input style="margin-top: 10px;" class="form-control" type="text" name="user" placeholder="Tên tài khoản"> -->
                     <input style="margin-top: 10px;" class="form-control" type="password" name="password" placeholder="Private Token">
                     <button style="margin-top: 10px;" class="btn btn-primary" type="submit" name="submit">Đăng nhập</button>

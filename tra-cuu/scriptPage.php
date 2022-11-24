@@ -1,7 +1,7 @@
 <script>
     //TODO: CHARTS JS
     <?php require "./function.php";            ?>
-    var xValues = ["Bộ môn CNTT", "Bộ môn KHMT", "Bộ môn KTPM", "Bộ môn HTTT", "Bộ môn MMT&TT", "Bộ môn THUD"];
+    var xValues = ["Khoa CNTT", "Khoa KHMT", "Khoa KTPM", "Khoa HTTT", "Khoa MMT&TT", "Khoa THUD"];
     var yValues = [<?php echo getCNTT(); ?>, <?php echo getKHMT(); ?>, <?php echo getKTPM(); ?>, <?php echo getHTTT(); ?>, <?php echo getMMT(); ?>, <?php echo getTHUD(); ?>];
     var barColors = ["#009ed8", "#009ed8", "#009ed8", "#009ed8", "#009ed8", "#009ed8"];
 
@@ -42,7 +42,7 @@
     var tHeadBaiBaoKhoaHoc = `<thead>
                     <th style="text-align:center;">STT</th>
                     <th style="text-align:center;">GIẢNG VIÊN</th>
-                    <th style="text-align:center;">BỘ MÔN</th>
+                    <th style="text-align:center;">KHOA</th>
                     <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
                     <th style="text-align:center;">TÊN GIÁO TRÌNH</th>
                     <th style="text-align:center;">NĂM XUẤT BẢN</th>
@@ -53,7 +53,7 @@
     var tHeadGiaoTrinh = `<thead>
                     <th style="text-align:center;">STT</th>
                     <th style="text-align:center;">GIẢNG VIÊN</th>
-                    <th style="text-align:center;">BỘ MÔN</th>
+                    <th style="text-align:center;">KHOA</th>
                     <th style="text-align:center;">ĐỒNG TÁC GIẢ</th>
                     <th style="text-align:center;">TÊN NGHIÊN CỨU, TRÍCH DẪN</th>
                     <th style="text-align:center;">NĂM XUẤT BẢN</th>

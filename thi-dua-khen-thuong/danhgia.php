@@ -22,7 +22,7 @@ if (!isset($_SESSION['CSTDK'])) $_SESSION['CSTDK'] = 0;
         <?php require "../navbar/navbar.php"; ?>
         <div class="row" style="margin-top: 10px;">
             <div style="display:flex; justify-content:space-between;">
-                <h4>DANH SÁCH XÉT DANH HIỆU CHIẾN SỸ THI ĐUA CƠ SỞ</h4>
+                <h4 style="color: #0d6efd;">DANH SÁCH XÉT DANH HIỆU CHIẾN SỸ THI ĐUA CƠ SỞ</h4>
                 <button style="width:120px;" onclick="exportToExcel('ThiDuaKhenThuongBoMon','ThiDuaKhenThuongBoMon','tableKetQuaThiDua')" class="btn btn-success">Export</button>
             </div>
             <table id="tableKetQuaThiDua" class="table table-striped">
@@ -139,10 +139,23 @@ if (!isset($_SESSION['CSTDK'])) $_SESSION['CSTDK'] = 0;
             </table>
         </div>
         <div class="row">
-            <a href="http://localhost/joomla/thi-dua-khen-thuong/addhoidong.php">Thêm thành viên hội đồng</a>
-            <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetHoiDong=1">Khởi tạo lại giá trị ban đầu</a>
+            <div class="row" <?php if (isset($_SESSION['tokenId'])) {
+                                    $tokenId = $_SESSION['tokenId'];
+                                    $sqlToken = "SELECT * FROM access_token where idToken='$tokenId'";
+                                    $resToken = mysqli_query($con, $sqlToken);
+                                    $row = mysqli_fetch_array($resToken);
+                                    if ((int)$row['Permission'] < 6) {
+                                        echo "style='display:none;'";
+                                    }
+                                } else {
+                                    echo "style='display:none;'";
+                                } ?>>
+
+                <a href="http://localhost/joomla/thi-dua-khen-thuong/addhoidong.php">Quản lý thành viên</a>
+                <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetHoiDong=1">Khởi tạo lại giá trị ban đầu</a>
+            </div>
             <div class="col-sm-12">
-                <p style="font-weight:700;">HỘI ĐỒNG XÉT THI ĐUA KHEN THƯỞNG KHOA CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG</p>
+                <p style="font-weight:700;color: red;">HỘI ĐỒNG XÉT THI ĐUA KHEN THƯỞNG KHOA CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG</p>
                 <p><span style="font-weight:700;">Chủ tọa:</span> Ông Nguyễn Hữu Hòa, Hiệu trưởng, Chủ tịch Hội đồng TĐ-KT</p>
                 <?php
                 $sqlUser = "select * from thiduakhenthuong where HoiDongThiDua > 0";
@@ -164,7 +177,7 @@ if (!isset($_SESSION['CSTDK'])) $_SESSION['CSTDK'] = 0;
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <h4>BẦU CHỌN DANH HIỆU CHIẾN SỸ THI ĐUA CẤP KHOA</h4>
+                <h4 style="color: red;">BẦU CHỌN DANH HIỆU CHIẾN SỸ THI ĐUA CẤP KHOA</h4>
                 <p><span style="font-weight:500; color: #0d6efd;">Số lượt đã bình chọn: </span><?php echo $_SESSION['CSTDK']; ?></p>
                 <div class="row" style="margin: 20px 0;">
                     <div style="font-weight:600;" class="col-sm-4">Họ tên</div>

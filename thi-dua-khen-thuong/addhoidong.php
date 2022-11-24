@@ -38,7 +38,7 @@ session_start();
         <div class="row" style="margin-top: 20px;">
             <div class="col-sm-6">
                 <form action="" method="post">
-                    <h5>THÊM THÀNH VIÊN HỘI ĐỒNG XÉT THI ĐUA</h5>
+                    <h5 style="color: #0d6efd;">THÊM THÀNH VIÊN HỘI ĐỒNG XÉT THI ĐUA</h5>
                     <div style="display: flex;">
                         <input class="form-check-input" type="checkbox" value="" name="" id="select-all"> Chọn tất cả
                     </div>
@@ -72,7 +72,7 @@ session_start();
             </div>
             <div class="col-sm-6">
                 <form action="" method="post">
-                    <h5>DANH SÁCH HỘI ĐỒNG XÉT THI ĐUA</h5>
+                    <h5 style="color: #0d6efd;">DANH SÁCH HỘI ĐỒNG XÉT THI ĐUA</h5>
                     <?php
                     $sqlSelectMSGT = "SELECT * from thiduakhenthuong where HoiDongThiDua > 0";
                     $resultMSGT = mysqli_query($con, $sqlSelectMSGT);

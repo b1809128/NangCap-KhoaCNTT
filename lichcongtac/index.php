@@ -22,7 +22,7 @@ session_start();
     <div class="container">
         <!-- Content here -->
         <div class="row" style="margin: 10px 0;">
-            <h4>Lịch công tác Khoa CNTT & TT</h4>
+            <h4 style="color: #0d6efd;">LỊCH CÔNG TÁC TRƯỜNG CNTT & TT</h4>
             <div class="col-sm-2">
                 <form method="get" style="display:flex;">
                     <input type="date" class="form-control" name="searchDate" placeholder="Tìm Kiếm">

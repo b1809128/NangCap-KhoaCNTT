@@ -25,7 +25,7 @@ if (isset($_POST['submitLaoDongTienTien'])) {
         }
         $i++;
     }
-    $_SESSION['LDTT'] = $_SESSION['LDTT'] +=1;
+    $_SESSION['LDTT'] = $_SESSION['LDTT'] += 1;
     echo "<script>alert('Bầu chọn thành công !')</script>";
     header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
 }
@@ -51,7 +51,7 @@ if (isset($_POST['submitChienSiThiDua'])) {
         }
         $i++;
     }
-    $_SESSION['CSTD'] = $_SESSION['CSTD'] +=1;
+    $_SESSION['CSTD'] = $_SESSION['CSTD'] += 1;
     echo "<script>alert('Bầu chọn thành công !')</script>";
     header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
 }
@@ -77,7 +77,7 @@ if (isset($_POST['submitChienSiThiDuaKhoa'])) {
         }
         $i++;
     }
-    $_SESSION['CSTDK'] = $_SESSION['CSTDK'] +=1;
+    $_SESSION['CSTDK'] = $_SESSION['CSTDK'] += 1;
     echo "<script>alert('Bầu chọn thành công !')</script>";
     header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
 }
@@ -89,6 +89,7 @@ if (isset($_GET['resetBoMon'])) {
     $_SESSION['LDTT'] = 0;
     $_SESSION['CSTD'] = 0;
     $_SESSION['CSTDK'] = 0;
+    $_SESSION['NewForm'] = 0;
 
     $sqlT = "SELECT * FROM thiduakhenthuong where BoMon = '$bomon'";
     $resultT = mysqli_query($con, $sqlT);
@@ -107,7 +108,8 @@ if (isset($_GET['resetHoiDong'])) {
     $_SESSION['LDTT'] = 0;
     $_SESSION['CSTD'] = 0;
     $_SESSION['CSTDK'] = 0;
-    
+    $_SESSION['NewForm'] = 0;
+
     $value = $_GET['resetHoiDong'];
     $sqlT = "SELECT * FROM thiduakhenthuong where HoiDongThiDua = '$value'";
     $resultT = mysqli_query($con, $sqlT);
@@ -119,4 +121,35 @@ if (isset($_GET['resetHoiDong'])) {
     }
     echo "<script>alert('Reset thành công !')</script>";
     header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
+}
+
+
+if (isset($_POST['submitNewForm'])) {
+    $_SESSION['NewForm'] = $_SESSION['NewForm'] + 1;;
+    $idForm = $_POST['idForm'];
+    $sqlForm = "select * from createform where idForm = '$idForm'";
+    $result = mysqli_query($con, $sqlForm);
+    $row = mysqli_fetch_array($result);
+    $thanhvien = json_decode($row['ThanhVien']);
+    $lengthThanhVien = count($thanhvien);
+
+    $arr = json_decode($row['KetQua']);
+    if (count($arr) == 0) {
+        for ($i = 0; $i < $lengthThanhVien; $i++) {
+            // echo (int)$_POST['num' . $i];
+            $arr[$i] = (int)$_POST['num' . $i];
+        }
+    } else {
+        for ($i = 0; $i < $lengthThanhVien; $i++) {
+            // echo (int)$_POST['num' . $i];
+            $arr[$i] = $arr[$i] +  (int)$_POST['num' . $i];
+        }
+    }
+    $data = json_encode($arr);
+    // echo json_encode($arr);
+    $sqlFormUpdate = "update createform set KetQua='$data' where idForm = '$idForm'";
+    if (mysqli_query($con, $sqlFormUpdate)) {
+        echo "<script>alert('Bầu chọn thành công !')</script>";
+        header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
+    }
 }

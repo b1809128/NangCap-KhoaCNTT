@@ -38,7 +38,7 @@ session_start();
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                 <form action="" method="post" style="display:block; text-align:center;">
-                    <h3>TẠO TOKEN</h3>
+                    <h3 style="color: #0d6efd;">TẠO TOKEN</h3>
                     <p style="font-weight:700;">Quy tắc tạo nội dung mã hóa token:</p>
                     <p style="color:red;">*Chức vụ hoặc Bộ môn - Khoa Công nghệ thông tin và Truyền thông</p>
                     <select class="form-select" style=" margin-top: 10px;" name="bomon" aria-label="Default select example">

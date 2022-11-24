@@ -17,7 +17,7 @@ session_start();
     <div class="container">
         <?php require "../config/database.php"; ?>
         <?php require "../navbar/navbar.php"; ?>
-        <h4>DANH MỤC XÉT THI ĐUA KHEN THƯỞNG KHOA CNTT & TT</h4>
+        <h4 style="color: #0d6efd;">DANH MỤC XÉT THI ĐUA KHEN THƯỞNG KHOA CNTT & TT</h4>
         <div class="row">
             <table class="table table-striped">
                 <thead>

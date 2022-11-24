@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['LDTT'])) $_SESSION['LDTT'] = 0;
 if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
+if (!isset($_SESSION['NewForm'])) $_SESSION['NewForm'] = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,7 @@ if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
         <?php require "../config/database.php"; ?>
         <?php require "../navbar/navbar.php"; ?>
         <?php if (isset($_GET['bomon'])) $bomon = $_GET['bomon']; ?>
-        <h4>DANH SÁCH KHEN THƯỞNG CÁN BỘ VIÊN CHỨC, GIẢNG VIÊN</h4>
+        <h4 style="color: #0d6efd;">DANH SÁCH KHEN THƯỞNG CÁN BỘ VIÊN CHỨC, GIẢNG VIÊN</h4>
         <div class="row">
             <table class="table table-striped">
                 <thead style="text-align:center;">
@@ -67,7 +68,7 @@ if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
         </div>
         <div class="row">
             <div style="display:flex; justify-content:space-between;">
-                <h4>KẾT QUẢ THI ĐUA KHEN THƯỞNG CÁN BỘ VIÊN CHỨC, GIẢNG VIÊN</h4>
+                <h4 style="color: #0d6efd;">KẾT QUẢ THI ĐUA KHEN THƯỞNG CÁN BỘ VIÊN CHỨC, GIẢNG VIÊN</h4>
                 <button style="width:120px;" onclick="exportToExcel('ThiDuaKhenThuongBoMon','ThiDuaKhenThuongBoMon','tableKetQuaThiDua')" class="btn btn-success">Export</button>
             </div>
             <table id="tableKetQuaThiDua" class="table table-striped">
@@ -79,7 +80,7 @@ if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
                 </thead>
 
                 <?php
-                $sql = "SELECT * FROM thiduakhenthuong where BoMon='$bomon' and HoiDongThiDuaBoMon = 0";
+                $sql = "SELECT * FROM thiduakhenthuong where BoMon='$bomon' and HoiDongThiDuaBoMon > 0";
                 $result = mysqli_query($con, $sql);
                 $userLength = mysqli_num_rows($result);
                 while ($row = mysqli_fetch_array($result)) {
@@ -115,7 +116,7 @@ if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <p style="font-weight:700;">HỘI ĐỒNG XÉT THI ĐUA KHEN THƯỞNG</p>
+                <p style="font-weight:700; color: red;">HỘI ĐỒNG XÉT THI ĐUA KHEN THƯỞNG</p>
                 <p style="font-weight:700;"><?php
                                             $sqlLeader = "select * from teacher where BoMon = '$bomon'";
                                             $resultLeader = mysqli_query($con, $sqlLeader);
@@ -128,7 +129,7 @@ if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
 
 
                 <?php
-                $sqlUser = "select * from thiduakhenthuong where HoiDongThiDuaBoMon > 0";
+                $sqlUser = "select * from thiduakhenthuong where BoMon = '$bomon' and HoiDongThiDuaBoMon > 0";
                 $resultUser = mysqli_query($con, $sqlUser);
                 $i = 1;
                 while ($row = mysqli_fetch_array($resultUser)) {
@@ -146,10 +147,23 @@ if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
             </div>
         </div>
         <div class="row">
-            <a href="http://localhost/joomla/thi-dua-khen-thuong/add.php?bomon=<?php echo $_GET['bomon']; ?>">Thêm thành viên bộ môn</a>
-            <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetBoMon=<?php echo $_GET['bomon']; ?>">Khởi tạo lại giá trị ban đầu</a>
+            <div class="row" <?php if (isset($_SESSION['tokenId'])) {
+                                    $tokenId = $_SESSION['tokenId'];
+                                    $sqlToken = "SELECT * FROM access_token where idToken='$tokenId'";
+                                    $resToken = mysqli_query($con, $sqlToken);
+                                    $row = mysqli_fetch_array($resToken);
+                                    if ((int)$row['Permission'] < 5) {
+                                        echo "style='display:none;'";
+                                    }
+                                } else {
+                                    echo "style='display:none;'";
+                                } ?>>
+                <a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?bomon=<?php echo $_GET['bomon']; ?>">Quản lý biểu mẫu</a>
+                <a href="http://localhost/joomla/thi-dua-khen-thuong/add.php?bomon=<?php echo $_GET['bomon']; ?>">Quản lý thành viên</a>
+                <a href="http://localhost/joomla/thi-dua-khen-thuong/todoEdit.php?resetBoMon=<?php echo $_GET['bomon']; ?>">Khởi tạo lại giá trị ban đầu</a>
+            </div>
             <div class="col-sm-6">
-                <h4>BẦU CHỌN DANH HIỆU LAO ĐỘNG TIÊN TIẾN</h4>
+                <h4 style="color: red;">BẦU CHỌN DANH HIỆU LAO ĐỘNG TIÊN TIẾN</h4>
                 <p><span style="font-weight:500; color: #0d6efd;">Số lượt đã bình chọn: </span><?php echo $_SESSION['LDTT']; ?></p>
                 <div class="row" style="margin: 20px 0;">
                     <div style="font-weight:600;" class="col-sm-4">Họ tên</div>
@@ -189,7 +203,7 @@ if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
                 </div>
             </div>
             <div class="col-sm-6">
-                <h4>BẦU CHỌN XÉT DANH HIỆU CHIẾN SỸ THI ĐUA</h4>
+                <h4 style="color: red;">BẦU CHỌN XÉT DANH HIỆU CHIẾN SỸ THI ĐUA</h4>
                 <p><span style="font-weight:500; color: #0d6efd;">Số lượt đã bình chọn: </span><?php echo $_SESSION['CSTD']; ?></p>
                 <div class="row" style="margin: 20px 0;">
                     <div style="font-weight:600;" class="col-sm-4">Họ tên</div>
@@ -228,6 +242,72 @@ if (!isset($_SESSION['CSTD'])) $_SESSION['CSTD'] = 0;
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <?php
+            $sqlNewForm = "SELECT * from createform where BoMon = '$bomon'";
+            $resultNewForm = mysqli_query($con, $sqlNewForm);
+            $l = mysqli_num_rows($resultNewForm);
+            if ($l > 0) {
+                echo '<h4 style="color: #0d6efd; text-decoration: underline;">MẪU MỚI TẠO</h4>';
+            }
+            while ($rowNew = mysqli_fetch_array($resultNewForm)) { ?>
+                <div class="col-sm-6">
+                    <h4 style="color: red;"><?= $rowNew['TenForm'] ?></h4>
+                    <?php
+                    $json = $rowNew['ThanhVien'];
+                    $obj = json_decode($json, true);
+                    // $data = count(json_decode($json));
+                    $msNum =  count(json_decode($json));
+                    $ketQua = json_decode($rowNew['KetQua']);
+                    $arr = $obj;
+                    // echo "<br>data<br>";
+                    // var_dump(json_decode(json_decode($data)));
+                    // var_dump($data);
+                    echo '<div class="row" style="margin: 20px 0;">
+                    <div style="font-weight:600;" class="col-sm-6">Họ tên</div>
+                    <div style="font-weight:600;" class="col-sm-3">Đồng ý</div>
+                    <div style="font-weight:600;" class="col-sm-3">Không đồng ý</div>';
+                    echo '<form action="./todoEdit.php" method="post">';
+                    echo '<input class="form-control" name="idForm" type="hidden" value=' . $rowNew['idForm'] . '>';
+                    $radioI = 0;
+                    for ($i = 0; $i < $msNum; $i++) {
+                        // echo ($arr[$i]);
+                        echo '<div class="row" style="margin: 5px 0;">
+                        <div style="padding-left:0px;" class="col-sm-6">';
+                        $ms = $arr[$i];
+                        $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
+                        $resultMaCB = mysqli_query($con, $sqlMaCB);
+                        while ($row1 = mysqli_fetch_array($resultMaCB)) {
+                            echo '<label class="form-check-label" for="flexCheckDefault">';
+                            if (count($ketQua) > 0) {
+                                echo $row1['HoTen'] . ' - ' . $ketQua[$i] . '/' . $userLength . '(' . round(($ketQua[$i] / $userLength) * 100, 2) . '%)';
+                            } else {
+                                echo $row1['HoTen'];
+                            }
+                            echo '</label>';
+                        }
+                        echo '</div>';
+                        echo ' <div class="col-sm-3">';
+                        echo ' <input class="form-check-input" type="radio" value="1" name="num' . $radioI . '">';
+                        echo ' </div>';
+                        echo ' <div class="col-sm-3">';
+                        echo ' <input class="form-check-input" type="radio" value="0" name="num' . $radioI . '">';
+                        echo ' </div>';
+                        echo ' </div>';
+                        $radioI += 1;
+                    }
+                    if ($rowNew['Active'] > 0) {
+                        echo '<button class="btn btn-primary" type="submit" name="submitNewForm">Submit</button>';
+                    } else {
+                        echo '<button class="btn btn-primary" disabled type="submit" name="submitNewForm">Submit</button>';
+                    }
+                    echo "</form>";
+                    echo "</div>";
+                    ?>
+                </div>
+            <?php }
+            ?>
         </div>
     </div>
     <script>

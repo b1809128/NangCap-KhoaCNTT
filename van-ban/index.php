@@ -18,7 +18,7 @@
     <div class="container">
         <?php require '../navbar/navbar.php'; ?>
         <div class="row" style="margin-top:10px;">
-            <h4>Quản lý văn bản Khoa CNTT</h4>
+            <h4 style="color: #0d6efd;">QUẢN LÝ VĂN BẢN TRƯỜNG CNTT & TT</h4>
         </div>
         <div class="row">
             <div class="col-sm-4">

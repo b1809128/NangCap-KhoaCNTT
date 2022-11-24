@@ -46,7 +46,7 @@ session_start();
         <div class="row" style="margin-top: 20px;">
             <div class="col-sm-6">
                 <form action="" method="post">
-                    <h5>THÊM THÀNH VIÊN XÉT THI ĐUA</h5>
+                    <h5 style="color: #0d6efd;">THÊM THÀNH VIÊN XÉT THI ĐUA</h5>
                     <div style="display: flex;">
                         <input class="form-check-input" type="checkbox" value="" name="" id="select-all"> Chọn tất cả
                     </div> <?php
@@ -79,7 +79,7 @@ session_start();
             </form>
             <div class="col-sm-6">
                 <form action="" method="post">
-                    <h5>DANH SÁCH THÀNH VIÊN XÉT THI ĐUA</h5>
+                    <h5 style="color: #0d6efd;">DANH SÁCH THÀNH VIÊN XÉT THI ĐUA</h5>
                     <?php
                     $sqlSelectMSGT = "SELECT * from thiduakhenthuong where BoMon = '$bomon'";
                     $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
@@ -112,7 +112,7 @@ session_start();
         <div class="row" style="margin-top: 20px;">
             <div class="col-sm-6">
                 <form action="" method="post">
-                    <h5>THÊM HỘI ĐỒNG XÉT THI ĐUA BỘ MÔN</h5>
+                    <h5 style="color: #0d6efd;">THÊM HỘI ĐỒNG XÉT THI ĐUA BỘ MÔN</h5>
                     <div style="display: flex;">
                         <input class="form-check-input" type="checkbox" value="" name="" id="select-all2"> Chọn tất cả
                     </div> <?php
@@ -145,7 +145,7 @@ session_start();
             </form>
             <div class="col-sm-6">
                 <form action="" method="post">
-                    <h5>DANH SÁCH HỘI ĐỒNG XÉT THI ĐUA</h5>
+                    <h5 style="color: #0d6efd;">DANH SÁCH HỘI ĐỒNG XÉT THI ĐUA</h5>
                     <?php
                     $sqlSelectMSGT = "SELECT * from thiduakhenthuong where BoMon = '$bomon' and HoiDongThiDuaBoMon > 0";
                     $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
