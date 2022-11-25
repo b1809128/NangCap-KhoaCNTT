@@ -80,9 +80,11 @@ if (!isset($_SESSION['NewForm'])) $_SESSION['NewForm'] = 0;
                 </thead>
 
                 <?php
-                $sql = "SELECT * FROM thiduakhenthuong where BoMon='$bomon' and HoiDongThiDuaBoMon > 0";
+                $sql = "SELECT * FROM thiduakhenthuong where BoMon='$bomon' and HoiDongThiDuaBoMon=0";
                 $result = mysqli_query($con, $sql);
-                $userLength = mysqli_num_rows($result);
+                $sqlTVHD = "SELECT * FROM thiduakhenthuong where BoMon='$bomon' and HoiDongThiDuaBoMon=1";
+                $resultTVHD = mysqli_query($con, $sqlTVHD);
+                $userLength = mysqli_num_rows($resultTVHD);
                 while ($row = mysqli_fetch_array($result)) {
                 ?>
                     <tr>
@@ -94,12 +96,12 @@ if (!isset($_SESSION['NewForm'])) $_SESSION['NewForm'] = 0;
                             echo $row0['HoTen'];
                             ?></td>
                         <td style="text-align:center;"><?php
-                                                        $ldtt =  ($row['LaoDongTienTien'] / $userLength) * 100;
-                                                        echo $row['LaoDongTienTien'] . "/" . $userLength . " (" . round($ldtt, 2) . "%)";
+                                                        $ldtt =  $userLength > 0 ? (($row['LaoDongTienTien'] / $userLength) * 100) : 0;
+                                                        echo $userLength  > 0 ? ($row['LaoDongTienTien'] . "/" . $userLength . " (" . round($ldtt, 2) . "%)") : 0;
                                                         ?></td>
                         <td style="text-align:center;"><?php
-                                                        $cstdbm =  ($row['ChienSiThiDuaBoMon'] / $userLength) * 100;
-                                                        echo $row['ChienSiThiDuaBoMon'] . "/" . $userLength . " (" . round($cstdbm, 2) . "%)";
+                                                        $cstdbm = $userLength  > 0 ? (($row['ChienSiThiDuaBoMon'] / $userLength) * 100) : 0;
+                                                        echo $userLength > 0 ? ($row['ChienSiThiDuaBoMon'] . "/" . $userLength . " (" . round($cstdbm, 2) . "%)") : 0;
                                                         ?></td>
 
                         <td style="text-align:center;"><?php
@@ -172,7 +174,7 @@ if (!isset($_SESSION['NewForm'])) $_SESSION['NewForm'] = 0;
                     <form action="./todoEdit.php" method="post">
                         <input type="text" class="form-control" value="<?php echo $bomon ?>" style="display:none;" name="maBoMon">
                         <?php
-                        $sqlUser = "select * from thiduakhenthuong where BoMon = '$bomon'";
+                        $sqlUser = "select * from thiduakhenthuong where BoMon = '$bomon' and HoiDongThiDuaBoMon=0";
                         $resultUser = mysqli_query($con, $sqlUser);
                         $radioI = 0;
                         while ($row = mysqli_fetch_array($resultUser)) {
@@ -198,7 +200,7 @@ if (!isset($_SESSION['NewForm'])) $_SESSION['NewForm'] = 0;
 
                             </div> <?php $radioI += 1;
                                 } ?>
-                        <button class="btn btn-primary" <?php if ((int)$_SESSION['LDTT'] === $userLength) echo "disabled"; ?> type="submit" name="submitLaoDongTienTien">Submit</button>
+                        <button class="btn btn-primary" <?php if (((int)$_SESSION['LDTT'] === $userLength) || !isset($_SESSION['tokenId'])) echo "disabled"; ?> type="submit" name="submitLaoDongTienTien">Submit</button>
                     </form>
                 </div>
             </div>
@@ -212,7 +214,7 @@ if (!isset($_SESSION['NewForm'])) $_SESSION['NewForm'] = 0;
                     <form action="./todoEdit.php" method="post">
                         <input type="text" class="form-control" value="<?php echo $bomon ?>" style="display:none;" name="maBoMon">
                         <?php
-                        $sqlUser = "select * from thiduakhenthuong where BoMon = '$bomon'";
+                        $sqlUser = "select * from thiduakhenthuong where BoMon = '$bomon' and HoiDongThiDuaBoMon=0";
                         $resultUser = mysqli_query($con, $sqlUser);
                         $radioX = 0;
                         while ($row = mysqli_fetch_array($resultUser)) {
@@ -238,7 +240,7 @@ if (!isset($_SESSION['NewForm'])) $_SESSION['NewForm'] = 0;
 
                             </div> <?php $radioX += 1;
                                 } ?>
-                        <button class="btn btn-primary" <?php if ((int)$_SESSION['CSTD'] === $userLength) echo "disabled"; ?> type="submit" name="submitChienSiThiDua">Submit</button>
+                        <button class="btn btn-primary" <?php if (((int)$_SESSION['CSTD'] === $userLength) || !isset($_SESSION['tokenId'])) echo "disabled"; ?> type="submit" name="submitChienSiThiDua">Submit</button>
                     </form>
                 </div>
             </div>

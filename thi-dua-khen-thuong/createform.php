@@ -139,6 +139,14 @@ session_start(); ?>
         }
         ?>
     </div>
+    <script type="text/javascript">
+        document.getElementById('select-all').onclick = function() {
+            var checkboxes = document.getElementsByName('macb[]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
+    </script>
 </body>
 
 </html>

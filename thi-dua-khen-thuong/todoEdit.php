@@ -6,7 +6,7 @@ require "../config/database.php";
 
 if (isset($_POST['submitLaoDongTienTien'])) {
     $bm = $_POST['maBoMon'];
-    $sqlDSLD = "SELECT * FROM thiduakhenthuong where BoMon = '$bm'";
+    $sqlDSLD = "SELECT * FROM thiduakhenthuong where BoMon = '$bm' and HoiDongThiDuaBoMon=0";
     $resultDSLD = mysqli_query($con, $sqlDSLD);
     $length = mysqli_num_rows($resultDSLD);
     // echo "length:" . $length;
@@ -32,7 +32,7 @@ if (isset($_POST['submitLaoDongTienTien'])) {
 
 if (isset($_POST['submitChienSiThiDua'])) {
     $bm = $_POST['maBoMon'];
-    $sqlDSLD = "SELECT * FROM thiduakhenthuong where BoMon = '$bm'";
+    $sqlDSLD = "SELECT * FROM thiduakhenthuong where BoMon = '$bm' and HoiDongThiDuaBoMon=0";
     $resultDSLD = mysqli_query($con, $sqlDSLD);
     $length = mysqli_num_rows($resultDSLD);
     // echo "length:" . $length;
