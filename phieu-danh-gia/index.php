@@ -103,7 +103,7 @@ session_start();
             }
             $resultMonth = mysqli_query($con, $sqlMonth);
             while ($row = mysqli_fetch_array($resultMonth)) { ?>
-                <p class="collapsible" style="margin-left: 12px; font-weight: 700;"> <button class="btn">+</button> Thang <?= $row['month'] ?></p>
+                <p class="collapsible" style="margin-left: 12px; font-weight: 700;"> <a class="btn">+</a> Thang <?= $row['month'] ?></p>
                 <div class="content">
                     <?php
                     $thang = $row['month'];

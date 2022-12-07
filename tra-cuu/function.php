@@ -99,24 +99,24 @@ function getDeTaiDetails()
     $coso = 0;
     $diaphuong = 0;
     while ($row = mysqli_fetch_assoc($result)) {
-        if($row['Cap'] === 'Nhà nước'){
-            $nhanuoc +=1;
+        if ($row['Cap'] === 'Nhà nước') {
+            $nhanuoc += 1;
         }
-        if($row['Cap'] === 'Bộ'){
-            $bo +=1;
+        if ($row['Cap'] === 'Bộ') {
+            $bo += 1;
         }
-        if($row['Cap'] === 'Địa phương'){
-            $diaphuong +=1;
+        if ($row['Cap'] === 'Địa phương') {
+            $diaphuong += 1;
         }
-        if($row['Cap'] === 'Tỉnh'){
-            $tinh +=1;
+        if ($row['Cap'] === 'Tỉnh') {
+            $tinh += 1;
         }
-        if($row['Cap'] === 'Cơ sở'){
-            $coso +=1;
+        if ($row['Cap'] === 'Cơ sở') {
+            $coso += 1;
         }
     }
 
-    return [$nhanuoc,$bo,$diaphuong,$tinh,$coso];
+    return [$nhanuoc, $bo, $diaphuong, $tinh, $coso];
 }
 
 function getBaiBaoKhoaHocByBoMon($bomon)
@@ -167,4 +167,38 @@ function getGiaoTrinhBySearch($search)
     }
 
     return $json;
+}
+
+
+function getGiaoTrinhByFacultyAll($search)
+{
+    require("../config/database.php");
+    $sql = "SELECT * FROM `manage_post` WHERE GiaoTrinh != ''  AND (BoMon ='$search');";
+    $result = mysqli_query($con, $sql);
+    return mysqli_num_rows($result);
+}
+
+function getBaiBaoByFacultyAll($search)
+{
+    require("../config/database.php");
+    $sql = "SELECT * FROM `manage_post` WHERE BaiBaoKhoaHoc != ''  AND (BoMon ='$search');";
+    $result = mysqli_query($con, $sql);
+    return mysqli_num_rows($result);
+}
+
+function getDeTaiByFacultyAll($search)
+{
+    require("../config/database.php");
+    $sql = "SELECT * FROM topic INNER JOIN teacher ON teacher.MaCB = topic.MaCB and teacher.BoMon ='$search';";
+    $result = mysqli_query($con, $sql);
+    return mysqli_num_rows($result);
+}
+
+
+function getNghienCuuByYear($search)
+{
+    require("../config/database.php");
+    $sql = "SELECT * FROM `manage_post` WHERE (NamXuatBan Like '%$search%');";
+    $result = mysqli_query($con, $sql);
+    return mysqli_num_rows($result);
 }
