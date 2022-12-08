@@ -2,7 +2,7 @@
     //TODO: CHARTS JS
     <?php require "./function.php";            ?>
     var xValues = ["Khoa CNTT", "Khoa KHMT", "Khoa KTPM", "Khoa HTTT", "Khoa MMT&TT", "Khoa THUD"];
-    var yValues = [<?php echo getCNTT(); ?>, <?php echo getKHMT(); ?>, <?php echo getKTPM(); ?>, <?php echo getHTTT(); ?>, <?php echo getMMT(); ?>, <?php echo getTHUD(); ?>];
+    var yValues = [<?php echo getGiaoTrinhByFacultyAll('cntt') + getBaiBaoByFacultyAll('cntt') + getDeTaiByFacultyAll('cntt'); ?>, <?php echo getGiaoTrinhByFacultyAll('khmt') + getBaiBaoByFacultyAll('khmt') + getDeTaiByFacultyAll('khmt'); ?>, <?php echo getGiaoTrinhByFacultyAll('ktpm') + getBaiBaoByFacultyAll('ktpm') + getDeTaiByFacultyAll('ktpm'); ?>, <?php echo getGiaoTrinhByFacultyAll('httt') + getBaiBaoByFacultyAll('httt') + getDeTaiByFacultyAll('httt'); ?>, <?php echo getGiaoTrinhByFacultyAll('mmt') + getBaiBaoByFacultyAll('mmt') + getDeTaiByFacultyAll('mmt'); ?>, <?php echo getGiaoTrinhByFacultyAll('thud') + getBaiBaoByFacultyAll('thud') + getDeTaiByFacultyAll('thud'); ?>];
     var barColors = ["#009ed8", "#009ed8", "#009ed8", "#009ed8", "#009ed8", "#009ed8"];
 
     new Chart("myChart", {

@@ -341,6 +341,10 @@
                                                                 <ul class="timeline">
                                                                     <?php
                                                                     if (isset($_GET['profile'])) {
+                                                                        $sqlCheckTeacher = "select * from teacher where MaCB='$profileName'";
+                                                                        $resultCheckTeacher = mysqli_query($con, $sqlCheckTeacher);
+                                                                        $rowCheckTeacher = mysqli_fetch_array($resultCheckTeacher);
+                                                                        $tenCheckTeacher = $rowCheckTeacher['HoTen'];
 
                                                                         $sqlBaiBao = "SELECT * FROM manage_post where MaCB='$profileName' and BaiBaoKhoaHoc != ''";
                                                                         $resultBaiBao = mysqli_query($con, $sqlBaiBao);
@@ -350,8 +354,17 @@
                                                                                 <p>
                                                                                     <?= $row['TenGiangVien'] ?>, <?= $row['GiangVienThamGia'] ?> <?php if ($row['GiangVienThamGia'] != "") echo ", " ?> <?= $row['BaiBaoKhoaHoc'] ?>, <?= $row['NamXuatBan'] ?> </p>
                                                                             </li>
-                                                                    <?php
+                                                                        <?php
                                                                         }
+
+                                                                        $sqlCheckDongTacGia = "SELECT * FROM manage_post where BaiBaoKhoaHoc != '' and GiangVienThamGia like '%$tenCheckTeacher%'";
+                                                                        $resultCheckDongTacGia = mysqli_query($con, $sqlCheckDongTacGia);
+                                                                        while ($row = mysqli_fetch_array($resultCheckDongTacGia)) { ?>
+                                                                            <li class="event" data-date="">
+                                                                                <p>
+                                                                                    <?= $row['TenGiangVien'] ?>, <?= $row['GiangVienThamGia'] ?> <?php if ($row['GiangVienThamGia'] != "") echo ", " ?> <?= $row['BaiBaoKhoaHoc'] ?>, <?= $row['NamXuatBan'] ?> </p>
+                                                                            </li>
+                                                                    <?php }
                                                                     }
                                                                     ?>
 
