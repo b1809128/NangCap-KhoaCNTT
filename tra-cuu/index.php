@@ -223,7 +223,7 @@
                     <?php $idx += 1;
                     }
                     ?>
-
+                    
                     <li class="page-item"><a class="page-link" href="?idx=<?php if (isset($_GET['idx'])) echo $_GET['idx'] + 1; ?>">Next</a></li>
                 </ul>
             </div>

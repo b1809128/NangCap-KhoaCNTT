@@ -36,7 +36,7 @@ session_start();
                             <div class="card-body">
                                 <form method="POST" action="http://localhost/joomla/manage-post/todoAdd.php">
                                     <div class="mb-3">
-                                        <label for="" class="form-label">Mã cán bộ</label>
+                                        <label for="" class="form-label">Mã cán bộ <span style="color:red;">*(bắt buộc)</span></label>
                                         <input type="text" name="macbGiaoTrinh" class="form-control" placeholder="Exmaple: dtnghi ,tmtan">
                                     </div>
                                     <div class="mb-3">
