@@ -45,7 +45,7 @@ session_start(); ?>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item"><a href="http://localhost/joomla/thi-dua-khen-thuong/details.php?bomon=cntt">Library</a></li>
                 <li class="breadcrumb-item" aria-current="page">Data</li>
             </ol>
         </nav>
@@ -91,7 +91,7 @@ session_start(); ?>
                         <th scope="col">Mã số</th>
                         <th scope="col">Tên biểu mẫu</th>
                         <th scope="col">Ngày tạo</th>
-                        <th scope="col">Tình trạng</th>
+                        <th scope="col">Đang hoạt động / Ẩn</th>
                         <th scope="col">Xóa</th>
                     </tr>
                 </thead>
@@ -104,8 +104,8 @@ session_start(); ?>
                             <th style="text-align:center;" scope="row"><?= $row['idForm'] ?></th>
                             <td><?= $row['TenForm'] ?></td>
                             <td style="text-align:center;"><?= $row['Created_at'] ?></td>
-                            <td style="text-align:center;"><a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?active=1&idFormA=<?= $row['idForm'] ?>" class="btn btn-success">Active</a> <a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?active=0&idFormA=<?= $row['idForm'] ?>" class="btn btn-warning">Stop</a></td>
-                            <td style="color:red;text-align:center;"><a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?idForm=<?= $row['idForm'] ?>" class="btn btn-danger">Xóa</a></td>
+                            <td style="text-align:center;"><?= $row['Active'] ?>/<?= $row['Hidden'] ?></td>
+                            <td style="text-align:center;"><a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?active=1&idFormA=<?= $row['idForm'] ?>" style="margin: 0 5px;">Active</a> <a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?active=0&idFormA=<?= $row['idForm'] ?>" style="margin: 0 5px;">Stop</a> <a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?hidden=1&idFormA=<?= $row['idForm'] ?>" style="margin: 0 5px;">Hidden</a><a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?display=0&idFormA=<?= $row['idForm'] ?>" style="margin: 0 5px;">Display</a><a href="http://localhost/joomla/thi-dua-khen-thuong/createform.php?idForm=<?= $row['idForm'] ?>" style="margin: 0 5px;">Delete</a></td>
                         </tr>
                     <?php }
                     ?>
@@ -135,10 +135,29 @@ session_start(); ?>
             }
         }
 
-        if (isset($_GET['active']) && $_GET['idFormA']) {
+        if (isset($_GET['active']) && isset($_GET['idFormA'])) {
             $active = $_GET['active'];
             $idForm = $_GET['idFormA'];
             $sql = "UPDATE `createform` SET `Active` = '$active' WHERE `createform`.`idForm` = '$idForm';";
+            if (mysqli_query($con, $sql)) {
+                echo "<script>alert('Cập nhật trạng thái thành công');</script>";
+                header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
+            }
+        }
+        if (isset($_GET['hidden']) && isset($_GET['idFormA'])) {
+            $hidden = $_GET['hidden'];
+            $idForm = $_GET['idFormA'];
+            $sql = "UPDATE `createform` SET `Hidden` = '1' WHERE `createform`.`idForm` = '$idForm';";
+            if (mysqli_query($con, $sql)) {
+                echo "<script>alert('Cập nhật trạng thái thành công');</script>";
+                header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
+            }
+        }
+
+        if (isset($_GET['display']) && isset($_GET['idFormA'])) {
+            $display = $_GET['display'];
+            $idForm = $_GET['idFormA'];
+            $sql = "UPDATE `createform` SET `Hidden` = '0' WHERE `createform`.`idForm` = '$idForm';";
             if (mysqli_query($con, $sql)) {
                 echo "<script>alert('Cập nhật trạng thái thành công');</script>";
                 header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);

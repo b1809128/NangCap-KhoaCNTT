@@ -254,7 +254,7 @@ if (!isset($_SESSION['NewForm'])) $_SESSION['NewForm'] = 0;
                 echo '<h4 style="color: #0d6efd; text-decoration: underline;">MẪU MỚI TẠO</h4>';
             }
             while ($rowNew = mysqli_fetch_array($resultNewForm)) { ?>
-                <div class="col-sm-6">
+                <div class="col-sm-6" <?php if ($rowNew['Hidden'] === '1') echo"style='display:none;'";?>>
                     <h4 style="color: red;"><?= $rowNew['TenForm'] ?></h4>
                     <?php
                     $json = $rowNew['ThanhVien'];
