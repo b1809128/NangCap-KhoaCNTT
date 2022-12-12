@@ -14,44 +14,46 @@ session_start();
 </head>
 
 <body>
-    <div class="container">
-        <?php require "../config/database.php"; ?>
-        <?php require "../navbar/navbar.php"; ?>
-        <h4 style="color: #0d6efd;">DANH MỤC XÉT THI ĐUA KHEN THƯỞNG KHOA CNTT & TT</h4>
-        <div class="row">
-            <table class="table table-striped">
-                <thead>
-                    <th>BỘ MÔN</th>
-                    <th>CHI TIẾT</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Xét thi đua khen thưởng cấp Khoa</td>
-                        <td><a href="http://localhost/joomla/thi-dua-khen-thuong/danhgia.php">Chi tiết</a></td>
-                    </tr>
-                    <?php
-                    $sql = "SELECT * FROM bomon";
-                    $result = mysqli_query($con, $sql);
-                    while ($row = mysqli_fetch_array($result)) {
-                        if ($row['BoMon'] === "dev") continue;
-                    ?>
+    <div class="container" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; min-height:100vh;">
+        <!-- <div style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; height:100vh;"> -->
+            <?php require "../config/database.php"; ?>
+            <?php require "../navbar/navbar.php"; ?>
+            <h4 style="color: #0d6efd;">DANH MỤC XÉT THI ĐUA KHEN THƯỞNG KHOA CNTT & TT</h4>
+            <div class="row" style="margin: 0 10px;">
+                <table class="table table-striped">
+                    <thead>
+                        <th>BỘ MÔN</th>
+                        <th>CHI TIẾT</th>
+                    </thead>
+                    <tbody>
                         <tr>
-                            <td><?= $row['TenBoMon'] ?></td>
-                            <td><a href="http://localhost/joomla/thi-dua-khen-thuong/details.php?bomon=<?= $row['BoMon'] ?>">Chi tiết</a></td>
+                            <td>Xét thi đua khen thưởng cấp Khoa</td>
+                            <td><a href="http://localhost/joomla/thi-dua-khen-thuong/danhgia.php">Chi tiết</a></td>
                         </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-        <p style="color:red;">*Văn bản về đánh giá xét thi đua, khen thưởng trong cán bộ công, viên chức:</p>
-        <div class="row">
-            <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=0">1. Kế hoạch thực hiện Đánh giá, xếp loại</a>
-            <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=1">2. Mẫu biên bản họp thi - đua khen thưởng</a>
-            <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=2">3. Mẫu đề nghị xét thi đua - khen thưởng</a>
-            <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=3">4. Mẫu danh sách cá nhân đề nghị xét thi đua - khen thưởng cấp cơ sở</a>
-            <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=4">5. Mẫu danh sách cá nhân đề nghị xét thi đua - khen thưởng cấp Bộ, Nhà nước</a>
-            <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=5">6. Mẫu tập thể cá nhân điển hình</a>
-        </div>
+                        <?php
+                        $sql = "SELECT * FROM bomon";
+                        $result = mysqli_query($con, $sql);
+                        while ($row = mysqli_fetch_array($result)) {
+                            if ($row['BoMon'] === "dev") continue;
+                        ?>
+                            <tr>
+                                <td><?= $row['TenBoMon'] ?></td>
+                                <td><a href="http://localhost/joomla/thi-dua-khen-thuong/details.php?bomon=<?= $row['BoMon'] ?>">Chi tiết</a></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+            <p style="color:red; margin: 0 10px;">*Văn bản về đánh giá xét thi đua, khen thưởng trong cán bộ công, viên chức:</p>
+            <div class="row" style="margin: 0 10px;">
+                <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=0">1. Kế hoạch thực hiện Đánh giá, xếp loại</a>
+                <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=1">2. Mẫu biên bản họp thi - đua khen thưởng</a>
+                <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=2">3. Mẫu đề nghị xét thi đua - khen thưởng</a>
+                <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=3">4. Mẫu danh sách cá nhân đề nghị xét thi đua - khen thưởng cấp cơ sở</a>
+                <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=4">5. Mẫu danh sách cá nhân đề nghị xét thi đua - khen thưởng cấp Bộ, Nhà nước</a>
+                <a style="text-decoration:none;" href="http://localhost/joomla/nghi-dinh/?id=5">6. Mẫu tập thể cá nhân điển hình</a>
+            </div>
+        <!-- </div> -->
     </div>
 </body>
 

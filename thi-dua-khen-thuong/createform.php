@@ -50,38 +50,83 @@ session_start(); ?>
             </ol>
         </nav>
         <div class="row">
-            <form action="" method="post">
-                <h5 style="color: #0d6efd;">TẠO FORM BẦU CHỌN</h5>
-                <input type="text" name="tenForm" id="" class="form-control" placeholder="Nhập tên form">
-                <div style="display: flex;">
-                    <input class="form-check-input" type="checkbox" value="" name="" id="select-all"> Chọn tất cả
-                </div> <?php
-                        $sqlSelectMSGT = "SELECT * FROM teacher WHERE BoMon = '$bomon'";
-                        $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
-                        while ($row = mysqli_fetch_array($resultMSGT)) { ?>
-                    <div style="text-align: left;">
-                        <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="macb[]">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            <?php $ms = $row['MaCB'];
-                            $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
-                            $resultMaCB = mysqli_query($con, $sqlMaCB);
-                            while ($row1 = mysqli_fetch_array($resultMaCB)) {
-                                echo $row1['HoTen'];
-                                if ($row1['Permission'] > 4) {
-                                    $per = $row1['Permission'];
-                                    $sqlPer = "SELECT * FROM roles WHERE Permission ='$per'";
-                                    $resultPer = mysqli_query($con, $sqlPer);
-                                    $row2 = mysqli_fetch_array($resultPer);
-                                    echo " - " . $row2['Role'];
+            <div class="col-sm-6">
+                <form action="" method="post">
+                    <h5 style="color: #0d6efd;">TẠO FORM BẦU CHỌN</h5>
+                    <input type="text" name="tenForm" id="" class="form-control" placeholder="Nhập tên form">
+                    <div style="display: flex;">
+                        <input class="form-check-input" type="checkbox" value="" name="" id="select-all"> Chọn tất cả
+                    </div> <?php
+                            $sqlSelectMSGT = "SELECT * FROM teacher WHERE BoMon = '$bomon'";
+                            $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
+                            while ($row = mysqli_fetch_array($resultMSGT)) { ?>
+                        <div style="text-align: left;">
+                            <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="macb[]">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                <?php $ms = $row['MaCB'];
+                                $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
+                                $resultMaCB = mysqli_query($con, $sqlMaCB);
+                                while ($row1 = mysqli_fetch_array($resultMaCB)) {
+                                    echo $row1['HoTen'];
+                                    if ($row1['Permission'] > 4) {
+                                        $per = $row1['Permission'];
+                                        $sqlPer = "SELECT * FROM roles WHERE Permission ='$per'";
+                                        $resultPer = mysqli_query($con, $sqlPer);
+                                        $row2 = mysqli_fetch_array($resultPer);
+                                        echo " - " . $row2['Role'];
+                                    }
                                 }
-                            }
-                            ?>
-                        </label>
-                    </div>
-                <?php }
-                ?>
-                <button style="margin-top: 10px;" class="btn btn-primary" type="submit" name="submitThemThanhVien">Khởi Tạo</button>
-            </form>
+                                ?>
+                            </label>
+                        </div>
+                    <?php }
+                    ?>
+                    <button style="margin-top: 10px;" class="btn btn-primary" type="submit" name="submitThemThanhVien">Khởi Tạo</button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <form action="" method="post">
+                    <h5 style="color: #0d6efd;">THÊM HỘI ĐỒNG MỚI</h5>
+                    <select class="form-select" name="selectIdForm" id="">
+                        <?php
+                        $sqlSelectIdForm = "select * from createform where BoMon = '$bomon'";
+                        $resultSelectIdForm  = mysqli_query($con, $sqlSelectIdForm);
+                        while ($row = mysqli_fetch_array($resultSelectIdForm)) {
+                        ?>
+                            <option value="<?=$row['idForm'] ?>"><?=$row['TenForm'] ?></option>
+                        <?php } ?>
+                    </select>
+                    <div style="display: flex;">
+                        <input class="form-check-input" type="checkbox" value="" name="" id="select-all"> Chọn tất cả
+                    </div> <?php
+                            $sqlSelectMSGT = "SELECT * FROM teacher WHERE BoMon = '$bomon'";
+                            $resultMSGT = mysqli_query($con, $sqlSelectMSGT);
+                            while ($row = mysqli_fetch_array($resultMSGT)) { ?>
+                        <div style="text-align: left;">
+                            <input class="form-check-input" type="checkbox" value="<?= $row['MaCB'] ?>" name="macb[]">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                <?php $ms = $row['MaCB'];
+                                $sqlMaCB = "SELECT * FROM teacher where MaCB='$ms'";
+                                $resultMaCB = mysqli_query($con, $sqlMaCB);
+                                while ($row1 = mysqli_fetch_array($resultMaCB)) {
+                                    echo $row1['HoTen'];
+                                    if ($row1['Permission'] > 4) {
+                                        $per = $row1['Permission'];
+                                        $sqlPer = "SELECT * FROM roles WHERE Permission ='$per'";
+                                        $resultPer = mysqli_query($con, $sqlPer);
+                                        $row2 = mysqli_fetch_array($resultPer);
+                                        echo " - " . $row2['Role'];
+                                    }
+                                }
+                                ?>
+                            </label>
+                        </div>
+                    <?php }
+                    ?>
+                    <button style="margin-top: 10px;" class="btn btn-primary" type="submit" name="submitThemThanhVienHoiDong">Thêm mới</button>
+                </form>
+            </div>
+
         </div>
         <div class="row" style="margin: 10px 0;">
             <h4 style="color: #0d6efd;">DANH SÁCH FORM ĐÃ TẠO</h4>
@@ -119,9 +164,21 @@ session_start(); ?>
             $macb = $_POST['macb'];
             $dataInsert = json_encode($macb);
 
-            $sql = "insert into `createform` (`idForm`,`BoMon`,`TenForm`,`ThanhVien`,`KetQua`,`Active`,`Created_at`) VALUES (NULL,'$bomon','$tenForm','$dataInsert','[]',0,current_timestamp()) ";
+            $sql = "insert into `createform` (`idForm`,`BoMon`,`TenForm`,`ThanhVien`,`HoiDong`,`KetQua`,`Active`,`Created_at`) VALUES (NULL,'$bomon','$tenForm','$dataInsert','[]','[]',0,current_timestamp()) ";
             if (mysqli_query($con, $sql)) {
                 echo "<script>alert('Tạo biểu mẫu thành công');</script>";
+                header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
+            }
+        }
+
+        if (isset($_POST['submitThemThanhVienHoiDong'])) {
+            $selectIdForm = $_POST['selectIdForm'];
+            $macb = $_POST['macb'];
+            $dataInsert = json_encode($macb);
+
+            $sql = "update `createform` set `HoiDong`='$dataInsert' where idForm='$selectIdForm'";
+            if (mysqli_query($con, $sql)) {
+                echo "<script>alert('Thêm hội đồng thành công');</script>";
                 header("Refresh:0; url= " . $_SERVER['HTTP_REFERER']);
             }
         }
